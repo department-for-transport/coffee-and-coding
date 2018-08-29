@@ -1,8 +1,8 @@
 <img src="images/c&c_dft_hex_symbol.png" width="250" height="250" align="right">
 
-#Coffee & Coding Committee Manifesto
-###_Tamsin Forbes_
-###_24/08/2018_
+# Coffee & Coding Committee Manifesto
+### _Tamsin Forbes_
+### _24/08/2018_
 \
 \
 \
@@ -21,6 +21,6 @@ These sessions were a huge success and rumour of them soon reached other departm
 
 In September 2017 Tamsin Forbes moved to DfT, and having been part of a thriving coding community at DfE, naturally looked for a similar thing at DfT. Unfortunately there was, as yet, no Coffee & Coding analogue at DfT, there was also no ‘just completed’ digital modernisation. However, a group of R coders did meet, semi-regularly in the DfT basement, near the coffee shop… It took a while, but the interest was certainly there and finally Coffee & Coding made its DfT debut in June 2018.
 
-###Sharing Presentation Materials
+### Sharing Presentation Materials
 Whenever it is possible the presentation materials will be shared and there will be links to past presentation materials in the schedule.
 

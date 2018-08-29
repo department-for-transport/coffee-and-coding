@@ -6,13 +6,12 @@
 A repo to hold resources and notes from coffee-and-coding sessions. Get in touch at: coffee.coding@dft.gov.uk
 
 ### Contributing 
-When adding new content work on a branch and submit a pull request. 
+When adding new content work on a branch and submit a pull request. Note that resources are publicly accessible.
 
 Folders should adhere to the following conventions:
 
 * `YYYYMMDD_Topic_Name`
 * All folders should contain a `README.md` with notes or a brief explanation
-* Note that resources are publicly accessible
 
 ### Aim
 The aim of the Coffee & Coding meetups is to nurture, enable and encourage a vibrant, supportive and inclusive coding community at DfT. Coffee & Coding provides a regular opportunity for people within DfT who are interested in coding to share skills and knowledge, provide advice and guidance to each other and generally network and get to know each other. The format is generally 40 minutes for a presentation and questions to the presenter/s followed by 20 minutes Code Surgery. The presentations usually take the form of a demonstration of a tool or technique and/or a show and tell of work done within the department using these methods. From time to time we will invite external speakers. The Code Surgery provides the opportunity for people to pose any coding related queries/ruminations/ideas to the gathered coding community.

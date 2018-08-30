@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1527266810811.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3884997900",
+    "id" : "7E0A767A",
+    "lastKnownWriteTime" : 1527174528,
+    "last_content_update" : 1527174528,
+    "path" : "G:/TSTATS/TS_GROUPS/TS UTILITY/Files/Training/R/Intro_to_R_with_pokemon/Intro_to_R_with_pokemon.R",
+    "project_path" : "Intro_to_R_with_pokemon.R",
+    "properties" : {
+        "cursorPosition" : "55,0",
+        "scrollLine" : "44"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

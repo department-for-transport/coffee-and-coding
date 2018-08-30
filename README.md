@@ -8,7 +8,7 @@ A _public_ repo to hold resources and notes from Coffee & Coding sessions.
 Get in touch at: coffee.coding@dft.gov.uk
 
 ### Contributing 
-Note that resources are publicly accessible. When adding new content work on a branch and submit a pull request. 
+Note that resources are _publicly accessible_. When adding new content work on a branch and submit a pull request. 
 
 Folders should adhere to the following conventions:
 

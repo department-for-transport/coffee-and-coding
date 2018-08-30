@@ -46,11 +46,11 @@ base::summary(pokemon)
 
 #dplyr::select
 # save as an object for later
-pokemon_hp <- dplyr::select( 
+pokemon_hp <- dplyr::select(
   pokemon,  # the first argument is always the data
   hit_points,  # the other arguments are column names you want to keep
   species
-)  
+)
 
 # note the column names are unquoted, if you have a promblematic column name 
 # that has spaces or starts with a number you can encase it in back ticks eg
@@ -83,8 +83,8 @@ dplyr::select(pokemon, contains("bin"))
 
 # A solution
 # my_selection <- dplyr::select(pokemon
-#                               ,species
-#                               ,ends_with("attack"))
+#                               , pecies
+#                               , nds_with("attack"))
 
 
 #dplyr::filter
@@ -113,8 +113,8 @@ dplyr::filter(
 #we can work with numbers too
 dplyr::filter(
   pokemon
-  ,combat_power > 900 & combat_power < 1000 # two conditions
-  ,hit_points < 100  
+  , ombat_power > 900 & combat_power < 1000 # two conditions
+  , it_points < 100
 ) # note the '&'
 
 # CHALLENGE!
@@ -128,9 +128,9 @@ dplyr::filter(
 # A solution
 # dplyr::filter(
 #   pokemon
-#   ,species %in% c("abra", "chansey", "bellsprout")
-#   ,combat_power > 100 & combat_power < 500
-#   ,hit_points < 100
+#   , pecies %in% c("abra", "chansey", "bellsprout")
+#   , ombat_power > 100 & combat_power < 500
+#   , it_points < 100
 # )
 
 
@@ -145,9 +145,9 @@ pokemon_power_hp <- dplyr::select(  # create new object subsetting data set
 # now to mutate with some extra information
 dplyr::mutate(
   pokemon_power_hp  # our new, subsetted data frame
-  ,power_index = combat_power * hit_points  # new column from old ones
-  ,caught = 1  # new column will fill entirely with number
-  ,area = "kanto"  # will fill entirely with this text 
+  , ower_index = combat_power * hit_points  # new column from old ones
+  , aught = 1  # new column will fill entirely with number
+  , rea = "kanto"  # will fill entirely with this text
 )
 
 #the vector values used in mutate() must be either length 1 (they then 
@@ -163,8 +163,8 @@ dplyr::mutate(
   pokemon_hp,
   common = if_else(
     condition = species %in% c(  # if this condition is met...
-      "pidgey", "rattata", "drowzee", 
-      "spearow", "magikarp", "weedle", 
+      "pidgey", "rattata", "drowzee",
+      "spearow", "magikarp", "weedle",
       "staryu", "psyduck", "eevee"
     ),
     true = "yes",  # ...fill column with this string
@@ -180,10 +180,10 @@ pokemon_hp_common <- dplyr::mutate(
   pokemon_hp,  # data
   common = dplyr::case_when(
     species %in% c("pidgey", "rattata", "drowzee") ~ "very_common"
-    ,species == "spearow" ~ "pretty_common"
-    ,species %in% c("magikarp", "weedle", "staryu", "psyduck") ~ "common"
-    ,species == "eevee" ~ "less_common"
-    ,TRUE ~ "no" #else = "no"
+    , pecies == "spearow" ~ "pretty_common"
+    , pecies %in% c("magikarp", "weedle", "staryu", "psyduck") ~ "common"
+    , pecies == "eevee" ~ "less_common"
+    , RUE ~ "no" #else = "no"
   )
 )
 # 
@@ -206,12 +206,12 @@ pokemon_hp_common <- dplyr::mutate(
 pokemon_bmi <- pokemon %>%
   dplyr::mutate(
     bmi = weight_kg / (height_m ^ 2)
-    ,bmi_bin = dplyr::case_when(
+    , mi_bin = dplyr::case_when(
       bmi < 18.5 ~ "underweight"
-      ,bmi >= 18.5 & bmi < 25 ~ "normalweight"
-      ,bmi >= 25 & bmi < 30 ~ "overweight"
-      ,bmi >= 30 ~ "obese"
-      #,TRUE ~ "no" # optional, here we have exhausted all the possibilities
+      , mi >= 18.5 & bmi < 25 ~ "normalweight"
+      , mi >= 25 & bmi < 30 ~ "overweight"
+      , mi >= 30 ~ "obese"
+      #, RUE ~ "no" # optional, here we have exhausted all the possibilities
     )
   )
 
@@ -291,9 +291,9 @@ pokemon_mutate <- dplyr::mutate(pokemon_filter, organism = "pokemon")
 # 
 # So you can do it all in one step:
   
-pokemon_piped <- readr::read_csv(file = "data/pokemon_go_captures.csv") %>% 
-  dplyr::select(-height_bin, -weight_bin) %>% 
-  dplyr::filter(weight_kg > 15) %>% 
+pokemon_piped <- readr::read_csv(file = "data/pokemon_go_captures.csv") %>%
+  dplyr::select(-height_bin, -weight_bin) %>%
+  dplyr::filter(weight_kg > 15) %>%
   dplyr::mutate(organism = "pokemon")
 
 tibble::glimpse(pokemon_piped)
@@ -369,7 +369,7 @@ pokemon_join %>%  # take the dataframe (join from pokemon and pokedex)
 # the weight_bin category within the type1 category, for example.
 
 pokemon_join %>%
-  dplyr::group_by(type1, weight_bin) %>% 
+  dplyr::group_by(type1, weight_bin) %>%
   dplyr::summarise(
     mean_weight = mean(weight_kg),
     count = n()
@@ -405,7 +405,7 @@ pokemon %>%
 # simplify the theme and change the labels.
 
 pokemon_join %>%
-  dplyr::filter(type1 %in% c("fire", "water", "grass")) %>% 
+  dplyr::filter(type1 %in% c("fire", "water", "grass")) %>%
   ggplot2::ggplot() +
   ggplot2::geom_violin(aes(x = type1, y = combat_power)) +
   ggplot2::theme_bw() +

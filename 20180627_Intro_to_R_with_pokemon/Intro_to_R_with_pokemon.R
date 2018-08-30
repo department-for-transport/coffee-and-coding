@@ -83,8 +83,8 @@ dplyr::select(pokemon, contains("bin"))
 
 # A solution
 # my_selection <- dplyr::select(pokemon
-#                               ,species
-#                               ,ends_with("attack"))
+#                               , species
+#                               , ends_with("attack"))
 
 
 #dplyr::filter
@@ -113,8 +113,8 @@ dplyr::filter(
 #we can work with numbers too
 dplyr::filter(
   pokemon
-  ,combat_power > 900 & combat_power < 1000 # two conditions
-  ,hit_points < 100  
+  , combat_power > 900 & combat_power < 1000 # two conditions
+  , hit_points < 100  
 ) # note the '&'
 
 # CHALLENGE!
@@ -128,9 +128,9 @@ dplyr::filter(
 # A solution
 # dplyr::filter(
 #   pokemon
-#   ,species %in% c("abra", "chansey", "bellsprout")
-#   ,combat_power > 100 & combat_power < 500
-#   ,hit_points < 100
+#   , species %in% c("abra", "chansey", "bellsprout")
+#   , combat_power > 100 & combat_power < 500
+#   , hit_points < 100
 # )
 
 
@@ -145,9 +145,9 @@ pokemon_power_hp <- dplyr::select(  # create new object subsetting data set
 # now to mutate with some extra information
 dplyr::mutate(
   pokemon_power_hp  # our new, subsetted data frame
-  ,power_index = combat_power * hit_points  # new column from old ones
-  ,caught = 1  # new column will fill entirely with number
-  ,area = "kanto"  # will fill entirely with this text 
+  , power_index = combat_power * hit_points  # new column from old ones
+  , caught = 1  # new column will fill entirely with number
+  , area = "kanto"  # will fill entirely with this text 
 )
 
 #the vector values used in mutate() must be either length 1 (they then 
@@ -180,10 +180,10 @@ pokemon_hp_common <- dplyr::mutate(
   pokemon_hp,  # data
   common = dplyr::case_when(
     species %in% c("pidgey", "rattata", "drowzee") ~ "very_common"
-    ,species == "spearow" ~ "pretty_common"
-    ,species %in% c("magikarp", "weedle", "staryu", "psyduck") ~ "common"
-    ,species == "eevee" ~ "less_common"
-    ,TRUE ~ "no" #else = "no"
+    , species == "spearow" ~ "pretty_common"
+    , species %in% c("magikarp", "weedle", "staryu", "psyduck") ~ "common"
+    , species == "eevee" ~ "less_common"
+    , TRUE ~ "no" #else = "no"
   )
 )
 # 
@@ -206,12 +206,12 @@ pokemon_hp_common <- dplyr::mutate(
 pokemon_bmi <- pokemon %>%
   dplyr::mutate(
     bmi = weight_kg / (height_m ^ 2)
-    ,bmi_bin = dplyr::case_when(
+    , bmi_bin = dplyr::case_when(
       bmi < 18.5 ~ "underweight"
-      ,bmi >= 18.5 & bmi < 25 ~ "normalweight"
-      ,bmi >= 25 & bmi < 30 ~ "overweight"
-      ,bmi >= 30 ~ "obese"
-      #,TRUE ~ "no" # optional, here we have exhausted all the possibilities
+      , bmi >= 18.5 & bmi < 25 ~ "normalweight"
+      , bmi >= 25 & bmi < 30 ~ "overweight"
+      , bmi >= 30 ~ "obese"
+      #, TRUE ~ "no" # optional, here we have exhausted all the possibilities
     )
   )
 

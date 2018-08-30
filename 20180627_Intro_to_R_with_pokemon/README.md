@@ -1,9 +1,8 @@
 Intro\_to\_R\_with\_pokemon.R
 =============================
 
-#### *willbowditch*
+#### *Tamsin Forbes*
 
-#### *Thu Aug 30 15:56:55 2018*
 
     #this script has been taken from section 5-8 of the online tutorial 
 

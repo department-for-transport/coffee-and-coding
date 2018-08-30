@@ -3,7 +3,8 @@
 # Coffee & Coding
 ### _24/08/2018_
 
-A repo to hold resources and notes from Coffee & Coding sessions. 
+A repo to hold resources and notes from Coffee & Coding sessions.
+
 Get in touch at: coffee.coding@dft.gov.uk
 
 ### Contributing 

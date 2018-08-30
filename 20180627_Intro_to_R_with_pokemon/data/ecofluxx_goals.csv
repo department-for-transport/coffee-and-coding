@@ -1,0 +1,49 @@
+keeper_a,keeper_b,direction,goal_type,goal_title
+Dirt,Water,0,Pairs,Mud (Dirt + Water)
+Air,Water,0,Pairs,Clouds (Air + Water)
+Sunshine,Water,0,Pairs,Rainbows (Sunshine + Water)
+Snakes,Sunshine,0,Pairs,Basking (Snakes + Sunshine)
+Worms,Dirt,0,Pairs,Earthworms (Worms + Dirt)
+Trees,Air,0,Pairs,Trees Clean the Air (Trees + Air)
+Insects,Frogs,0,Pairs,Night Music (Insects + Frogs)
+Leaves,Sunshine,0,Pairs,Photosynthesis (Leaves + Sunshine)
+Seeds,Trees,0,Pairs,Mighty Oaks from Tiny Acorns Grow (Seeds + Trees)
+Tadpoles,Frogs,0,Pairs,Metamorphosis (Tadpoles + Frogs)
+Worms,Mushrooms,0,Pairs,Decay (Worms + Mushrooms)
+Leaves,Flowers,0,Single Keeper win,Ferns (Leaves + No Flowers)
+Trees,Leaves,0,Single Keeper win,Deciduous Trees in Winter (Trees + No Leaves)
+Worms,Spiders,0,Two of three,"Invertebrates (Any 2 of Worms, Spiders, Insects)"
+Worms,Insects,0,Two of three,"Invertebrates (Any 2 of Worms, Spiders, Insects)"
+Spiders,Insects,0,Two of three,"Invertebrates (Any 2 of Worms, Spiders, Insects)"
+Mice,Rabbits,0,Three of four,"Mammals (Any 3 of Mice, Rabbits, Bears, Bats)"
+Mice,Bears,0,Three of four,"Mammals (Any 3 of Mice, Rabbits, Bears, Bats)"
+Mice,Bats,0,Three of four,"Mammals (Any 3 of Mice, Rabbits, Bears, Bats)"
+Rabbits,Bears,0,Three of four,"Mammals (Any 3 of Mice, Rabbits, Bears, Bats)"
+Rabbits,Bats,0,Three of four,"Mammals (Any 3 of Mice, Rabbits, Bears, Bats)"
+Bears,Bats,0,Three of four,"Mammals (Any 3 of Mice, Rabbits, Bears, Bats)"
+Snakes,Tadpoles,0,One of two plus one of two,Herpetology ([Snakes or Lizards] + [Tadpoles or Frogs])
+Snakes,Frogs,0,One of two plus one of two,Herpetology ([Snakes or Lizards] + [Tadpoles or Frogs])
+Lizards,Tadpoles,0,One of two plus one of two,Herpetology ([Snakes or Lizards] + [Tadpoles or Frogs])
+Lizards,Frogs,0,One of two plus one of two,Herpetology ([Snakes or Lizards] + [Tadpoles or Frogs])
+Flowers,Birds,0,Flowers plus one of three,Pollinators (Flowers + [Birds or Insects or Air])
+Flowers,Insects,0,Flowers plus one of three,Pollinators (Flowers + [Birds or Insects or Air])
+Flowers,Air,0,Flowers plus one of three,Pollinators (Flowers + [Birds or Insects or Air])
+Mice,Seeds,1,Consumption (A eats B),Mice Eat Seeds
+Snakes,Mice,1,Consumption (A eats B),Snakes Eat Mice
+Insects,Leaves,1,Consumption (Insects eat one of three),Insects Eat Leaves and Mushrooms
+Insects,Mushrooms,1,Consumption (Insects eat one of three),Insects Eat Leaves and Mushrooms
+Frogs,Insects,1,Consumption (A eats B),Frogs Eat Insects
+Spiders,Insects,1,Consumption (A eats B),Spiders Eat Insects
+Birds,Insects,1,Consumption (Birds eat one of three),Birds Eat Insects and Worms and Seeds
+Birds,Worms,1,Consumption (Birds eat one of three),Birds Eat Insects and Worms and Seeds
+Birds,Seeds,1,Consumption (Birds eat one of three),Birds Eat Insects and Worms and Seeds
+Rabbits,Leaves,1,Consumption (A eats B),Rabbits Eat Leaves
+Fish,Worms,1,Consumption (A eats B),Fish Eat Worms
+Bears,Fish,1,Consumption (A eats B),Bears Eat Fish
+Bats,Insects,1,Consumption (A eats B),Bats Eat Insects
+Bats,Cave,0,Pairs,Bat Cave (Bats + Cave)
+Bears,Cave,0,Pairs,Hibernation Location (Bears + Cave)
+Shells,Lizards,0,Pairs,Turtles (Shells + Lizards)
+Shells,Fish,0,Pairs,Shellfish (Shells + Fish)
+Cave,Water,0,Pairs,Cave Formations [aka Stalactites & Stalagmites] (Cave + Water)
+Lizards,Snakes,0,Pairs,Reptiles (Lizards + Snakes)

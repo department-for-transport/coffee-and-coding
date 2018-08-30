@@ -1,8 +1,9 @@
 Intro\_to\_R\_with\_pokemon.R
 =============================
 
-#### *Tamsin Forbes*
+#### *willbowditch*
 
+#### *Thu Aug 30 15:56:55 2018*
 
     #this script has been taken from section 5-8 of the online tutorial 
 
@@ -227,8 +228,8 @@ Beginner R and RStudio training’ by Matt Dray (DfE)
 
     # A solution
     # my_selection <- dplyr::select(pokemon
-    #                               ,species
-    #                               ,ends_with("attack"))
+    #                               , species
+    #                               , ends_with("attack"))
 
 
     #dplyr::filter
@@ -305,8 +306,8 @@ Beginner R and RStudio training’ by Matt Dray (DfE)
     #we can work with numbers too
     dplyr::filter(
       pokemon
-      ,combat_power > 900 & combat_power < 1000 # two conditions
-      ,hit_points < 100  
+      , combat_power > 900 & combat_power < 1000 # two conditions
+      , hit_points < 100  
     ) # note the '&'
 
     ## # A tibble: 6 x 9
@@ -331,9 +332,9 @@ Beginner R and RStudio training’ by Matt Dray (DfE)
     # A solution
     # dplyr::filter(
     #   pokemon
-    #   ,species %in% c("abra", "chansey", "bellsprout")
-    #   ,combat_power > 100 & combat_power < 500
-    #   ,hit_points < 100
+    #   , species %in% c("abra", "chansey", "bellsprout")
+    #   , combat_power > 100 & combat_power < 500
+    #   , hit_points < 100
     # )
 
 
@@ -348,9 +349,9 @@ Beginner R and RStudio training’ by Matt Dray (DfE)
     # now to mutate with some extra information
     dplyr::mutate(
       pokemon_power_hp  # our new, subsetted data frame
-      ,power_index = combat_power * hit_points  # new column from old ones
-      ,caught = 1  # new column will fill entirely with number
-      ,area = "kanto"  # will fill entirely with this text 
+      , power_index = combat_power * hit_points  # new column from old ones
+      , caught = 1  # new column will fill entirely with number
+      , area = "kanto"  # will fill entirely with this text 
     )
 
     ## # A tibble: 696 x 6
@@ -413,10 +414,10 @@ Beginner R and RStudio training’ by Matt Dray (DfE)
       pokemon_hp,  # data
       common = dplyr::case_when(
         species %in% c("pidgey", "rattata", "drowzee") ~ "very_common"
-        ,species == "spearow" ~ "pretty_common"
-        ,species %in% c("magikarp", "weedle", "staryu", "psyduck") ~ "common"
-        ,species == "eevee" ~ "less_common"
-        ,TRUE ~ "no" #else = "no"
+        , species == "spearow" ~ "pretty_common"
+        , species %in% c("magikarp", "weedle", "staryu", "psyduck") ~ "common"
+        , species == "eevee" ~ "less_common"
+        , TRUE ~ "no" #else = "no"
       )
     )
     # 
@@ -439,12 +440,12 @@ Beginner R and RStudio training’ by Matt Dray (DfE)
     pokemon_bmi <- pokemon %>%
       dplyr::mutate(
         bmi = weight_kg / (height_m ^ 2)
-        ,bmi_bin = dplyr::case_when(
+        , bmi_bin = dplyr::case_when(
           bmi < 18.5 ~ "underweight"
-          ,bmi >= 18.5 & bmi < 25 ~ "normalweight"
-          ,bmi >= 25 & bmi < 30 ~ "overweight"
-          ,bmi >= 30 ~ "obese"
-          #,TRUE ~ "no" # optional, here we have exhausted all the possibilities
+          , bmi >= 18.5 & bmi < 25 ~ "normalweight"
+          , bmi >= 25 & bmi < 30 ~ "overweight"
+          , bmi >= 30 ~ "obese"
+          #, TRUE ~ "no" # optional, here we have exhausted all the possibilities
         )
       )
 

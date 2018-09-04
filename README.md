@@ -22,6 +22,8 @@ The aim of the Coffee & Coding meetups is to nurture, enable and encourage a vib
 
 Date | Time | Room | Title | Presenter | Abstract
 ---------------|-----|----|----------|---------------------|--------------------------------
+Wed 03 Oct 2018|12:00|H3|Interactive Trade Data Visualisation|Louis Tsiattalou|How I saved the Food Standards Agency hundreds of work-hours with a Shiny App for HMRC’s Trade Statistics
+Wed 26 Sep 2018|14:00|H2|||
 Wed 19 Sep 2018|12:00|H6|stringr|Tamsin Forbes|Demo of stringr R package and regular expressions
 Wed 29 Aug 2018|10:00|H2|ggplot2|Andrew Kelly & Edisa Livingstone| Demo of ggplot2 R package and DfT theme
 Mon 23 Jul 2018|10:00|H5|SQL tips|Amardeep Dhani & Delphine Robineau|Using SQL to calculate straight line distances and SQL tips and tricks

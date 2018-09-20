@@ -11,3 +11,5 @@ instructions on the coffee-and-coding repo front page.
 
 Alternatively you can use this link (created using DownGit) which will automatically
 download the ggplot2 materials
+
+[download ggplot2 subfolder](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/tree/ggplot2-materials/20180829_ggplot2)

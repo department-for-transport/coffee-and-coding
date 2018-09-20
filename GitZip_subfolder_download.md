@@ -1,4 +1,4 @@
-#GitZip Subfolder Download Instructions
+# GitZip Subfolder Download Instructions
 
 ##### *Tamsin Forbes*
 ##### *2018-09-20*

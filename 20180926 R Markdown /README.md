@@ -1,4 +1,4 @@
-# Coffee and Coding: R Markdown
+### Coffee and Coding: R Markdown
 
 ##### There are three projects within the file, each of which give a different example of how Rmarkdown can be used. If you are new to R Markdown then review the projects in this order:
 
@@ -18,17 +18,17 @@ The Markdown script can be used to create a html dashboard containing summary wh
 
 [Crosstalk](https://rstudio.github.io/crosstalk/) developed by [Joe Cheng](https://twitter.com/jcheng?lang=en) extends html widgets with interactivity using sliders, radio buttons and filters. 
 
-## Getting Started
+#### Getting Started
 
 You can clone this repo by typing the following into the command line:
 ```
 git clone https://github.com/mrmoleje/fatal-force-with-crosstalk
 ```
-## Pre-requisites
+#### Pre-requisites
 
 In order to run this you'll need R Studio installed, as well as the following libraries: dplyr, leaflet, DT, crosstalk, RColorBrewer , readr, ggplot2.
 
-## Data
+#### Data
 
 The data used here is taken from [the Washington Post: Fatal Force](https://www.washingtonpost.com/graphics/2018/national/police-shootings-2018/?noredirect=on&utm_term=.062fe8256817#comments) website which details police shootings in the US from 2015-2018. These data were last updated on August 30th 2018.
 

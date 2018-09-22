@@ -12,8 +12,65 @@ There are three projects within the file, each of which give a different example
 ##### The second example 'olympics_letters' uses a loop to generate multiple individual letters.
 ##### Finally the third example 'police_shooting' demonstrates the use of flexdashboard and crosstalk to create an interactive html dashbaord
 
+### 1. olympics_report
 
-#### 3. police_shooting_gh
+Using data from the Olympics this repo gives an example of how to create a simple word document using R Markdown.
+
+This example will use the ['dplyr'](https://dplyr.tidyverse.org/) package to manipulate the data, and the ['ggplot'](https://ggplot2.tidyverse.org/package) to create some bar charts. 
+
+The analysis developed using dplyr will then be put into a word document to create a report. The purpose of this is to highlight how report writing can be reproducable, as when the data is changed, the outputs in the report automatically update.
+
+#### Getting Started
+
+You can clone this repo by typing the following into the command line:
+
+```
+git clone https://github.com/mrmoleje/olympics-rmarkdown-to-word.git 
+```
+
+#### Prerequisites
+
+In order to run the script you'll need R Studio installed, as well as the following libraries:
+
+```
+libraries (c("tidyverse", "rmarkdown", "readr", "tidyr"))
+```
+
+#### Data
+
+Olympics data for this example was downloaded from ['Kaggle'](https://www.kaggle.com/ahmetuzgor/my-first-data-analysis-with-athletes-data/data). 
+
+### 2. olympics letters
+
+Creating multiple reports using R Markdown. 
+
+The Markdown script will be called for each unique person in the data to create a personalised letter for every row. 
+
+Using athlete data from Kaggle a personalised letter will be created for anyone that was awarded a medal in the 2008 Beijing Olympics.
+
+#### Getting Started
+
+You can clone this repo by typing the following into the command line:
+```
+git clone https://github.com/mrmoleje/r-markdown-multiple-reports.git 
+```
+#### Pre-requisites
+
+In order to run this you'll need R Studio installed, as well as the following libraries (dplyr, readr, tidyr).
+
+####Data
+
+Data has been downloaded from Kaggle: [https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-results
+
+#### Also included 
+
+* Using tidyverse to join data sets
+* Cleaning data (changing an upper case string to lower case)
+
+
+
+
+### 3. police_shooting_gh
 Creating an interactive html dashboard using crosstalk which details police shootings in the United States between 2015 and 2018.
 
 The Markdown script can be used to create a html dashboard containing summary which details a map powered by leaflet as well as plots generated ggplot2. 
@@ -46,6 +103,7 @@ Geographical information donates the city that the shooting took place, but not 
 
 Note that are there is only three full years' worth of data within this analysis that is it difficult to draw conclusions on trends over time. 
 
-## Acknowledgments
+#### Acknowledgments
 
 Thanks to [Matt Dray](https://github.com/matt-dray/earl18-crosstalk) for the really great presentation at the London Earl Conference. 
+

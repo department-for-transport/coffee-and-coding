@@ -1,6 +1,6 @@
 ### Coffee and Coding: R Markdown
 
-This folder contains materials for the R Markdown Coffee and Coding session which took place on September 26th 2018 at the Department for Transport. 
+This folder contains materials for the R Markdown Coffee and Coding session which was delivered by [Sue Wallace](https://twitter.com/everlasting_ava), and took place on September 26th 2018 at the Department for Transport. 
 
 There are three projects within the file, each of which give a different example of how Rmarkdown can be used. If you are new to R Markdown then review the projects in this order:
 
@@ -8,9 +8,9 @@ There are three projects within the file, each of which give a different example
 2. olympics_letters
 3. police_shooting_gh
 
-##### The first example 'olympics_report' highlights how reporducable reports can be generated in R using ggplot. 
-##### The second example 'olympics_letters' uses a loop to generate multiple individual letters.
-##### Finally the third example 'police_shooting' demonstrates the use of flexdashboard and crosstalk to create an interactive html dashbaord
+The first example 'olympics_report' highlights how reporducable reports can be generated in R using ggplot. 
+The second example 'olympics_letters' uses a loop to generate multiple individual letters.
+Finally the third example 'police_shooting' demonstrates the use of flexdashboard and crosstalk to create an interactive html dashbaord
 
 ### 1. olympics_report
 

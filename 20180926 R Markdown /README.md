@@ -6,12 +6,12 @@
 • olympics_letters
 • police_shooting_gh
 
-## The first example 'olympics_report' highlights how reporducable reports can be generated in R using ggplot. 
-## The second example 'olympics_letters' uses a loop to generate multiple individual letters.
-## Finally the third example 'police_shooting' demonstrates the use of flexdashboard and crosstalk to create an interactive html dashbaord
+### The first example 'olympics_report' highlights how reporducable reports can be generated in R using ggplot. 
+### The second example 'olympics_letters' uses a loop to generate multiple individual letters.
+### Finally the third example 'police_shooting' demonstrates the use of flexdashboard and crosstalk to create an interactive html dashbaord
 
-
-## fatal-force-with-crosstalk
+##############################################################################################################################
+### fatal-force-with-crosstalk
 Creating an interactive html dashboard using crosstalk which details police shootings in the United States between 2015 and 2018.
 
 The Markdown script can be used to create a html dashboard containing summary which details a map powered by leaflet as well as plots generated ggplot2. 

@@ -68,10 +68,8 @@ Data has been downloaded from Kaggle: [https://www.kaggle.com/heesoo37/120-years
 * Cleaning data (changing an upper case string to lower case)
 
 
-
-
 ### 3. police_shooting_gh
-Creating an interactive html dashboard using crosstalk which details police shootings in the United States between 2015 and 2018.
+Creating an [interactive html dashboard](https://mrmoleje.github.io/fatal-force-with-crosstalk/) using crosstalk which details police shootings in the United States between 2015 and 2018.
 
 The Markdown script can be used to create a html dashboard containing summary which details a map powered by leaflet as well as plots generated ggplot2. 
 

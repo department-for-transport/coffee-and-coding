@@ -1,6 +1,6 @@
 # Coffee and Coding: R Markdown
 
-## There are three projects within the file, each of which give a different example of how Rmarkdown can be used. If you are new to R Markdown then review the projects in this order:
+### There are three projects within the file, each of which give a different example of how Rmarkdown can be used. If you are new to R Markdown then review the projects in this order:
 
 • olympics_report
 • olympics_letters

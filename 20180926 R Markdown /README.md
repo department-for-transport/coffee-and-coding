@@ -58,9 +58,9 @@ git clone https://github.com/mrmoleje/r-markdown-multiple-reports.git
 
 In order to run this you'll need R Studio installed, as well as the following libraries (dplyr, readr, tidyr).
 
-####Data
+#### Data
 
-Data has been downloaded from Kaggle: [https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-results
+Data has been downloaded from [Kaggle]([https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-results)
 
 #### Also included 
 

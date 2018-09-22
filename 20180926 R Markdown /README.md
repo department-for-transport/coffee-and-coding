@@ -2,16 +2,16 @@
 
 ### There are three projects within the file, each of which give a different example of how Rmarkdown can be used. If you are new to R Markdown then review the projects in this order:
 
-• olympics_report
-• olympics_letters
-• police_shooting_gh
+1. olympics_report
+2. olympics_letters
+3. police_shooting_gh
 
 ### The first example 'olympics_report' highlights how reporducable reports can be generated in R using ggplot. 
 ### The second example 'olympics_letters' uses a loop to generate multiple individual letters.
 ### Finally the third example 'police_shooting' demonstrates the use of flexdashboard and crosstalk to create an interactive html dashbaord
 
-##############################################################################################################################
-### fatal-force-with-crosstalk
+
+### 3. police_shooting_gh
 Creating an interactive html dashboard using crosstalk which details police shootings in the United States between 2015 and 2018.
 
 The Markdown script can be used to create a html dashboard containing summary which details a map powered by leaflet as well as plots generated ggplot2. 

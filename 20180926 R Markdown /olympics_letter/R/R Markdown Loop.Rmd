@@ -1,0 +1,36 @@
+---
+output:
+  word_document:
+    reference_docx: word_template_v01.docx
+---
+
+![](beijing_2008.png)
+
+```{r setup, include=FALSE}
+
+#Load libraries----
+
+library(knitr)
+library(rmarkdown)
+
+athletes <- olympics[unique(olympics$ID)==athletes,]
+
+
+olympics %>%
+  filter (ID==athletes$ID) -> letters
+
+```
+
+###Congratulations `r letters$FirstName` `r letters$LastName`
+
+###It has been 10 years since you won your `r letters$Medal` medal as part of Team `r letters$region` in Beijing.  
+
+###As you were awarded a medal for `r letters$Discipline` we would like to invite you to come and judge the `r letters$Event` event at the 2020 Olympics in Tokyo Japan. Please respond by December 31 2018 if you are interested.
+
+
+
+###Best regards, 
+###The Tokyo 2020 Olympic Committee
+###`r format(Sys.time(), "%d %B, %Y")`
+
+

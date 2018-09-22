@@ -1,0 +1,351 @@
+---
+title: "Police Shootings in the United States: 2015 - 2018"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    theme: cerulean
+---
+
+```{r setup, include=FALSE}
+
+# Load libraries----
+
+library(flexdashboard)
+library(dplyr)  
+library(leaflet)  
+library(DT)  
+library(crosstalk)  
+library(RColorBrewer)
+library(readr)
+library(ggplot2)
+library(DT)
+
+# Load data----
+
+killing <- read_csv("Data/killing.csv") #As developed in '00.tidydata.R'
+
+killing$Year <- as.character(killing$Year)
+
+# Wrap data frame in SharedData
+
+sd <- SharedData$new(killing)
+
+
+# Call RColorBrewer::display.brewer.all() to see all possible palettes
+pal <- colorFactor(
+  palette = 'Spectral',
+  domain = killing$Race
+)
+
+#map
+sd %>% 
+  leaflet() %>%
+  setView(lng = -100.94, lat = 38.94 , zoom = 3) %>% 
+  addTiles() %>%
+  addCircleMarkers(lng = ~lng, lat = ~lat, weight = 3, color = ~pal(Race),
+                   stroke = TRUE, fillOpacity = 0.5, 
+                   radius = ~ifelse(Race == "White", 6, 10),
+                   popup = ~paste0("<h5>", killing$Name, "</h5>",
+                                   
+                                   
+                                   "<table style='width:100%'>",
+                                   
+                                   "<tr>",
+                                   "<tr>",
+                                   "<th>Date</th>",
+                                   "<th>", killing$Date, "</th>",
+                                   "</tr>",
+                                   
+                                   "<tr>",
+                                   "<tr>",
+                                   "<th>Gender</th>",
+                                   "<th>", killing$Gender, "</th>",
+                                   "</tr>",
+                                   
+                                   "<tr>",
+                                   "<tr>",
+                                   "<th>Age</th>",
+                                   "<th>", killing$Age, "</th>",
+                                   "</tr>",
+                                   
+                                   "<tr>",
+                                   "<tr>",
+                                   "<th>Race</th>",
+                                   "<th>", killing$Race, "</th>",
+                                   "</tr>"
+                   )) %>%
+  addLegend("bottomleft", pal = pal, values = ~Race,
+            title = "Race of victim",
+            labFormat = labelFormat(prefix = "$"),
+            opacity = 1
+  ) -> map
+
+# Charts----
+
+
+# Proportion killed by state
+
+killing %>%
+  dplyr::group_by(State) %>%
+  #dplyr::filter(Year == "2017") %>%
+  dplyr::summarise(count = n()) %>%
+  dplyr::mutate(proportion = count/sum(count)*100) %>%
+  dplyr::filter(proportion >= 2.5) %>%
+  ggplot(aes(x = reorder(State, -proportion), y=proportion,
+                          label = (round(proportion,1)))) +
+  geom_col(position = "dodge", fill="#FDAE61") +
+  geom_text(position = position_dodge(width = .9), vjust=-0.5)+
+  theme_classic()+
+  #ggtitle("Highest ranking states by proportion of total killed: 2017")+
+  xlab("State")+
+  ylab("Proportion") +
+  theme(text = element_text(size=18), 
+        axis.text.x = element_text(angle = 75, hjust = 1)) -> states_chart
+
+
+killing %>%
+  dplyr::group_by(Year, `Signs of mental illness`) %>%
+  dplyr::summarise(count = n()) %>%
+  dplyr::mutate(proportion = (count / sum(count)*100)) %>% 
+  ggplot(aes(x = `Signs of mental illness`, y = proportion, fill = Year, label = (round(proportion,1))))+ 
+  geom_col(position = "dodge") +
+  scale_fill_brewer(palette = "Spectral", direction = -1)+
+  geom_text(position = position_dodge(width = .9), vjust=-0.5)+
+  theme_classic()+
+  theme(text = element_text(size=18))+
+  #ggtitle("Proption of fatalities showing signs of mental illness")+
+  xlab("Victim showed signs of mental illness")+
+  ylab("Proportion") -> mental_health_ch
+
+#proportion by gender
+ 
+killing %>%
+  dplyr::filter(!is.na(Gender)) %>% #small proportion of unknown gender so take out
+  dplyr::group_by(Year, Gender) %>%
+  dplyr::summarise(count = n() ) %>%
+  dplyr::mutate(proportion = count / sum(count)*100) %>% 
+  ggplot(aes(reorder(x = Gender, -proportion), y = proportion, fill = Year, label = (round(proportion,1))))+ 
+  geom_col(position = "dodge") +
+  scale_fill_brewer(palette = "Spectral", direction = -1)+
+  geom_text(position = position_dodge(width = .9), vjust=-0.5)+
+  theme_classic()+
+  theme(text = element_text(size=18))+
+  #ggtitle("Proption of fatalities by gender")+
+  xlab("Gender of victim")+
+  ylab("Proportion") -> gen_chart
+
+#proportion by race
+
+killing %>%
+  dplyr::group_by(Race) %>%
+  dplyr::summarise(count = n() ) %>%
+  dplyr::mutate(proportion = count / sum(count)*100) %>% 
+  ggplot(aes(x=reorder(Race, -proportion), y=proportion, 
+                      label = (round(proportion, 1))))+
+  geom_col(position = "dodge", fill="#ABDDA4") +
+  geom_text(position = position_dodge(width = .9), vjust=-0.5)+
+  theme_classic()+
+  theme(text = element_text(size=18))+
+  #ggtitle("Proption of fatalities by race/ethnicity")+
+  xlab("Ethnicity of victim")+
+  ylab("Proportion") -> eth_ch
+
+
+# DT: Using DT to create interactive tables----
+
+# select the variables that I can't to include in the table 
+
+killing %>%
+  dplyr::select (Name, Date, `Manner of Death`, Age, Gender, 
+                 Race) -> killing_dt
+
+
+DT::datatable(
+  filter = "top",
+  head(killing_dt, 3000), 
+  options = list(
+  columnDefs = list(list(className = 'dt-center', targets = c(2:5))),
+  pageLength = 100,
+  lengthMenu = c(100, 250, 500, 1000),
+  initComplete = JS(
+    "function(settings, json) {",
+    "$(this.api().table().header()).css({'background-color': '#FFFFE0', 'color': '#000'});",
+    "}"),
+  (searchHighlight = TRUE)
+)) -> data_table
+
+
+
+
+```
+Overview
+===================================== 
+
+Column {data-width=550}
+-----------------------------------------------------------------------
+
+### Map
+
+```{r map}
+map
+```
+
+Column {data-width=450}
+-----------------------------------------------------------------------
+
+### Filters
+
+```{r filters}
+
+filter_select(
+  id = "Race",
+  label = "Race",
+  sharedData = sd,
+  group = ~Race
+)
+
+filter_select(
+  id = "State",
+  label = "State",
+  sharedData = sd,
+  group = ~State
+)
+
+bscols(
+  filter_checkbox(
+    id = "Armed",
+    label = "Armed",
+    sharedData = sd,
+    group = ~Armed
+  ),
+  filter_checkbox(
+    id = "Year",
+    label = "Year of incident",
+    sharedData = sd,
+    group = ~Year
+  ),
+  filter_checkbox(
+    id = "Gender",
+    label = "Gender",
+    sharedData = sd,
+    group = ~Gender
+  ), 
+   filter_checkbox(
+    id = "flee",
+    label = "Fleeing",
+    sharedData = sd,
+    group = ~`flee`
+  ))
+
+
+
+```
+
+### Police shootings by state: 2015 - 2018
+
+```{r fig.width=8, fig.height=6}
+
+states_chart
+
+```
+
+
+Data
+===================================== 
+
+### Data table
+
+```{r}
+data_table
+```
+
+Summary statistics 
+===================================== 
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+###Proportion of fatalities by ethnicity: 2015:2018
+
+Data shows black people are disproportionately affected by police shootings in the United States.
+
+23.1% of the shootings were of black people, with black people making up 12.6% of the US population. This compares to 46.5% of the people being shot and killed being white, with white people making up around 62.0% of the US population. 
+                                                                                          
+
+```{r fig.width=10, fig.height=6}
+eth_ch
+```
+
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### Proportion of fatalites by gender: 2015-2018
+
+``` {r fig.width=10, fig.height=6}
+gen_chart
+```
+
+### Proportion of those killed showing signs of mental health issues
+
+```{r fig.width=8, fig.height=6}
+
+mental_health_ch
+
+```
+
+
+Information {data-orientation=rows data-icon="fa-info-circle"}
+===================================== 
+
+### Data information
+
+The data used here is taken from [the Washington Post: Fatal Force](https://www.washingtonpost.com/graphics/2018/national/police-shootings-2018/?noredirect=on&utm_term=.062fe8256817#comments) website which details police shootings in the US from 2015-2018. These data were last updated on August 30th 2018.
+
+The methodology for the data collection can be viewed [here](https://www.washingtonpost.com/national/how-the-washington-post-is-examining-police-shootings-in-the-united-states/2016/07/07/d9c52238-43ad-11e6-8856-f26de2537a9d_story.html?utm_term=.6b7c929d9fbf).
+
+In the aftermath of various racially charged police shootings in 2016 the FBI stated that it would aim to collect more data on police shootings. 
+
+Ethnicity and population statistics are taken from the [Statistical Atlas](https://statisticalatlas.com/United-States/Race-and-Ethnicity) website as at September 16th 2018.
+
+This dashboard was developed on 16th September 2018, and therefor is a snapshot of the data as at that period Any police shootings that occur after 16th September 2018 are not included in this dashboard. 
+
+Geographical information donates the city that the shooting took place, but not the exact location. Some 403 shootings had incomplete location data. 
+
+Note that are there is only three full years' worth of data within this analysis that is it difficult to draw conclusions on trends over time. 
+
+
+
+### Background
+
+Police officers in the United States shoot and kill hundreds of people every year, far more than in other developed countries such as the UK, Germany and South Korea.
+
+This data finds that California had the highest rate of shootings over the past three years at 15.6%. 
+
+Black people are disproportionately affected by police shootings, with black people making up 23.1% of the proportion killed. 
+
+Between 2015 and 2017 nearly 3,000 people were shot and killed by police, and in 2018 so far 707 people have been killed. 
+
+Nearly 7% of the people shot and killed by police in 2017 were unarmed. Currently in 2018 this figure stands at 5.8%.
+
+
+<i>Map</i> 
+
+The map can be used to further investiage the data on a geographical level. The filters enable the user to select a particlar state that they might be interested in and cross reference the information with whether the person shot and killed was armed, as well as looking into parameters such as gender, and whether the person was fleeing. 
+
+
+### Other information
+This dashboard was developed by Sue Wallace on 16th Sepetmber 2018.
+
+The GitHub repo and underlying code for this dashboard can be found [here]()
+
+This dashbaord was developed using [R Studio](https://www.rstudio.com/) and the following packages:
+
+* [RMarkdown](https://rmarkdown.rstudio.com/) for reproducable analysis in quality documents
+*  [flexdashbaord](https://rmarkdown.rstudio.com/flexdashboard/) for formatting in RMarkdown
+* [DT](https://rstudio.github.io/DT/) for interactive tables
+* [crosstalk](https://rstudio.github.io/crosstalk/) for interactive html widgets in RMarkdown
+
+
+Thanks to Matt Dray for the [excellent guidence](https://github.com/matt-dray/earl18-crosstalk).

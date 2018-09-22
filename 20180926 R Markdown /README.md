@@ -1,6 +1,8 @@
 ### Coffee and Coding: R Markdown
 
-##### There are three projects within the file, each of which give a different example of how Rmarkdown can be used. If you are new to R Markdown then review the projects in this order:
+This folder contains materials for the R Markdown Coffee and Coding session which took place on September 26th 2018 at the Department for Transport. 
+
+There are three projects within the file, each of which give a different example of how Rmarkdown can be used. If you are new to R Markdown then review the projects in this order:
 
 1. olympics_report
 2. olympics_letters

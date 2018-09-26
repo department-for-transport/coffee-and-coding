@@ -14,18 +14,18 @@ library(tidyverse)
 df2017 <- read_csv(
   file = "data/electric-chargepoint-2017-rapid-raw-data.csv"
   , col_types = cols(.default = col_guess()
-                    , ChargingEvent = col_character()
-                    , CPID = col_character()
-                    , Connector = col_character()
-                    , StartDate = col_date(format = "%d/%m/%Y")
-                    , StartTime = col_time(format = "%H:%M:%S")
-                    , EndDate = col_date(format = "%d/%m/%Y")
-                    , EndTime = col_time(format = "%H:%M:%S")
-                    , Energy = col_double()
-                    , Price = col_double()
-                    , LACode = col_character()
-                    , Name = col_character()
-                    , PluginDuration = col_double()
+                     , ChargingEvent = col_character()
+                     , CPID = col_character()
+                     , Connector = col_character()
+                     , StartDate = col_date(format = "%d/%m/%Y")
+                     , StartTime = col_time(format = "%H:%M:%S")
+                     , EndDate = col_date(format = "%d/%m/%Y")
+                     , EndTime = col_time(format = "%H:%M:%S")
+                     , Energy = col_double()
+                     , Price = col_double()
+                     , LACode = col_character()
+                     , Name = col_character()
+                     , PluginDuration = col_double()
   ))
 
 View(df2017)
@@ -96,7 +96,7 @@ theme_dft5 <-theme(axis.text=element_text(size=10, colour="black",face="bold"),
                    panel.grid.minor=element_blank(),
                    panel.background=element_blank(),
                    axis.title.y=element_text(size=13, face="bold"
-                   ,colour="black",margin=margin(t=10,r=10),angle = 90),
+                                             ,colour="black",margin=margin(t=10,r=10),angle = 90),
                    axis.line.y=element_blank(),
                    axis.line.x=element_line(size=0.5,colour="black"),
                    complete=FALSE)
@@ -106,25 +106,25 @@ theme_dft5 <-theme(axis.text=element_text(size=10, colour="black",face="bold"),
 #each arguments
 
 theme_bw_modify <- theme_bw()  %+replace% 
-                  theme( axis.text=element_text(size=10, colour="black",face="bold")
-                        ,axis.title.x=element_text(size=13, face="bold",colour="black",margin=margin(t=10))
-                        ,plot.title=element_text(size=13,face="bold", family="Arial",hjust= -0.09)
-                        ,plot.subtitle=element_text(size=13,colour="black",hjust=-0.05,margin=margin(t=10))
-                        ,legend.position = c(0.1,0.85), legend.direction = "vertical"
-                        ,legend.title = element_blank()
-                        ,legend.text=element_text(size=9,family="Arial",face="bold")
-                        ,axis.title.y=element_text(size=13, face="bold",colour="black"
-                                                   ,margin=margin(t=10,r=10),angle = 90)
-                        ,axis.ticks=element_blank()
-                        ,panel.grid.major=element_blank()
-                        ,panel.grid.minor=element_blank()
-                        ,panel.background=element_blank()
-                        ,panel.border = element_blank()
-                        ,axis.line.y=element_blank()
-                        ,axis.line.x=element_line(size=0.5,colour="black")
-                        ,complete = FALSE)
+  theme( axis.text=element_text(size=10, colour="black",face="bold")
+         ,axis.title.x=element_text(size=13, face="bold",colour="black",margin=margin(t=10))
+         ,plot.title=element_text(size=13,face="bold", family="Arial",hjust= -0.09)
+         ,plot.subtitle=element_text(size=13,colour="black",hjust=-0.05,margin=margin(t=10))
+         ,legend.position = c(0.1,0.85), legend.direction = "vertical"
+         ,legend.title = element_blank()
+         ,legend.text=element_text(size=9,family="Arial",face="bold")
+         ,axis.title.y=element_text(size=13, face="bold",colour="black"
+                                    ,margin=margin(t=10,r=10),angle = 90)
+         ,axis.ticks=element_blank()
+         ,panel.grid.major=element_blank()
+         ,panel.grid.minor=element_blank()
+         ,panel.background=element_blank()
+         ,panel.border = element_blank()
+         ,axis.line.y=element_blank()
+         ,axis.line.x=element_line(size=0.5,colour="black")
+         ,complete = FALSE)
 
-                        
+
 #You have to remember to say "complete = FALSE" so it knows you want the other specs
 #to be inherited from theme_bw. If you are creating a theme from scratch like Andrew,
 #you may still need it if there is an argument not specified. In this case, it will
@@ -138,7 +138,7 @@ theme_bw_modify <- theme_bw()  %+replace%
 #theme_bw
 
 ggplot(data=df2017, aes(as.numeric(Energy))) + geom_histogram(binwidth=2.5) +
-xlab("Energy supplied, kWh")+ylab("Frequency") + theme_bw()
+  xlab("Energy supplied, kWh")+ylab("Frequency") + theme_bw()
 
 #theme_economist
 
@@ -157,37 +157,20 @@ ggplot(data=df2017, aes(as.numeric(Energy))) +geom_histogram(binwidth=2.5) +
 
 #theme_dft5 (with extra customised specs such as colour fill choice
 #, thousand commas on the axes labels etc used in the Chargepoint publication)
+# Filtering by pluginduration < 100 for this example.
 
-ggplot(data=df2017, aes(as.numeric(PluginDuration))) +
+ggplot(data=df2017 %>% filter(PluginDuration < 100), aes(x = PluginDuration)) +
   geom_histogram(binwidth=5,colour="white", fill="#006853") +
   xlab("Length of plug-in time, mins") + 
   scale_x_continuous(limits=c(0,100),breaks=seq(0,100,10))+
-  scale_y_continuous(breaks =seq(0,8000,2000),name=""
-                     , labels=c("0","2,000","4,000","6,000", "8,000"))+
+  scale_y_continuous(breaks =seq(0,8000,2000),name="",
+                     labels=c("0","2,000","4,000","6,000", "8,000"))+
   ggtitle("Frequency")+theme_dft5
-
-#theme_bw_modify
-
-ggplot(data=df2017, aes(as.numeric(PluginDuration))) +
-  geom_histogram(binwidth=5,colour="white", fill="#006853") +
-  xlab("Length of plug-in time, mins") + 
-  scale_x_continuous(limits=c(0,100),breaks=seq(0,100,10)) +
-  scale_y_continuous(breaks =seq(0,8000,2000),name=""
-                     , labels=c("0","2,000","4,000","6,000", "8,000")) +
-                       ggtitle("Frequency")+theme_bw_modify
-
 
 #You can then repeatedly re-use your theme as R has saved it as a new object  :-)
 
-
-
-
 #N.B.
-#Warning message for chargepoint histograms:
-#Removed 53736 rows containing non-finite values (stat_bin)
-#This is just R telling me there are some rows that are greater than 100 mins
-#i.e. beyond the boundaries I have enforced with my x limits in 
-#scale_x_continuous limits=c(0,100)
+# I've filtered to durations < 100 in the "data =" statment 
 #This is because the chargepoint data had what you could call a large minority of extreme events
 #in this case, people plugging in for weeks and months! but I wanted to focus on typical
 #charging behaviour in my publication
@@ -199,17 +182,17 @@ ggplot(data=df2017, aes(as.numeric(PluginDuration))) +
 
 theme_minimal_modify <- theme_minimal()  %+replace% 
   theme(panel.grid.major.x=element_blank()
-         ,panel.grid.minor.x=element_blank()
-         ,axis.line.x=element_line(size=0.5,colour="black")
-         ,complete = FALSE)
+        ,panel.grid.minor.x=element_blank()
+        ,axis.line.x=element_line(size=0.5,colour="black")
+        ,complete = FALSE)
 
-ggplot(data=df2017, aes(as.numeric(PluginDuration))) +
+ggplot(data=df2017 %>% filter(PluginDuration < 100), aes(as.numeric(PluginDuration))) +
   geom_histogram(binwidth=5,colour="white", fill="#006853") +
   xlab("Length of plug-in time, mins") +
   scale_x_continuous(limits=c(0,100) ,breaks=seq(0,100,10)) + 
   scale_y_continuous(breaks =seq(0,12000,2000),name=""
-    , labels=c("0","2,000","4,000","6,000", "8,000", "10,000", "12,000")) + 
-       ggtitle("Frequency")+theme_minimal_modify
+                     , labels=c("0","2,000","4,000","6,000", "8,000", "10,000", "12,000")) + 
+  ggtitle("Frequency")+theme_minimal_modify
 
 #things you won't be likely to need but should know:
 #arguments to panel refer to the multiple panels that
@@ -239,7 +222,7 @@ library(lubridate)
 #create top of the hour column...
 
 
-df2017 <- df2017 %>% mutate(hour = hour(df2017$StartTime))
+df2017 <- df2017 %>% mutate(hour = hour(StartTime))
 
 #shiny new hour column added!! scroll to your left :-)
 
@@ -359,22 +342,8 @@ ggplot(Freq.schemes17, aes(x = reorder(Name, n), y = n)) +
 #You will find res = 600 will be pretty sharp, but can increase further.
 #The more dots per inch, the larger the file size though.
 
-#You can do this using the jpeg function as shown below:
-
-
-#jpeg(filename = "my_plot.jpeg", width = 15, height = 9.5, units = "cm", res =600)
-
-#my_plot
-
-#dev.off()
-
-#which automatically will store it the file you are working on.
-
-#For example:
-
-jpeg(filename = "my_pretty_plot.jpeg", width = 15, height = 9.5, units = "cm", res =600)
-
-ggplot(data=df2017, aes(as.numeric(PluginDuration))) +
+#You can do this using ggsave function:
+plot_to_save<- ggplot(data=df2017 %>% filter(PluginDuration < 100), aes(PluginDuration)) +
   geom_histogram(binwidth=5,colour="white", fill="#006853") +
   xlab("Length of plug-in time, mins") + 
   scale_x_continuous(limits=c(0,100),breaks=seq(0,100,10))+
@@ -382,7 +351,9 @@ ggplot(data=df2017, aes(as.numeric(PluginDuration))) +
                      , labels=c("0","2,000","4,000","6,000", "8,000"))+
   ggtitle("Frequency")+theme_dft5
 
-dev.off()
+ggplot2::ggsave("my_pretty_plot.png", plot_to_save, width = 15, height = 9.5, units = "cm")
 
-##There is also a png and tiff function that work in a similar way.
-
+## If you're working with inDesign you may wish to save as a Vector graphic (svg file) 
+# as they do not blur like raster images (based on pixels, link png)
+# Gennerally avoid jpg or jpeg as the compression is lossy, meaning quality is lost on save
+ggplot2::ggsave("my_pretty_plot.svg", plot_to_save, width = 15, height = 9.5, units = "cm")

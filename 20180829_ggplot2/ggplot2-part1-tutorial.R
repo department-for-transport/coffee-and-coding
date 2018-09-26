@@ -1,10 +1,7 @@
 #####################################
 # GGPLOT 2 SHOWCASE
 #####################################
-
-list.of.packages <- c("tidyverse")
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-if(length(new.packages)) install.packages(new.packages)
+# install.packages('tidyverse')
 library(tidyverse)
 
 # This short file will just explain the general principles of

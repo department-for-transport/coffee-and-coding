@@ -22,9 +22,11 @@ The aim of the Coffee & Coding meetups is to nurture, enable and encourage a vib
 
 Date | Time | Room | Title | Presenter | Abstract
 ---------------|-----|----|----------|---------------------|--------------------------------
+Wed 24 Oct 2018|11:00|3/23|||
+Thu 18 Oct 2018|11:00|3/23|||
 Wed 10 Oct 2018|12:30|5L|(Almost) Fully Customisable Choropleth Maps in R|Isi Avbulimen|Demo on how to produce choropleth maps in R that be customised in (almost) any way you want
 Wed 03 Oct 2018|12:00|H3|Interactive Trade Data Visualisation|Louis Tsiattalou|How I saved the Food Standards Agency hundreds of work-hours with a Shiny App for HMRC’s Trade Statistics
-Wed 26 Sep 2018|14:00|H2|||
+Wed 26 Sep 2018|14:00|H2|rmarkdown|Suzanne Wallace|All the weird and wonderful things that you can do with R Markdown
 Wed 19 Sep 2018|12:00|H6|stringr|Tamsin Forbes|Demo of stringr R package and regular expressions
 Wed 29 Aug 2018|10:00|H2|ggplot2|Andrew Kelly & Edisa Livingstone| Demo of ggplot2 R package and DfT theme
 Mon 23 Jul 2018|10:00|H5|SQL tips|Amardeep Dhani & Delphine Robineau|Using SQL to calculate straight line distances and SQL tips and tricks

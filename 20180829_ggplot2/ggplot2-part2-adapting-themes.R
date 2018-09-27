@@ -65,64 +65,74 @@ windowsFonts(Arial = windowsFont("TT Arial"))
 
 #Andrew Kelly's theme_dft
 
-theme_dft<-theme(axis.text=element_text(size=10, colour="black"),
-                 axis.title.x=element_text(size=13, colour="black",margin=margin(t=10)),
-                 plot.title=element_text(size=16, family="Arial",hjust=0.5),
-                 plot.subtitle=element_text(size=13,colour="black",hjust=-0.05,margin=margin(t=10)),
-                 legend.key = element_rect(fill = "white", colour = "white"),
-                 legend.position = "bottom", legend.direction = "horizontal",
-                 legend.title = element_blank(),
-                 legend.text=element_text(size=9,family="Arial"),
-                 axis.ticks=element_blank(),
-                 panel.grid.major=element_blank(),
-                 panel.grid.minor=element_blank(),
-                 panel.background=element_blank(),
-                 axis.line.y=element_blank(),
-                 complete=FALSE)+theme(axis.line.x=element_line(size=0.5,colour="black"))
+theme_dft <- theme(
+  axis.text = element_text(size = 10, colour = "black"),
+  axis.title.x = element_text(size = 13, colour = "black", margin = margin(t = 10)),
+  plot.title = element_text(size = 16, family = "Arial", hjust = 0.5),
+  plot.subtitle = element_text(size = 13, colour = "black", hjust = -0.05,
+                               margin = margin(t = 10)),
+  legend.key = element_rect(fill = "white", colour = "white"),
+  legend.position = "bottom", legend.direction = "horizontal",
+  legend.title = element_blank(),
+  legend.text = element_text(size = 9, family = "Arial"),
+  axis.ticks = element_blank(),
+  panel.grid.major = element_blank(),
+  panel.grid.minor = element_blank(),
+  panel.background = element_blank(),
+  axis.line.y = element_blank(),
+  complete = FALSE) +
+  theme(axis.line.x = element_line(size = 0.5, colour = "black"))
 
 
 #You can create my theme_dft5 by making adjustments to Andrew Kellys theme_dft, e.g.
 
-theme_dft5 <-theme(axis.text=element_text(size=10, colour="black",face="bold"),
-                   axis.title.x=element_text(size=13, face="bold",colour="black",margin=margin(t=10)),
-                   plot.title=element_text(size=13,face="bold", family="Arial",hjust= -0.09),
-                   plot.subtitle=element_text(size=13,colour="black",hjust=-0.05,margin=margin(t=10)),
-                   legend.key = element_rect(fill = "white", colour = "white"),
-                   legend.position = c(0.1,0.85), legend.direction = "vertical",
-                   legend.title = element_blank(),
-                   legend.text=element_text(size=9,family="Arial",face="bold"),
-                   axis.ticks=element_blank(),
-                   panel.grid.major=element_blank(),
-                   panel.grid.minor=element_blank(),
-                   panel.background=element_blank(),
-                   axis.title.y=element_text(size=13, face="bold"
-                                             ,colour="black",margin=margin(t=10,r=10),angle = 90),
-                   axis.line.y=element_blank(),
-                   axis.line.x=element_line(size=0.5,colour="black"),
-                   complete=FALSE)
+theme_dft5 <-theme(
+  axis.text = element_text(size = 10, colour = "black", face = "bold"),
+  axis.title.x = element_text(size = 13, face = "bold", colour = "black",
+                              margin = margin(t = 10)),
+  plot.title = element_text(size = 13, face = "bold", family = "Arial",
+                            hjust = -0.09),
+  plot.subtitle = element_text(size = 13, colour = "black", hjust = -0.05,
+                               margin = margin(t = 10)),
+  legend.key = element_rect(fill = "white", colour = "white"),
+  legend.position = c(0.1, 0.85), legend.direction = "vertical",
+  legend.title = element_blank(),
+  legend.text = element_text(size = 9, family = "Arial", face = "bold"),
+  axis.ticks = element_blank(),
+  panel.grid.major = element_blank(),
+  panel.grid.minor = element_blank(),
+  panel.background = element_blank(),
+  axis.title.y = element_text(size = 13, face = "bold", colour = "black",
+                              margin = margin(t = 10, r = 10), angle = 90),
+  axis.line.y = element_blank(),
+  axis.line.x = element_line(size = 0.5, colour = "black"),
+  complete = FALSE)
 
 #or modifying theme_bw using replace.No need to specify anything you won't be using or don't want
 #to change. See https://ggplot2.tidyverse.org/reference/theme.html for a description of
 #each arguments
 
 theme_bw_modify <- theme_bw()  %+replace% 
-  theme( axis.text=element_text(size=10, colour="black",face="bold")
-         ,axis.title.x=element_text(size=13, face="bold",colour="black",margin=margin(t=10))
-         ,plot.title=element_text(size=13,face="bold", family="Arial",hjust= -0.09)
-         ,plot.subtitle=element_text(size=13,colour="black",hjust=-0.05,margin=margin(t=10))
-         ,legend.position = c(0.1,0.85), legend.direction = "vertical"
-         ,legend.title = element_blank()
-         ,legend.text=element_text(size=9,family="Arial",face="bold")
-         ,axis.title.y=element_text(size=13, face="bold",colour="black"
-                                    ,margin=margin(t=10,r=10),angle = 90)
-         ,axis.ticks=element_blank()
-         ,panel.grid.major=element_blank()
-         ,panel.grid.minor=element_blank()
-         ,panel.background=element_blank()
-         ,panel.border = element_blank()
-         ,axis.line.y=element_blank()
-         ,axis.line.x=element_line(size=0.5,colour="black")
-         ,complete = FALSE)
+  theme(axis.text = element_text(size = 10, colour = "black", face = "bold")
+         , axis.title.x = element_text(size = 13, face = "bold", colour = "black",
+                                       margin = margin(t = 10))
+         , plot.title = element_text(size = 13, face = "bold", family = "Arial",
+                                     hjust = -0.09)
+         , plot.subtitle = element_text(size = 13, colour = "black",
+                                        hjust = -0.05, margin = margin(t = 10))
+         , legend.position = c(0.1, 0.85), legend.direction = "vertical"
+         , legend.title = element_blank()
+         , legend.text = element_text(size = 9, family = "Arial", face = "bold")
+         , axis.title.y = element_text(size = 13, face = "bold", colour = "black"
+                                    , margin = margin(t = 10, r = 10), angle = 90)
+         , axis.ticks = element_blank()
+         , panel.grid.major = element_blank()
+         , panel.grid.minor = element_blank()
+         , panel.background = element_blank()
+         , panel.border = element_blank()
+         , axis.line.y = element_blank()
+         , axis.line.x = element_line(size = 0.5, colour = "black")
+         , complete = FALSE)
 
 
 #You have to remember to say "complete = FALSE" so it knows you want the other specs
@@ -137,35 +147,48 @@ theme_bw_modify <- theme_bw()  %+replace%
 
 #theme_bw
 
-ggplot(data=df2017, aes(as.numeric(Energy))) + geom_histogram(binwidth=2.5) +
-  xlab("Energy supplied, kWh")+ylab("Frequency") + theme_bw()
+ggplot(data = df2017, aes(as.numeric(Energy))) + 
+  geom_histogram(binwidth = 2.5) +
+  xlab("Energy supplied, kWh") + 
+  ylab("Frequency") + 
+  theme_bw()
 
 #theme_economist
 
-ggplot(data=df2017, aes(as.numeric(Energy))) +geom_histogram(binwidth=2.5) +
-  xlab("Energy supplied, kWh")+ylab("Frequency")+theme_economist()
+ggplot(data = df2017, aes(as.numeric(Energy))) + 
+  geom_histogram(binwidth = 2.5) +
+  xlab("Energy supplied, kWh") + 
+  ylab("Frequency") +
+  theme_economist()
 
 #theme_minimal
 
-ggplot(data=df2017, aes(as.numeric(Energy))) +geom_histogram(binwidth=2.5) +
-  xlab("Energy supplied, kWh")+ylab("Frequency")+theme_minimal()
+ggplot(data = df2017, aes(as.numeric(Energy))) +
+  geom_histogram(binwidth = 2.5) +
+  xlab("Energy supplied, kWh") +
+  ylab("Frequency") +
+  theme_minimal()
 
 #theme_dft (Andrew Kelly)
 
-ggplot(data=df2017, aes(as.numeric(Energy))) +geom_histogram(binwidth=2.5) +
-  xlab("Energy supplied, kWh")+ylab("Frequency")+theme_dft
+ggplot(data = df2017, aes(as.numeric(Energy))) +
+  geom_histogram(binwidth = 2.5) +
+  xlab("Energy supplied, kWh") +
+  ylab("Frequency") +
+  theme_dft
 
 #theme_dft5 (with extra customised specs such as colour fill choice
 #, thousand commas on the axes labels etc used in the Chargepoint publication)
 # Filtering by pluginduration < 100 for this example.
 
-ggplot(data=df2017 %>% filter(PluginDuration < 100), aes(x = PluginDuration)) +
-  geom_histogram(binwidth=5,colour="white", fill="#006853") +
+ggplot(data = df2017 %>% filter(PluginDuration < 100), aes(x = PluginDuration)) +
+  geom_histogram(binwidth = 5, colour = "white", fill = "#006853") +
   xlab("Length of plug-in time, mins") + 
-  scale_x_continuous(limits=c(0,100),breaks=seq(0,100,10))+
-  scale_y_continuous(breaks =seq(0,8000,2000),name="",
-                     labels=c("0","2,000","4,000","6,000", "8,000"))+
-  ggtitle("Frequency")+theme_dft5
+  scale_x_continuous(limits = c(0, 100), breaks = seq(0, 100, 10)) +
+  scale_y_continuous(breaks = seq(0, 8000, 2000), name = "",
+                     labels = c("0", "2,000", "4,000", "6,000", "8,000")) +
+  ggtitle("Frequency") +
+  theme_dft5
 
 #You can then repeatedly re-use your theme as R has saved it as a new object  :-)
 
@@ -181,18 +204,20 @@ ggplot(data=df2017 %>% filter(PluginDuration < 100), aes(x = PluginDuration)) +
 #and adding a line on the x-axis
 
 theme_minimal_modify <- theme_minimal()  %+replace% 
-  theme(panel.grid.major.x=element_blank()
-        ,panel.grid.minor.x=element_blank()
-        ,axis.line.x=element_line(size=0.5,colour="black")
-        ,complete = FALSE)
+  theme(panel.grid.major.x = element_blank()
+        , panel.grid.minor.x = element_blank()
+        , axis.line.x = element_line(size = 0.5, colour = "black")
+        , complete = FALSE)
 
-ggplot(data=df2017 %>% filter(PluginDuration < 100), aes(as.numeric(PluginDuration))) +
-  geom_histogram(binwidth=5,colour="white", fill="#006853") +
+ggplot(data = df2017 %>% filter(PluginDuration < 100), aes(as.numeric(PluginDuration))) +
+  geom_histogram(binwidth = 5, colour = "white", fill = "#006853") +
   xlab("Length of plug-in time, mins") +
-  scale_x_continuous(limits=c(0,100) ,breaks=seq(0,100,10)) + 
-  scale_y_continuous(breaks =seq(0,12000,2000),name=""
-                     , labels=c("0","2,000","4,000","6,000", "8,000", "10,000", "12,000")) + 
-  ggtitle("Frequency")+theme_minimal_modify
+  scale_x_continuous(limits = c(0, 100), breaks = seq(0, 100, 10)) + 
+  scale_y_continuous(breaks = seq(0, 12000, 2000), name = ""
+                     , labels = c("0","2,000","4,000","6,000", "8,000", 
+                                  "10,000", "12,000")) + 
+  ggtitle("Frequency") +
+  theme_minimal_modify
 
 #things you won't be likely to need but should know:
 #arguments to panel refer to the multiple panels that
@@ -251,22 +276,22 @@ View(hourly.df.17)
 
 
 
-ggplot(data=hourly.df.17, aes(x=hour, y=(median_plugin))) +
-  geom_point(size=2.5,color="#006853") +
-  geom_line(lwd=1.1,color="#006853") +
+ggplot(data = hourly.df.17, aes(x = hour, y = (median_plugin))) +
+  geom_point(size = 2.5, color = "#006853") +
+  geom_line(lwd = 1.1, color = "#006853") +
   theme_dft5 + 
-  scale_x_continuous(name="Hour of plug-in start time, 24 hour clock"
-                     ,breaks=seq(0,23, 2)) + 
-  scale_y_continuous(name="",breaks=seq(0,40, 10),limits=c(0,40)) + 
+  scale_x_continuous(name = "Hour of plug-in start time, 24 hour clock"
+                     , breaks = seq(0, 23, 2)) + 
+  scale_y_continuous(name = "", breaks = seq(0, 40, 10), limits = c(0, 40)) + 
   ggtitle("Length of plug-in time, mins")
 
-ggplot(data=hourly.df.17, aes(x=hour, y=(median_charge))) +
-  geom_point(size=2.5,color="#d25f15") +
-  geom_line(lwd=1.1,color="#d25f15") +
+ggplot(data = hourly.df.17, aes(x = hour, y = (median_charge))) +
+  geom_point(size = 2.5, color = "#d25f15") +
+  geom_line(lwd = 1.1, color = "#d25f15") +
   theme_dft5 + 
-  scale_x_continuous(name="Hour of plug-in start time, 24 hour clock"
-                     ,breaks=seq(0,23, 2)) +
-  scale_y_continuous(name="",breaks=seq(0,15, 5),limits=c(0,15)) +
+  scale_x_continuous(name = "Hour of plug-in start time, 24 hour clock"
+                     , breaks = seq(0, 23, 2)) +
+  scale_y_continuous(name = "", breaks = seq(0, 15, 5), limits = c(0, 15)) +
   ggtitle("Median energy supplied, kWh")
 
 #Again, I have specified the way the tickmarks are placed, but 
@@ -284,14 +309,15 @@ View(Freq.hr17)
 
 ##and then plot this with a dft_colour of my choice...
 
-ggplot(Freq.hr17, aes(x=hour, y=n)) + 
-  geom_point(size=2.5,color="#006853") + 
-  geom_line(lwd=1.1,color="#006853") + theme_dft5 + 
-  scale_x_continuous(name="Hour of plug-in start time, 24 hour clock"
-                     ,breaks=seq(0,23, 2)) + 
-  scale_y_continuous(name="",breaks=seq(0,10000, 2000)
-                     ,limits =c(0,11000)
-                     ,labels=c("0","2,000","4,000","6,000","8,000","10,000")) + 
+ggplot(Freq.hr17, aes(x = hour, y = n)) + 
+  geom_point(size = 2.5, color = "#006853") + 
+  geom_line(lwd = 1.1, color = "#006853") + 
+  theme_dft5 + 
+  scale_x_continuous(name = "Hour of plug-in start time, 24 hour clock"
+                     , breaks = seq(0, 23, 2)) + 
+  scale_y_continuous(name = "", breaks = seq(0, 10000, 2000)
+                     , limits = c(0, 11000)
+                     , labels = c("0", "2,000", "4,000", "6,000", "8,000", "10,000")) + 
   ggtitle("Number of charging events")
 
 #It is also possible to put thousand commas on direct labels,
@@ -322,16 +348,15 @@ View(Freq.schemes17)
 
 ggplot(Freq.schemes17, aes(x = reorder(Name, n), y = n)) +
   
-  geom_bar(stat = "identity", fill="#006853")+ theme_dft5 + 
-  
+  geom_bar(stat = "identity", fill ="#006853") + 
+  theme_dft5 + 
   coord_flip() +
-  
-  geom_text(aes(label=comma(n)), hjust=-0.25, size=3.5, fontface="bold") + 
-  
-  scale_y_continuous(name="Number of charging events"
-                     ,breaks=seq(0,40000, 10000)
-                     ,labels=c("0","10,000","20,000","30,000","40,000")
-                     ,limits=c(0,40000))+xlab("")
+  geom_text(aes(label = comma(n)), hjust = -0.25, size = 3.5, fontface = "bold") + 
+  scale_y_continuous(name = "Number of charging events"
+                     , breaks = seq(0, 40000, 10000)
+                     , labels = c("0", "10,000", "20,000", "30,000", "40,000")
+                     , limits = c(0, 40000)) +
+  xlab("")
 
 
 #Once you have created your shiny lovely new
@@ -343,13 +368,15 @@ ggplot(Freq.schemes17, aes(x = reorder(Name, n), y = n)) +
 #The more dots per inch, the larger the file size though.
 
 #You can do this using ggsave function:
-plot_to_save<- ggplot(data=df2017 %>% filter(PluginDuration < 100), aes(PluginDuration)) +
-  geom_histogram(binwidth=5,colour="white", fill="#006853") +
+plot_to_save <- ggplot(data = df2017 %>% filter(PluginDuration < 100), 
+                       aes(PluginDuration)) +
+  geom_histogram(binwidth = 5, colour = "white", fill = "#006853") +
   xlab("Length of plug-in time, mins") + 
-  scale_x_continuous(limits=c(0,100),breaks=seq(0,100,10))+
-  scale_y_continuous(breaks =seq(0,8000,2000),name=""
-                     , labels=c("0","2,000","4,000","6,000", "8,000"))+
-  ggtitle("Frequency")+theme_dft5
+  scale_x_continuous(limits = c(0, 100), breaks = seq(0, 100, 10)) +
+  scale_y_continuous(breaks = seq(0, 8000, 2000), name = ""
+                     , labels = c("0", "2,000", "4,000", "6,000", "8,000")) +
+  ggtitle("Frequency") +
+  theme_dft5
 
 ggplot2::ggsave("my_pretty_plot.png", plot_to_save, width = 15, height = 9.5, units = "cm")
 
@@ -357,3 +384,4 @@ ggplot2::ggsave("my_pretty_plot.png", plot_to_save, width = 15, height = 9.5, un
 # as they do not blur like raster images (based on pixels, link png)
 # Gennerally avoid jpg or jpeg as the compression is lossy, meaning quality is lost on save
 ggplot2::ggsave("my_pretty_plot.svg", plot_to_save, width = 15, height = 9.5, units = "cm")
+

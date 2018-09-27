@@ -282,7 +282,7 @@ ggplot(mpg, aes(factor(cyl), fill = factor(drv))) +
 #-----------------------------------
 
 # Let's load some new data for median house prices
-london <- read_csv(file = "lon_median.csv")
+london <- read_csv(file = "data/lon_median.csv")
 
 # Let's do a simple line chart comparing the top and bottom boroughs
 # in 2017. We will use a simple geom_point

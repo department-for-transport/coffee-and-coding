@@ -524,17 +524,19 @@ pointsToLabel <- c("Russia", "Venezuela", "Iraq", "Myanmar", "Sudan",
               data = subset(dat, Country %in% pointsToLabel)))
 
 # Looking a little crowded. Let's use the ggrepel package to try and tidy these up
+#install.packages('ggrepel')
 library(ggrepel)
-(pc4 <- pc3 +
+pc4 <- pc3 +
     geom_text_repel(aes(label = Country),
                     color = "gray20",
                     data = subset(dat, Country %in% pointsToLabel),
-                    force = 50))
+                    force = 50)
+pc4
 
 # A little better.
 # Let's now label the axes and the chart and tidy up a bit
 library(grid)
-(pc5 <- pc4 +
+pc5 <- pc4 +
     scale_x_continuous(name = "Corruption Perceptions Index, 2011 (10=least corrupt)",
                        limits = c(.9, 10.5),
                        breaks = 1:10) +
@@ -548,10 +550,11 @@ library(grid)
                                   "#248E84",
                                   "#F2583F",
                                   "#96503F")) +
-    ggtitle("Corruption and Human development"))
+    ggtitle("Corruption and Human development")
+pc5
 
 # Nearly there, but the default theme is painful. Let's tweak the theme:
-(pc6<-pc5+
+pc6 <- pc5 +
     theme_bw() +
     theme(panel.border = element_blank(),
           panel.grid = element_blank(),
@@ -562,15 +565,18 @@ library(grid)
           legend.direction = "horizontal",
           legend.box = "horizontal",
           legend.text = element_text(size = 12),
-          plot.title = element_text(size = 16, face = "bold")))
+          plot.title = element_text(size = 16, face = "bold"))
+pc6
 
 # Nice! Now let's add the R^2 to that graph and be done.
 mR2 <- summary(lm(HDI ~ CPI + log(CPI), data = dat))$r.squared
 mR2 <- paste0(format(mR2, digits = 2), "%")
-(pc7<-pc6+
+pc7 <- pc6 +
     scale_linetype(name = "",
                   breaks = "r2",
-                  labels = list(bquote(R^2==.(mR2))),
-                  guide = guide_legend(override.aes = list(linetype = 1, size = 2, color = "red"))))
+                  labels = list(bquote(R^2 == .(mR2))),
+                  guide = guide_legend(override.aes = list(linetype = 1, size = 2, 
+                                                           color = "red")))
+pc7
 
 

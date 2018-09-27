@@ -442,6 +442,7 @@ theme_dft <- theme(
   panel.grid.major = element_blank(),
   panel.grid.minor = element_blank(),
   panel.background = element_blank(),
+  panel.border = element_blank(),
   axis.line.y = element_blank(),
   complete=TRUE) +
   theme(axis.line.x = element_line(size = 0.5, colour = "black"))

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Will Bowditch">
+  <title>Software Development Tools for Analysts using R</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="http://lab.hakim.se/reveal-js/css/reveal.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="http://lab.hakim.se/reveal-js/css/theme/black.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'http://lab.hakim.se/reveal-js/css/print/pdf.css' : 'http://lab.hakim.se/reveal-js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="http://lab.hakim.se/reveal-js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Software Development Tools for Analysts using R</h1>
+  <p class="author">Will Bowditch</p>
+</section>
+
+<section id="why-use-software-development-tools" class="slide level1">
+<h1>Why use software development tools? 🤔</h1>
+<ul>
+<li>As analysts we care about getting the right answer, so the code needs to be correct and maintainable</li>
+<li>Writing code can lead to lots of avoidable mistakes. There are a whole bunch of tools and practices from software development that can help to prevent them.</li>
+<li>The session will focus on <strong>R</strong> tools, but the same or similar tools are available in most languages</li>
+<li>We won’t cover how to use them in depth, but <em>why</em> you should use them, and where to find more information.</li>
+</ul>
+</section>
+<section id="version-control-and-collaboration" class="slide level1">
+<h1>Version Control and Collaboration 🤝</h1>
+<p>This might look familiar:</p>
+<pre><code>Analysis.R
+Analysis_v2.R
+Analysis_final.R
+Analysis_finalfinal.R</code></pre>
+<ul>
+<li>The problem becomes greater when you have multiple people working on the same file</li>
+<li>What happens if two users save two different versions at the same time?</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h2 id="git">Git</h2>
+<ul>
+<li><code>git</code> is the most popular version control system, which simply tracks how code changes over time.</li>
+<li>Code can be restored to any point in time and can be tagged
+<ul>
+<li>(e.g. this is the version of the code used for release 2018)</li>
+</ul></li>
+<li><strong>Who</strong> made the changes and <strong>why</strong> is recorded</li>
+<li>Working on the code at the same time is facilitated with ‘branches’ and ‘merges’</li>
+<li>If something breaks, <code>git</code> has a number of tools to find out where the break occurred and revert to a previous version if necessary</li>
+<li><strong><code>git</code></strong> is the client, <strong>GitHub</strong> is a repository hosting service.</li>
+</ul>
+<h4 id="resources">Resources</h4>
+<ul>
+<li><a href="https://www.atlassian.com/git/tutorials">https://www.atlassian.com/git/tutorials</a></li>
+<li><a href="http://swcarpentry.github.io/git-novice/">http://swcarpentry.github.io/git-novice/</a></li>
+<li><a href="https://git-scm.com/book/en/v1/Git-Basics">https://git-scm.com/book/en/v1/Git-Basics</a></li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p><img data-src="./img/gitflow.png" /></p>
+<ul>
+<li><strong>Master</strong> is the ‘stable’ branch of the code, the version that is used to produce the final output of a publication, for example.
+<ul>
+<li>Versions are tagged (here with version numbers), so you know which version of the code was used for a particular task.</li>
+</ul></li>
+<li><strong>Features</strong> are worked on in a separate branch and these features are integrated into a <strong>development</strong> branch (a work in progress)</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h2 id="example-git-commit-log">Example <code>git</code> commit log</h2>
+<p><img data-src="./img/example_git_graph.png" /></p>
+<p>Note that every change to the code includes, who made it, and when is recorded.</p>
+</section>
+<section class="slide level1">
+
+<h2 id="example-git-difference-log">Example <code>git</code> difference log</h2>
+<p>How the code has changed is recorded at a granular level.</p>
+<p>Here the spelling of MMSI is the only change - but complex changes are recorded in the same way</p>
+<p><img data-src="./img/example_git_diff.png" /></p>
+</section>
+<section class="slide level1">
+
+<h2 id="github">GitHub</h2>
+<ul>
+<li>GitHub advocates a particular way to work using <code>git</code>, called ‘Git Flow’.<br />
+</li>
+<li>The main addition is <strong>pull requests</strong>, which is simply a stage where others look at the changes you are proposing to introduce and can discuss them before they are merged.</li>
+<li>This is where <strong>QA</strong> should happen.</li>
+</ul>
+<p><a href="https://guides.github.com/introduction/flow/">https://guides.github.com/introduction/flow/</a></p>
+<p><img data-src="./img/git_flow.png" /></p>
+</section>
+<section id="r-packages" class="slide level1">
+<h1>R Packages 📦</h1>
+<blockquote>
+<p>In R, the fundamental unit of shareable code is the package. A package bundles together code, data, documentation, and tests, and is easy to share with others.</p>
+</blockquote>
+<p>I’m going to try and persuade you that writing packages is worth the extra effort in the long run.</p>
+<p>Everything you need to know about writing packages is here: <a href="http://r-pkgs.had.co.nz/">http://r-pkgs.had.co.nz/</a></p>
+</section>
+<section class="slide level1">
+
+<h2 id="scripts-vs.packages">Scripts vs. Packages</h2>
+<p>Most people start off writing scripts, a common convention is to do something like this:</p>
+<pre><code>01_Read_data.R
+02_Process.R
+03_Plot.R</code></pre>
+<p>This is good for quick projects, but prevents you from using a lot of the tools designed to make writing maintainable R code easy.</p>
+</section>
+<section class="slide level1">
+
+<h2 id="errors-in-r">Errors in R</h2>
+<p><strong>Q</strong>: What happens if a statement fails part way through a script?</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">mpg <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(model <span class="op">==</span><span class="st"> &#39;passat&#39;</span>) -&gt;<span class="st"> </span>mpg</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">mpg</a></code></pre></div>
+<pre><code># A tibble: 7 x 11
+  manufacturer model  displ  year   cyl trans      drv     cty   hwy fl    class  
+  &lt;chr&gt;        &lt;chr&gt;  &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  
+1 volkswagen   passat   1.8  1999     4 manual(m5) f        21    29 p     midsize
+2 volkswagen   passat   1.8  1999     4 auto(l5)   f        18    29 p     midsize
+3 volkswagen   passat   2    2008     4 auto(s6)   f        19    28 p     midsize</code></pre>
+</section>
+<section class="slide level1">
+
+<p><strong>A</strong>: <code>R</code> will print out an error and continue merrily on</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">mpg <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw">filterz</span>(model<span class="op">==</span><span class="st">&#39;passat&#39;</span>) -&gt;<span class="st"> </span>mpg</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">Error <span class="cf">in</span> <span class="kw">filterz</span>(., model <span class="op">==</span><span class="st"> &quot;passat&quot;</span>) <span class="op">:</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span>could not find <span class="cf">function</span> <span class="st">&quot;filterz&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">mpg</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co"># A tibble: 234 x 11</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">   manufacturer model      displ  year   cyl trans      drv     cty   hwy fl    class  </a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">   <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">        </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">      </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">      </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">  </span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="st"> </span><span class="dv">1</span> audi         a4           <span class="fl">1.8</span>  <span class="dv">1999</span>     <span class="dv">4</span> <span class="kw">auto</span>(l5)   f        <span class="dv">18</span>    <span class="dv">29</span> p     compact</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"> <span class="dv">2</span> audi         a4           <span class="fl">1.8</span>  <span class="dv">1999</span>     <span class="dv">4</span> <span class="kw">manual</span>(m5) f        <span class="dv">21</span>    <span class="dv">29</span> p     compact</a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"> <span class="dv">3</span> audi         a4           <span class="dv">2</span>    <span class="dv">2008</span>     <span class="dv">4</span> <span class="kw">manual</span>(m6) f        <span class="dv">20</span>    <span class="dv">31</span> p     compact</a></code></pre></div>
+<p>This is obvious if you run the code line-by-line, but not if you have a large script and run the whole thing (as is often the case).</p>
+</section>
+<section class="slide level1">
+
+<h2 id="solution-packages-of-functions">Solution: Packages of Functions</h2>
+<p>Write packages of <strong>functions</strong> - a function that fails will always stop the execution.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">only_passats &lt;-<span class="st"> </span><span class="cf">function</span>(data_in){</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">  data_in <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">    </span><span class="kw">filterz</span>(model<span class="op">==</span><span class="st">&#39;passat&#39;</span>)</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6">run_all &lt;-<span class="st"> </span><span class="cf">function</span>(){</a>
+<a class="sourceLine" id="cb8-7" data-line-number="7">  <span class="kw">data</span>(mpg)</a>
+<a class="sourceLine" id="cb8-8" data-line-number="8">  </a>
+<a class="sourceLine" id="cb8-9" data-line-number="9">  mpg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">only_passats</span>()</a>
+<a class="sourceLine" id="cb8-10" data-line-number="10">}</a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="kw">run_all</span>()</a></code></pre></div>
+<pre><code> Error in filterz(., model == &quot;passat&quot;) : 
+  could not find function &quot;filterz&quot; </code></pre>
+</section>
+<section class="slide level1">
+
+<h2 id="modular-code">Modular code</h2>
+<p>Scripts can get long and unruly quickly. If well commented you can find which sections do what, but a script that is 100s of lines long is never going to be easy to read.</p>
+<p>For example, if you want to change part of a graph produced somewhere in the script - you’re going to have to scan through a lot of text.</p>
+<p><img data-src="./img/script.png" /></p>
+</section>
+<section class="slide level1">
+
+<p><img data-src="./img/functions.png" /></p>
+<p>Instead, here we know <code>view_recent_divs()</code> is the main function of the package, and it’s obvious that the plotting is handled in the <code>plot_vote_counts()</code> function.</p>
+</section>
+<section class="slide level1">
+
+<p>There’s also a shortcut to jump between functions in R-Studio</p>
+<p><img data-src="./img/function_jump.gif" /></p>
+</section>
+<section class="slide level1">
+
+<p>Functions also encourage you to generalise the problem using parameters. Writing generalised functions is usually good as you are more likely to be able to use them again.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># Script with hard coded value</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">recent_divisions <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="st">  </span><span class="kw">head</span>(<span class="dv">6</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="st">  </span>.<span class="op">$</span>id -&gt;<span class="st"> </span>most_recent_division</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co"># Can become a function with a default value that can be changed</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">details_on_recent_divisions &lt;-<span class="st"> </span><span class="cf">function</span>(data_in, <span class="dt">how_many =</span> <span class="dv">6</span>){</a>
+<a class="sourceLine" id="cb10-8" data-line-number="8">  data_in <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="st">    </span><span class="kw">head</span>(how_many) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="st">    </span>.<span class="op">$</span>id -&gt;<span class="st"> </span>most_recent_division</a>
+<a class="sourceLine" id="cb10-11" data-line-number="11">}</a></code></pre></div>
+</section>
+<section class="slide level1">
+
+<h2 id="function-documentation">Function documentation</h2>
+<p>R has a framework for documenting functions and managing exports: <code>roxygen2</code>.</p>
+<p><img data-src="./img/roxygen.gif" /></p>
+</section>
+<section class="slide level1">
+
+<p>On build this becomes part of the documentation.</p>
+<p>So running <code>?details_on_recent_divisions</code> brings up:</p>
+<p><img data-src="./img/roxygen_docs.png" /></p>
+</section>
+<section class="slide level1">
+
+<h2 id="package-metadata">Package metadata</h2>
+<ul>
+<li>Packages have a <code>DESCRIPTION</code> file, that contains information for the package.
+<ul>
+<li>Who maintains it, what packages are needed for it to work (<code>Imports:</code>)</li>
+<li>This is mostly required for publishing packages on CRAN, but can be useful anyway. <a href="http://r-pkgs.had.co.nz/description.html">http://r-pkgs.had.co.nz/description.html</a></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="fu">Package:</span><span class="at"> recentGovDivs</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="fu">Type:</span><span class="at"> Package</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="fu">Title:</span><span class="at"> What the Package Does (Title Case)</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="fu">Version:</span><span class="at"> 0.1.0</span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="fu">Author:</span><span class="at"> Who wrote it</span></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="fu">Maintainer:</span><span class="at"> The package maintainer &lt;yourself@somewhere.net&gt;</span></a>
+<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="fu">Description:</span><span class="at"> More about what it does (maybe more than one line)</span></a>
+<a class="sourceLine" id="cb11-8" data-line-number="8">    Use four spaces when indenting paragraphs within the Description.</a>
+<a class="sourceLine" id="cb11-9" data-line-number="9"><span class="fu">License:</span><span class="at"> What license is it under?</span></a>
+<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="fu">Encoding:</span><span class="at"> UTF-8</span></a>
+<a class="sourceLine" id="cb11-11" data-line-number="11"><span class="fu">LazyData:</span><span class="at"> true</span></a>
+<a class="sourceLine" id="cb11-12" data-line-number="12"><span class="fu">RoxygenNote:</span><span class="at"> 6.1.0</span></a>
+<a class="sourceLine" id="cb11-13" data-line-number="13"><span class="fu">Imports:</span></a>
+<a class="sourceLine" id="cb11-14" data-line-number="14">    ggvis (&gt;= 0.2),</a>
+<a class="sourceLine" id="cb11-15" data-line-number="15">    dplyr (&gt;= 0.3.0.1)</a></code></pre></div>
+<ul>
+<li><p>Documentation on how to use a package should take the form of a Vignette: http://r-pkgs.had.co.nz/vignettes.html</p>
+<ul>
+<li>Vignettes are just markdown documents that go through the use of a package.</li>
+<li>This way the instructions are part of the package</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h2 id="explicit-function-calls">Explicit function calls</h2>
+<p>This is a good idea in your scripts too.</p>
+<ul>
+<li>One of the problems with R is that package imports are not explicit (unlike, <code>python</code> for example)</li>
+<li>When you issue <code>require(dplyr)</code> all of the functions from <code>dplyr</code> are brought into the ‘namespace’</li>
+<li>What happens if you have two packages with the same function name? Which one will R choose?</li>
+<li><a href="https://peytonmccullough.com/post/resolving-name-conflicts-in-r/">It depends on the order of your <code>require</code> statements</a>, but the real solution is to use explicit function calls.</li>
+</ul>
+<p>Instead of using <code>require()</code> or <code>library()</code> use explicit function calls:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">iris <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">summarise</span>(<span class="dt">mean_sep_length =</span> base<span class="op">::</span><span class="kw">mean</span>(Sepal.Length))</a></code></pre></div>
+<p>This is very verbose, but does mean you will always be calling the correct function.</p>
+</section>
+<section class="slide level1">
+
+<h2 id="packrat-saving-package-versions-with">Packrat: Saving package versions with</h2>
+<ul>
+<li>Another problem is keeping the exact packages you used to produce a piece of analysis.</li>
+<li>For a analysis to be reproducible, you need to make sure the environment remains the same</li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">packrat<span class="op">::</span><span class="kw">init</span>()  <span class="co"># Start using packrat for a project.</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co"># Anything installed from this point forward will be monitored by packrat</span></a></code></pre></div>
+<p>Check on status of packrat:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">packrat<span class="op">::</span><span class="kw">status</span>()</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">The following packages are tracked by packrat, but are no longer available <span class="cf">in</span> the local library nor present <span class="cf">in</span> your code<span class="op">:</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="st">              </span>_      </a>
+<a class="sourceLine" id="cb14-5" data-line-number="5">    pushoverr   <span class="dv">0</span>.<span class="fl">1.3</span></a></code></pre></div>
+<p>You can save all the versions you’ve used by:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">packrat<span class="op">::</span><span class="kw">bundle</span>() <span class="co"># Create a sharable .tar.gz</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">packrat<span class="op">::</span><span class="kw">snapshot</span>() <span class="co"># Save the current state of the library (but without the .tar.gz)</span></a></code></pre></div>
+<h3 id="resource">Resource</h3>
+<p><a href="http://rstudio.github.io/packrat/">http://rstudio.github.io/packrat/</a></p>
+</section>
+<section id="tests-style-automation" class="slide level1">
+<h1>Tests, style, &amp; automation 🤖</h1>
+<ul>
+<li>Going to go through some tools that help you write good code, test the code, and automate the whole process.</li>
+<li>If packages are used, implementing these tools is very straightforward.</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h2 id="the-lintr-package">The lintR package</h2>
+<blockquote>
+<p>Good coding style is like using correct punctuation. You can manage without it, but it sure makes things easier to read. <a href="http://r-pkgs.had.co.nz/style.html">http://r-pkgs.had.co.nz/style.html</a></p>
+</blockquote>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co"># Good</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">average &lt;-<span class="st"> </span><span class="kw">mean</span>(feet <span class="op">/</span><span class="st"> </span><span class="dv">12</span> <span class="op">+</span><span class="st"> </span>inches, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co"># Bad</span></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5">average&lt;-<span class="kw">mean</span>(feet<span class="op">/</span><span class="dv">12</span><span class="op">+</span>inches,<span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<ul>
+<li>It’s hard to keep these in mind when writing code. The more you follow them, the better you’ll get at using them from the start.</li>
+<li>The <code>lintR</code> package checks scripts and packages for style errors and (some) actual code errors, like bad imports.</li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">lintr<span class="op">::</span><span class="kw">lint</span>(<span class="st">&#39;filename.R&#39;</span>)</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">lintr<span class="op">::</span><span class="kw">lint_package</span>()</a></code></pre></div>
+</section>
+<section class="slide level1">
+
+<h2 id="unit-tests-testthat">Unit tests: <code>testthat</code></h2>
+<p>One of the best ways to make sure your code does what you think it does it to write tests.</p>
+<p>Tests are typically separated into <strong>unit tests</strong> and <strong>integration tests</strong>.</p>
+<ul>
+<li>Unit tests - check individual sections of code</li>
+<li>Integration tests - check that different units of code work together</li>
+</ul>
+<p>Here’s a simple unit test:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">context</span>(<span class="st">&quot;String length&quot;</span>)</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="kw">library</span>(stringr)</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="kw">test_that</span>(<span class="st">&quot;str_length is number of characters&quot;</span>, {</a>
+<a class="sourceLine" id="cb18-5" data-line-number="5">  <span class="kw">expect_equal</span>(<span class="kw">str_length</span>(<span class="st">&quot;a&quot;</span>), <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb18-6" data-line-number="6">  <span class="kw">expect_equal</span>(<span class="kw">str_length</span>(<span class="st">&quot;ab&quot;</span>), <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb18-7" data-line-number="7">  <span class="kw">expect_equal</span>(<span class="kw">str_length</span>(<span class="st">&quot;abc&quot;</span>), <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb18-8" data-line-number="8">})</a></code></pre></div>
+<p>An example integration test might take some raw data and check the final output matches a known output (like last years figures).</p>
+</section>
+<section class="slide level1">
+
+<h2 id="code-coverage-covr">Code Coverage: <code>covr</code></h2>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">covr<span class="op">::</span><span class="kw">report</span>()</a></code></pre></div>
+<p><img data-src="./img/covr.png" /></p>
+<ul>
+<li>Reports how much of your code is checked by tests.</li>
+<li>Not everything will need a check, but a good number to aim for is &gt;75%.</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h2 id="the-goodpractice-package">The <code>goodpractice</code> package</h2>
+<ul>
+<li>This only works on packages, but automatically checks for a lot of common mistakes and encourages good practices (lintR and covR are run as part of this)</li>
+</ul>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span>goodpractice<span class="op">::</span><span class="kw">gp</span>()</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">It is good practice to</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">  ✖ write unit tests <span class="cf">for</span> all functions, and all package code <span class="cf">in</span> general. <span class="dv">0</span>% of code lines are covered by test cases.</a>
+<a class="sourceLine" id="cb20-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb20-5" data-line-number="5">    R<span class="op">/</span>recent_divisions.R<span class="op">:</span><span class="dv">2</span><span class="op">:</span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb20-6" data-line-number="6">    R<span class="op">/</span>recent_divisions.R<span class="op">:</span><span class="dv">4</span><span class="op">:</span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb20-7" data-line-number="7">    R<span class="op">/</span>recent_divisions.R<span class="op">:</span><span class="dv">5</span><span class="op">:</span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb20-8" data-line-number="8">    R<span class="op">/</span>recent_divisions.R<span class="op">:</span><span class="dv">6</span><span class="op">:</span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb20-9" data-line-number="9">    R<span class="op">/</span>recent_divisions.R<span class="op">:</span><span class="dv">7</span><span class="op">:</span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb20-10" data-line-number="10">    ... and <span class="dv">25</span> more lines</a>
+<a class="sourceLine" id="cb20-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb20-12" data-line-number="12">  ✖ add a <span class="st">&quot;URL&quot;</span> field to DESCRIPTION. It helps users find information about your package online.</a>
+<a class="sourceLine" id="cb20-13" data-line-number="13">    If your package does not have a homepage, add an URL to GitHub, or the CRAN package package page.</a>
+<a class="sourceLine" id="cb20-14" data-line-number="14">  ✖ add a <span class="st">&quot;BugReports&quot;</span> field to DESCRIPTION, and point it to a bug tracker. Many online code hosting services provide bug trackers <span class="cf">for</span> free, https<span class="op">:</span><span class="er">//</span>github.com, https<span class="op">:</span><span class="er">//</span>gitlab.com, etc.</a>
+<a class="sourceLine" id="cb20-15" data-line-number="15">  ✖ fix this R CMD check ERROR<span class="op">:</span><span class="st"> </span>Namespace dependency not required<span class="op">:</span><span class="st"> </span>‘magrittr’ See section ‘The</a>
+<a class="sourceLine" id="cb20-16" data-line-number="16">    DESCRIPTION file’ <span class="cf">in</span> the ‘Writing R Extensions’ manual.</a></code></pre></div>
+</section>
+<section class="slide level1">
+
+<h2 id="continuous-integration-and-development">Continuous Integration and Development</h2>
+<ul>
+<li>All of the above steps should be run on any code that is changed before it is merged into the ‘master version’</li>
+<li>This can be quite time consuming:
+<ul>
+<li>get the code ➡️ load up R ➡️ run test tests ➡️ see if they pass ➡️ repeat as needed 🔁</li>
+</ul></li>
+<li>CI/CD tools aim to do this for you and most of them plugin to to GitHub.
+<ul>
+<li>For example, you can <a href="https://help.github.com/articles/about-protected-branches/">setup rules</a>, that all tests must pass before code can be added into the master version.</li>
+</ul></li>
+<li>You can also use them to check if your package will work with new versions of packages and R</li>
+<li>Travis is free for open source projects: <a href="https://docs.travis-ci.com/user/languages/r/">https://docs.travis-ci.com/user/languages/r/</a></li>
+</ul>
+<p><img data-src="./img/travis.png" /></p>
+</section>
+<section class="slide level1">
+
+<h2 id="thats-it">That’s it 😀</h2>
+<p>Any questions?</p>
+<p>Content of these slides available at:</p>
+<p><a href="https://github.com/departmentfortransport/coffee-and-coding">https://github.com/departmentfortransport/coffee-and-coding</a></p>
+</section>
+    </div>
+  </div>
+
+  <script src="http://lab.hakim.se/reveal-js/lib/js/head.min.js"></script>
+  <script src="http://lab.hakim.se/reveal-js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1600,
+        height: 1200,
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'http://lab.hakim.se/reveal-js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'http://lab.hakim.se/reveal-js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'http://lab.hakim.se/reveal-js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>

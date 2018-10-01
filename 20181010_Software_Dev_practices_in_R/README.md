@@ -74,7 +74,7 @@ Note that every change to the code, who made it, and when is recorded. Any of th
 
 ## Example `git` difference log
 
-How the code has changed is recorded at a ganular level. 
+How the code has changed is recorded at a granular level. 
 
 Here the spelling of MMSI is the only change - but complex changes are recorded in the same way
 
@@ -126,7 +126,7 @@ This is good for quick projects, but prevents you from using a lot of the tools 
 
 ```r
 mpg %>%
-  filter(model=='passat') -> mpg
+  filter(model == 'passat') -> mpg
 
 mpg
 ```
@@ -193,7 +193,7 @@ run_all()
 
 ## Modular code
 
-Scripts can get long and unrully quickly. If well commented you can find which sections do what, but a script that is 100s of lines long is never going to be easy to read. 
+Scripts can get long and unruly quickly. If well commented you can find which sections do what, but a script that is 100s of lines long is never going to be easy to read. 
 
 For example, if you want to change part of a graph produced somewhere in the script - you're going to have to scan through a lot of text.
 
@@ -251,7 +251,7 @@ So running ` ?details_on_recent_divisions` brings up:
 
 ## Package metadata
 
-- Packages have a `DESCRIPTION` files, that contains information for the package. 
+- Packages have a `DESCRIPTION` file, that contains information for the package. 
   - Who maintains it, what packages are needed for it to work (`Imports:`)
   - This is mostly required for publishing packages on CRAN, but can be useful anyway. [http://r-pkgs.had.co.nz/description.html](http://r-pkgs.had.co.nz/description.html) 
 

@@ -1,6 +1,7 @@
 #Sue Wallace
 #09.09.2018
 
+
 #Creating a report on the olympics using R markdown
 install.packages("DT")
 #load libraries----
@@ -45,12 +46,12 @@ olympics_2008 %>%
 #We can make a chart from this too
 
 ggplot(data = medals, aes(x = reorder(region, -Percentage), y = Percentage, 
-                          label = (round(Percentage,1))))+ 
+                          label = (round(Percentage,1)))) + 
   geom_col(position = "dodge", fill="lightgoldenrod1") +
-  geom_text(position = position_dodge(width = .9), vjust=-0.5)+
+  geom_text(position = position_dodge(width = .9), vjust=-0.5) +
   theme_classic() +
-  ggtitle("Nation which won the most medals in the 2008 Beijing Olympics")+
-  xlab("Nation")+
+  ggtitle("Nation which won the most medals in the 2008 Beijing Olympics") +
+  xlab("Nation") +
   ylab("Proportion") -> country
 
 
@@ -60,24 +61,24 @@ ggplot(data = medals, aes(x = reorder(region, -Percentage), y = Percentage,
 #1. Which gender collected more medals, male or female?
 
 olympics_2008 %>%
-  filter(region=="USA") %>%
+  filter(region == "USA") %>%
   group_by(Gender) %>%
   summarise(count=n()) -> usa_gender
 
 
 ggplot(data = usa_gender, aes(x = reorder(Gender, -count), y = count, 
-                          label = count,1))+ 
+                          label = count,1)) + 
   geom_col(position = "dodge", fill="lightgoldenrod1") +
-  geom_text(position = position_dodge(width = .9), vjust=-0.5)+
+  geom_text(position = position_dodge(width = .9), vjust=-0.5) +
   theme_classic() +
-  ggtitle("Split of medals between men and women")+
-  xlab("Nation")+
+  ggtitle("Split of medals between men and women") +
+  xlab("Nation") +
   ylab("Count of medals") -> gender
 
 #2. In which event was the most medals won?
 
 olympics_2008 %>%
-  filter (region=="USA") %>%
+  filter (region == "USA") %>%
   group_by(Discipline) %>%
   summarise(count=n()) %>%
   mutate(Percentage=count/sum(count)*100) %>%
@@ -85,12 +86,12 @@ olympics_2008 %>%
 
 ggplot(data = discipline, aes(x = reorder(Discipline, -Percentage), 
                               y = Percentage, 
-                          label = (round(Percentage,1))))+ 
+                          label = (round(Percentage,1)))) + 
   geom_col(position = "dodge", fill="lightgoldenrod1") +
-  geom_text(position = position_dodge(width = .9), vjust=-0.5)+
+  geom_text(position = position_dodge(width = .9), vjust=-0.5) +
   theme_classic() +
-  ggtitle("Which dicipline brought home the most medals for the USA")+
-  xlab("Discipline")+
+  ggtitle("Which dicipline brought home the most medals for the USA") +
+  xlab("Discipline") +
   ylab("Proportion") -> discipline_chart
 
 

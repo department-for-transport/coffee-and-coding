@@ -120,7 +120,7 @@ This is good for quick projects, but prevents you from using a lot of the tools 
 
 ---
 
-## Pkgs 1: Errors in R
+## Errors in R
 
 **Q**: What happens if a statement fails part way through a script?
 

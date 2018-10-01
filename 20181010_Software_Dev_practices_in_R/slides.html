@@ -104,7 +104,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1>Why use software development tools? 🤔</h1>
 <ul>
 <li>As analysts we care about getting the right answer, so the code needs to be correct and maintainable</li>
-<li>Writing code can lead to lots of avoidable mistakes. There are a whole bunch of tools and practises from software development that can help us avoid mistakes</li>
+<li>Writing code can lead to lots of avoidable mistakes. There are a whole bunch of tools and practices from software development that can help to prevent them.</li>
 <li>The session will focus on <strong>R</strong> tools, but the same or similar tools are available in most languages</li>
 <li>We won’t cover how to use them in depth, but <em>why</em> you should use them, and where to find more information.</li>
 </ul>
@@ -132,7 +132,7 @@ Analysis_finalfinal.R</code></pre>
 </ul></li>
 <li><strong>Who</strong> made the changes and <strong>why</strong> is recorded</li>
 <li>Working on the code at the same time is facilitated with ‘branches’ and ‘merges’</li>
-<li>If something breaks, <code>git</code> has a number of tools to find out where the break occurred</li>
+<li>If something breaks, <code>git</code> has a number of tools to find out where the break occurred and revert to a previous version if necessary</li>
 <li><strong><code>git</code></strong> is the client, <strong>GitHub</strong> is a repository hosting service.</li>
 </ul>
 <h4 id="resources">Resources</h4>
@@ -146,23 +146,23 @@ Analysis_finalfinal.R</code></pre>
 
 <p><img data-src="./img/gitflow.png" /></p>
 <ul>
-<li><strong>Master</strong> is a version of the code that is ‘stable’, the version that is used to produce the final output of a publication, for example.
+<li><strong>Master</strong> is the ‘stable’ branch of the code, the version that is used to produce the final output of a publication, for example.
 <ul>
 <li>Versions are tagged (here with version numbers), so you know which version of the code was used for a particular task.</li>
 </ul></li>
-<li><strong>Features</strong> are worked on as a separate branch and these features are integrated into a <strong>development</strong> branch (a work in progress)</li>
+<li><strong>Features</strong> are worked on in a separate branch and these features are integrated into a <strong>development</strong> branch (a work in progress)</li>
 </ul>
 </section>
 <section class="slide level1">
 
 <h2 id="example-git-commit-log">Example <code>git</code> commit log</h2>
 <p><img data-src="./img/example_git_graph.png" /></p>
-<p>Note that every change to the code, who made it, and when is recorded. Any of these snapshots of code could be tagged with a meaningful label, like ‘this is the version of the code used for publication x’.</p>
+<p>Note that every change to the code includes, who made it, and when is recorded.</p>
 </section>
 <section class="slide level1">
 
 <h2 id="example-git-difference-log">Example <code>git</code> difference log</h2>
-<p>How the code has changed is recorded at a ganular level.</p>
+<p>How the code has changed is recorded at a granular level.</p>
 <p>Here the spelling of MMSI is the only change - but complex changes are recorded in the same way</p>
 <p><img data-src="./img/example_git_diff.png" /></p>
 </section>
@@ -183,7 +183,7 @@ Analysis_finalfinal.R</code></pre>
 <blockquote>
 <p>In R, the fundamental unit of shareable code is the package. A package bundles together code, data, documentation, and tests, and is easy to share with others.</p>
 </blockquote>
-<p>I’m going to try and pursuade you that writing packages is worth the extra effort in the long run.</p>
+<p>I’m going to try and persuade you that writing packages is worth the extra effort in the long run.</p>
 <p>Everything you need to know about writing packages is here: <a href="http://r-pkgs.had.co.nz/">http://r-pkgs.had.co.nz/</a></p>
 </section>
 <section class="slide level1">
@@ -197,10 +197,10 @@ Analysis_finalfinal.R</code></pre>
 </section>
 <section class="slide level1">
 
-<h2 id="pkgs-1-errors-in-r">Pkgs 1: Errors in R</h2>
+<h2 id="errors-in-r">Errors in R</h2>
 <p><strong>Q</strong>: What happens if a statement fails part way through a script?</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">mpg <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(model<span class="op">==</span><span class="st">&#39;passat&#39;</span>) -&gt;<span class="st"> </span>mpg</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(model <span class="op">==</span><span class="st"> &#39;passat&#39;</span>) -&gt;<span class="st"> </span>mpg</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4">mpg</a></code></pre></div>
 <pre><code># A tibble: 7 x 11
@@ -248,7 +248,7 @@ Analysis_finalfinal.R</code></pre>
 <section class="slide level1">
 
 <h2 id="modular-code">Modular code</h2>
-<p>Scripts can get long and unrully quickly. If well commented you can find which sections do what, but a script that is 100s of lines long is never going to be easy to read.</p>
+<p>Scripts can get long and unruly quickly. If well commented you can find which sections do what, but a script that is 100s of lines long is never going to be easy to read.</p>
 <p>For example, if you want to change part of a graph produced somewhere in the script - you’re going to have to scan through a lot of text.</p>
 <p><img data-src="./img/script.png" /></p>
 </section>
@@ -293,7 +293,7 @@ Analysis_finalfinal.R</code></pre>
 
 <h2 id="package-metadata">Package metadata</h2>
 <ul>
-<li>Packages have a <code>DESCRIPTION</code> files, that contains information for the package.
+<li>Packages have a <code>DESCRIPTION</code> file, that contains information for the package.
 <ul>
 <li>Who maintains it, what packages are needed for it to work (<code>Imports:</code>)</li>
 <li>This is mostly required for publishing packages on CRAN, but can be useful anyway. <a href="http://r-pkgs.had.co.nz/description.html">http://r-pkgs.had.co.nz/description.html</a></li>
@@ -417,7 +417,7 @@ Analysis_finalfinal.R</code></pre>
 </section>
 <section class="slide level1">
 
-<h2 id="the-good-practise-package">The good practise package</h2>
+<h2 id="the-goodpractice-package">The <code>goodpractice</code> package</h2>
 <ul>
 <li>This only works on packages, but automatically checks for a lot of common mistakes and encourages good practices (lintR and covR are run as part of this)</li>
 </ul>
@@ -440,7 +440,7 @@ Analysis_finalfinal.R</code></pre>
 </section>
 <section class="slide level1">
 
-<h2 id="cicd">CI/CD</h2>
+<h2 id="continuous-integration-and-development">Continuous Integration and Development</h2>
 <ul>
 <li>All of the above steps should be run on any code that is changed before it is merged into the ‘master version’</li>
 <li>This can be quite time consuming:

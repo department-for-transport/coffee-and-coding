@@ -13,7 +13,7 @@ height: 1200
 
 ---
 
-# Version Control and Collaboration
+# Version Control and Collaboration 🤝
 
 This might look familiar:
 ```
@@ -52,7 +52,7 @@ Analysis_finalfinal.R
 
 
 
-![](./img/gitflow.svg)
+![](./img/gitflow.png)
 
 
 
@@ -84,7 +84,9 @@ Here the spelling of MMSI is the only change - but complex changes are recorded 
 
 ## GitHub
 
-GitHub advocates a particular way to work using `git`, called 'Git Flow'.  The main addition is **pull requests**, which is simply a stage where others look at the changes you are proposing to introduce and can discuss them before they are merged. This is where **QA** should happen.  
+- GitHub advocates a particular way to work using `git`, called 'Git Flow'.  
+- The main addition is **pull requests**, which is simply a stage where others look at the changes you are proposing to introduce and can discuss them before they are merged. 
+- This is where **QA** should happen.  
 
 [https://guides.github.com/introduction/flow/](https://guides.github.com/introduction/flow/) 
 
@@ -94,13 +96,12 @@ GitHub advocates a particular way to work using `git`, called 'Git Flow'.  The m
 
 ---
 
-# R Packages
+# R Packages 📦
 
 >In R, the fundamental unit of shareable code is the package. A package bundles together code, data, documentation, and tests, and is easy to share with others.
 
 I'm going to try and pursuade you that writing packages is worth the extra effort in the long run.
 
-### Resources
 Everything you need to know about writing packages is here: 
 [http://r-pkgs.had.co.nz/](http://r-pkgs.had.co.nz/)
 
@@ -279,9 +280,7 @@ Imports:
 
 ---
 
-
-
-## Explicit function calls 
+## Explicit function calls
 
 This is a good idea in your scripts too. 
 
@@ -338,9 +337,18 @@ packrat::snapshot() # Save the current state of the library (but without the .ta
 
 
 
+# Tests, style, & automation 🤖
+
+- Going to go through some tools that help you write good code, test the code, and automate the whole process. 
+- If packages are used, implementing these tools is very straightforward. 
+
+---
+
+
+
 ## The lintR package
 
-> Good coding style is like using correct punctuation. You can manage without it, but it sure makes things easier to read. http://r-pkgs.had.co.nz/style.html
+> Good coding style is like using correct punctuation. You can manage without it, but it sure makes things easier to read. [http://r-pkgs.had.co.nz/style.html](http://r-pkgs.had.co.nz/style.html)
 
 ```r
 # Good
@@ -396,9 +404,8 @@ covr::report()
 
 ![](./img/covr.png)
 
-Reports how much of your code is checked by tests. 
-
-Not everything will need a check, but a good number to aim for is >75%. 
+- Reports how much of your code is checked by tests. 
+- Not everything will need a check, but a good number to aim for is >75%. 
 
 ---
 
@@ -439,7 +446,7 @@ It is good practice to
 
 - All of the above steps should be run on any code that is changed before it is merged into the 'master version'
 - This can be quite time consuming:
-  - download the code > load up R > run test tests > see if they pass > repeat as needed
+  - get the code ➡️ load up R ➡️ run test tests ➡️ see if they pass ➡️ repeat as needed 🔁
 - CI/CD tools aim to do this for you and most of them plugin to to GitHub. 
   - For example, you can [setup rules](https://help.github.com/articles/about-protected-branches/), that all tests must pass before code can be added into the master version. 
 - You can also use them to check if your package will work with new versions of packages and R
@@ -452,3 +459,7 @@ It is good practice to
 ## That's it 😀
 
 Any questions? 
+
+Content of these slides available at:
+
+ [https://github.com/departmentfortransport/coffee-and-coding](https://github.com/departmentfortransport/coffee-and-coding)

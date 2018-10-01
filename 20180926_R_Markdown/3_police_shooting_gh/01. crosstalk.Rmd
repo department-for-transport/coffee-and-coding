@@ -20,6 +20,8 @@ library(RColorBrewer)
 library(readr)
 library(ggplot2)
 library(DT)
+library(DT)
+library(flexdashboard)
 
 # Load data----
 
@@ -77,7 +79,7 @@ sd %>%
                    )) %>%
   addLegend("bottomleft", pal = pal, values = ~Race,
             title = "Race of victim",
-            labFormat = labelFormat(prefix = "$"),
+            labFormat = labelFormat(prefix = ""),
             opacity = 1
   ) -> map
 

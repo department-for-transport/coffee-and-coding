@@ -7,7 +7,7 @@ height: 1200
 # Why use software development tools? 🤔
 
 - As analysts we care about getting the right answer, so the code needs to be correct and maintainable
-- Writing code can lead to lots of avoidable mistakes. There are a whole bunch of tools and practises from software development that can help us avoid mistakes
+- Writing code can lead to lots of avoidable mistakes. There are a whole bunch of tools and practices from software development that can help to prevent them.
 - The session will focus on **R** tools, but the same or similar tools are available in most languages
 - We won't cover how to use them in depth, but _why_ you should use them, and where to find more information.
 
@@ -35,7 +35,7 @@ Analysis_finalfinal.R
   - (e.g. this is the version of the code used for release 2018)
 - **Who** made the changes and **why** is recorded
 - Working on the code at the same time is facilitated with 'branches' and 'merges'
-- If something breaks, `git` has a number of tools to find out where the break occurred
+- If something breaks, `git` has a number of tools to find out where the break occurred and revert to a previous version if necessary
 - **`git`** is the client, **GitHub** is a repository hosting service. 
 
 
@@ -56,9 +56,9 @@ Analysis_finalfinal.R
 
 
 
-- **Master** is a version of the code that is 'stable', the version that is used to produce the final output of a publication, for example. 
+- **Master** is the 'stable' branch of the code, the version that is used to produce the final output of a publication, for example. 
   - Versions are tagged (here with version numbers), so you know which version of the code was used for a particular task.
-- **Features** are worked on as a separate branch and these features are integrated into a **development** branch (a work in progress)
+- **Features** are worked on in a separate branch and these features are integrated into a **development** branch (a work in progress)
 
 
 
@@ -68,7 +68,7 @@ Analysis_finalfinal.R
 
 ![](./img/example_git_graph.png)
 
-Note that every change to the code, who made it, and when is recorded. Any of these snapshots of code could be tagged with a meaningful label, like 'this is the version of the code used for publication x'. 
+Note that every change to the code includes, who made it, and when is recorded. 
 
 ---
 
@@ -100,7 +100,7 @@ Here the spelling of MMSI is the only change - but complex changes are recorded 
 
 >In R, the fundamental unit of shareable code is the package. A package bundles together code, data, documentation, and tests, and is easy to share with others.
 
-I'm going to try and pursuade you that writing packages is worth the extra effort in the long run.
+I'm going to try and persuade you that writing packages is worth the extra effort in the long run.
 
 Everything you need to know about writing packages is here: 
 [http://r-pkgs.had.co.nz/](http://r-pkgs.had.co.nz/)
@@ -413,7 +413,7 @@ covr::report()
 
 
 
-## The good practise package
+## The `goodpractice` package
 
 - This only works on packages, but automatically checks for a lot of common mistakes and encourages good practices (lintR and covR are run as part of this)
 
@@ -442,7 +442,7 @@ It is good practice to
 
 
 
-## CI/CD
+## Continuous Integration and Development
 
 - All of the above steps should be run on any code that is changed before it is merged into the 'master version'
 - This can be quite time consuming:

@@ -4,10 +4,17 @@ author: Will Bowditch
 width: 1600
 height: 1200
 ---
-# Why use software development tools? 🤔
+# Why use development tools? 
+
+![](https://imgs.xkcd.com/comics/data_pipeline_2x.png)
+
+---
+
+
 
 - As analysts we care about getting the right answer, so the code needs to be correct and maintainable
 - Writing code can lead to lots of avoidable mistakes. There are a whole bunch of tools and practices from software development that can help to prevent them.
+
 - The session will focus on **R** tools, but the same or similar tools are available in most languages
 - We won't cover how to use them in depth, but _why_ you should use them, and where to find more information.
 
@@ -273,7 +280,7 @@ Imports:
     dplyr (>= 0.3.0.1)
 ```
 
-- Documentation on how to use a package should take the form of a Vignette: http://r-pkgs.had.co.nz/vignettes.html 
+- Documentation on how to use a package should take the form of a Vignette: [http://r-pkgs.had.co.nz/vignettes.html](http://r-pkgs.had.co.nz/vignettes.html ) 
 
   - Vignettes are just markdown documents that go through the use of a package. 
   - This way the instructions are part of the package

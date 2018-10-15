@@ -3,7 +3,7 @@
 #### *Isi Avbulimen*
 #### *2018-10-10*
 
-This folder contains materials for the Coffee & Coding session delivered by Isi Avbulimen on 10th October 2018 on how to produce choropleth maps in R which you can customise in (almost!) anyway that you want.
+This folder contains materials for the Coffee & Coding session on how to produce choropleth maps in R which you can customise in (almost!) anyway that you want.
 
 
 ## Packages

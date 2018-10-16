@@ -149,7 +149,7 @@ mpg
 
 ---
 
-**A**: `R` will print out an error and continue merrily on
+**A**: In some (interactive) situations, `R` will print out an error and continue merrily on.
 
 ```r
 mpg %>%

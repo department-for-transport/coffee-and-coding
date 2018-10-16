@@ -104,10 +104,10 @@ map + theme(panel.background = element_blank(), # get rid of grey background
         axis.ticks = element_blank()) # get rid of the tick marks
 ```
 
-There are many elements we can use within the theme function. If there are standard things we want in all of our maps, we can create a function so that we don't need to call of these elements each time. We'll base this function on the built-in `theme_minimal()`:
+There are many elements we can use within the theme function. If there are standard things we want in all of our maps, we can create our own theme so that we don't need to call of these elements each time. We'll base this function on the built-in `theme_minimal()`:
 
 ```{r, message=FALSE}
-theme_map <- function() {
+theme_map <- 
   theme_minimal() +
     theme(
       text = element_text(family = "sans"), # Arial font
@@ -121,13 +121,14 @@ theme_map <- function() {
       legend.background = element_blank(),
       panel.border = element_blank()
     )
-}
+
+
 ```
 
 So now we can plot the map using out new theme:
 
 ```{r, eval=TRUE}
-map + theme_map()
+map + theme_map
 ```
 
 # Customise your breaks
@@ -169,11 +170,17 @@ equal_breaks <- classIntervals(dummy$Percentage, n=5, style = "equal")
 equal_breaks$brks
 ```
 
-We can have a closer look distribution of the variable by plotting a quick histogram of the variable then use `abline()` in different colours to see the breaks we've defined.
+We can have a closer look distribution of the variable by plotting a quick histogram of the variable then use `geom_vline()` in different colours to see the breaks we've defined.
 ```{r, eval=TRUE}
-hist(dummy$Percentage)
-abline(v=jenks_breaks$brks, col="blue")
-abline(v=equal_breaks$brks, col="red")
+vlines <- data.frame(
+  jenks = jenks_breaks$brks,
+  equal = equal_breaks$brks
+) %>% tidyr::gather("method", "brks", jenks:equal)
+
+ggplot(dummy, aes(x=Percentage))+
+  geom_histogram(stat = "bin", binwidth = 10)+
+  geom_vline(data=vlines, aes(xintercept=brks, color=method))+
+  theme_bw()
 ```
 
 Here we can see how much data falls into each interval and this may help us to make a better decision.

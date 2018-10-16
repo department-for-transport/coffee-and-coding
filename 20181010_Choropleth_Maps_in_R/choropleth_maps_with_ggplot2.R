@@ -88,7 +88,7 @@ ggplot() +
 # there are many elements we can use within the theme function
 # so that we don't have to call them each time we produce a map, we can create a function
 # this one is based on the built in theme_minimal()
-theme_map <- function() {
+theme_map <- 
   theme_minimal() +
     theme(
       text = element_text(family = "sans"), # Arial font
@@ -102,14 +102,13 @@ theme_map <- function() {
       legend.background = element_blank(),
       panel.border = element_blank()
     )
-}
 
 ggplot() + 
   geom_polygon(data = map_data, 
                aes(x = long, y = lat, group = group, fill = Percentage), 
                col = "black") +
   coord_equal()+
-  theme_map()
+  theme_map
 
 # Step 5 - customise breaks #-----------------------------------
 
@@ -148,11 +147,17 @@ equal_breaks <- classIntervals(dummy$Percentage, n=5, style = "equal")
 #check out the breaks which you have created
 equal_breaks$brks
 
-# Have a closer look distribution of the variable and the breaks you have defined using abline
+# Have a closer look distribution of the variable and the breaks you have defined using geom_vline
 # this way you can see how much data is falling into each interval for each method
-hist(dummy$Percentage)
-abline(v=jenks_breaks$brks, col="blue")
-abline(v=equal_breaks$brks, col="red")
+vlines <- data.frame(
+  jenks = jenks_breaks$brks,
+  equal = equal_breaks$brks
+) %>% tidyr::gather("method", "brks", jenks:equal)
+
+ggplot(dummy, aes(x=Percentage))+
+  geom_histogram(stat = "bin", binwidth = 10)+
+  geom_vline(data=vlines, aes(xintercept=brks, color=method))+
+  theme_bw()
 
 # We're going to go ahead and use "jenks" breaks for our map within the `cut()` rather than `cut_number()`:
 ggplot() + 

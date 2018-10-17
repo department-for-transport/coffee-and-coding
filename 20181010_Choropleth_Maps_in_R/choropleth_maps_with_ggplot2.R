@@ -123,7 +123,7 @@ ggplot() +
                aes(x = long, y = lat, group = group, fill = cut_number(Percentage, 5)), 
                col = "black") +
   coord_equal()+
-  theme_map()
+  theme_map
 
 # we can select our breaks using the classIntervals() function from the classInt package
 
@@ -167,7 +167,7 @@ ggplot() +
                               include.lowest = TRUE)), 
                col = "black") +
   coord_equal()+
-  theme_map()
+  theme_map
 
 # Step 6 - Customise category labels #---------------------------------------------------------------
 
@@ -189,7 +189,7 @@ ggplot() +
                               labels = labels, include.lowest = TRUE)), 
                col = "black") +
   coord_equal()+
-  theme_map()
+  theme_map
 
 #theme(legend.title = element_blank())
 
@@ -221,7 +221,7 @@ ggplot() +
                               labels = labels, include.lowest = TRUE)), 
                col = "black") +
   coord_equal()+
-  theme_map()+
+  theme_map+
   scale_fill_brewer(palette = "Greens", name = "Percentage")
 
 
@@ -243,7 +243,7 @@ ggplot() +
                               labels = labels, include.lowest = TRUE)), 
                col = "black") +
   coord_equal()+
-  theme_map()+
+  theme_map+
   viridis::scale_fill_viridis(option = "magma", discrete = TRUE, name = "Percentage")
 
 
@@ -264,7 +264,7 @@ ggplot() +
                               labels = labels, include.lowest = TRUE)), 
                col = "black") +
   coord_equal()+
-  theme_map()+
+  theme_map+
   scale_fill_manual(values = dft_colours, name = "Percentage")
 
 
@@ -280,7 +280,7 @@ ggplot() +
                               labels = labels, include.lowest = TRUE)), 
                col = "black") +
   coord_equal()+
-  theme_map()+
+  theme_map+
   scale_fill_manual(values = dft_colours, name = "Percentage")+
   labs(x = NULL, 
        y = NULL, 
@@ -297,7 +297,7 @@ ggplot() +
                               labels = labels, include.lowest = TRUE)), 
                col = "black") +
   coord_equal()+
-  theme_map()+
+  theme_map+
   scale_fill_manual(values = dft_colours, name = "Percentage")+
   labs(x = NULL, 
        y = NULL, 
@@ -321,7 +321,7 @@ ggplot() +
                               labels = labels, include.lowest = TRUE)), 
                col = "black") +
   coord_equal()+
-  theme_map()+
+  theme_map+
   scale_fill_manual(values = dft_colours, name = "Percentage",
                     guide = guide_legend(keyheight = unit(4, units = "mm"),
                                          keywidth = unit(8, units = "mm")))+
@@ -345,7 +345,7 @@ ggplot() +
                               labels = labels, include.lowest = TRUE)), 
                col = "black") +
   coord_equal()+
-  theme_map()+
+  theme_map+
   scale_fill_manual(values = dft_colours, name = "Percentage",
                     guide = guide_legend(direction = "horizontal"))+
   labs(x = NULL, 
@@ -369,7 +369,7 @@ dft_map <- ggplot() +
                               labels = labels, include.lowest = TRUE)), 
                col = "black") +
   coord_equal()+
-  theme_map()+
+  theme_map+
   scale_fill_manual(values = dft_colours, name = "Percentage",
                     guide = guide_legend(keyheight = unit(4, units = "mm"),
                                          keywidth = unit(8, units = "mm")))+

@@ -1,0 +1,496 @@
+---
+title: "(Almost) Fully Customisable Choropleth Maps"
+author: "Isi Avbulimen"
+date: "10 September 2018"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 1
+    toc_float: true
+    number_sections: true
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This document will demonstrate how to produce choropleth maps in R that can be customised in (almost) any way that you want. We'll be mainly be using the ggplot2 package and as well as a few others.
+
+
+# Packages
+
+First we want to load in the packages we'll be using. `readr` and `dplyr` are for reading and manipulating data. `rgdal` is to read in our shapefiles, `ggplot2` to plot. We can use `classInt` to define intervals in our data and add colours to our map using `RcolorBrewer` or `viridis`.
+
+```{r, message=FALSE, warning=FALSE}
+library(readr) # for reading and writing CSV files
+library(dplyr) # for working with data
+library(broom) #summarising data into a tibble
+library(rgdal) # Reprojects data between co-ordinate systems (e.g. lat/long to BNG)
+library(classInt) # defines intervals for data sets
+library(ggplot2) # for plotting the map
+library(RColorBrewer) # defines colour palettes
+library(viridis) # more colour palettes
+
+```
+
+# Load in Shapefiles and Data
+
+We are going to be plotting England local authority data so will be using the corresponding shapefiles. We'll load them using the `rgdal` package. Notice we don't include the file extension:
+
+```{r, eval=TRUE}
+LAs <- rgdal::readOGR("Shapefiles","England_LAUA_2016") 
+```
+
+This loads in as a large spatial polygons data frame. We can use `plot()` to see what it looks like:
+```{r, eval=TRUE}
+plot(LAs)
+```
+
+Next we'll load in the data we'll be plotting. This is just some dummy data I created:
+```{r, eval=TRUE, message=FALSE}
+dummy <- read_csv("Data/LA_dummy_data.csv")
+
+head(dummy)
+```
+
+Now in order to plot the shapefile using ggplot2, we need to convert it from a spatial polygons data frame into a ggplot2-compatible data frame
+```{r, eval=TRUE,message=FALSE}
+tidy_LAs <- broom::tidy(LAs, region = "LAD16CD")
+
+head(tidy_LAs)
+```
+
+The region argument is the variable we are using to split up the areas. Here it is "LAD16CD" which is the Local Authority code. This is turned into an id variable.
+
+Now we will join our data with the converted shapefile so that we can plot it:
+```{r, message=FALSE}
+map_data <- tidy_LAs %>% 
+  left_join(dummy, by = c("id" = "LA_Code"))
+
+head(map_data)
+```
+
+# Plot the map
+
+Using `geom_polygon`, we'll plot the latitude against the longitude and then colour the map by the "Percentage" variable:
+
+```{r, eval=TRUE}
+map <- ggplot() + 
+  geom_polygon(data = map_data, 
+               aes(x = long, y = lat, group = group, fill = Percentage), 
+               col = "black")
+map
+```
+
+Since we're plotting a polygon with multiple rows of data, we need to overide the default 'group' and map it to a variable that has a different value for each group. In this case, when we converted our shapefile, a 'group' variable was created.
+
+Great, we have a map! We don't even need to define a colour scale as it's using the ggplot2 default continuous colour sclae. 
+
+It looks a bit distorted though. We can fix this by using `coord_equal()` to force a 1:1 aspect ratio
+```{r, eval=TRUE}
+map <- map + coord_equal()
+
+map
+```
+
+Okay, we have a good aspect ratio now, but we have a horrible grey background and axes that we don't really want. We can use the `theme()` function to set these things to blank:
+
+```{r, eval=TRUE}
+map + theme(panel.background = element_blank(), # get rid of grey background
+        axis.line = element_blank(), # get rid of axes lines
+        axis.title = element_blank(), # get rid of axes labels
+        axis.text = element_blank(), # get rid of the axes text
+        axis.ticks = element_blank()) # get rid of the tick marks
+```
+
+There are many elements we can use within the theme function. If there are standard things we want in all of our maps, we can create our own theme so that we don't need to call of these elements each time. We'll base this function on the built-in `theme_minimal()`:
+
+```{r, message=FALSE}
+theme_map <- 
+  theme_minimal() +
+    theme(
+      text = element_text(family = "sans"), # Arial font
+      axis.line = element_blank(),
+      axis.text = element_blank(),
+      axis.ticks = element_blank(),
+      axis.title = element_blank(),
+      panel.grid = element_blank(),
+      plot.background = element_blank(), 
+      panel.background = element_blank(), 
+      legend.background = element_blank(),
+      panel.border = element_blank()
+    )
+
+
+```
+
+So now we can plot the map using out new theme:
+
+```{r, eval=TRUE}
+map + theme_map
+```
+
+# Customise your breaks
+
+So now we have a good looking map. However the continuous scale isn't very clear.
+
+We can split the scale up to into discrete categories using the `cut_number()` function. This splits a numeric vector into intervals containing equal number of points. The first argument is the variable we are 'cutting' and the next argument is the number of intervals we want.
+
+```{r, eval=TRUE}
+ggplot() + 
+  geom_polygon(data = map_data, 
+               aes(x = long, y = lat, group = group, fill = cut_number(Percentage, 5)), 
+               col = "black") +
+  coord_equal()+
+  theme_map
+```
+
+Our colours now change to the default dicrete colour scale but we will look at how to change these a bit later.
+
+If you want an even bigger of choice of breaks or you want to make your own, we can use `classIntervals()` function from the classInt package. This gives us commonly used methods for choosing univariate class intervals for mapping or other graphics purposes. 
+
+The different methods available are: "fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", or "jenks". We can use `?classIntervals` to get a full description of the different methods.
+
+Here we are going to use 'jenks' breaks. This is a data clustering method designed to determine the best arrangement of values into different classes by reducing the variance within classes and maximising the variance between classes. It's been checked for consistency with ArcView and ArcGIS.
+
+```{r, message=FALSE}
+jenks_breaks <- classIntervals(dummy$Percentage, n=5, style = "jenks")
+```
+
+We can check our breaks like so:
+```{r, eval=TRUE}
+jenks_breaks$brks 
+```
+
+If you're not sure whether the breaks you have created are right for your data, you can compare interval methods to one another. For example, let's have a look at "equal" breaks:
+
+```{r, eval=TRUE}
+equal_breaks <- classIntervals(dummy$Percentage, n=5, style = "equal")
+equal_breaks$brks
+```
+
+We can have a closer look distribution of the variable by plotting a quick histogram of the variable then use `geom_vline()` in different colours to see the breaks we've defined.
+```{r, eval=TRUE}
+vlines <- data.frame(
+  jenks = jenks_breaks$brks,
+  equal = equal_breaks$brks
+) %>% tidyr::gather("method", "brks", jenks:equal)
+
+ggplot(dummy, aes(x=Percentage))+
+  geom_histogram(stat = "bin", binwidth = 10)+
+  geom_vline(data=vlines, aes(xintercept=brks, color=method))+
+  theme_bw()
+```
+
+Here we can see how much data falls into each interval and this may help us to make a better decision.
+
+We're going to go ahead and use "jenks" breaks for our map within the `cut()` rather than `cut_number()`:
+```{r, eval=TRUE}
+ggplot() + 
+  geom_polygon(data = map_data, 
+               aes(x = long, y = lat, group = group, 
+                   fill = cut(x = Percentage, n = 5, breaks = jenks_breaks$brks, 
+                              include.lowest = TRUE)), 
+               col = "black") +
+  coord_equal()+
+  theme_map+
+  theme(legend.title = element_blank()) #adding this to temporarily get rid of the legend title
+```
+
+
+
+# Customise the labels
+
+Here we're going to define custom labels for our categories in the 'a to b' format. 
+
+```{r, message=FALSE}
+labels <- jenks_breaks$brks %>%
+  round(0) %>%
+  paste0(" to ", lead(.),"%") %>%
+  head(-1)
+
+labels
+```
+
+Here we are taking each of the breaks, rounding them to the nearest whole number and concatenating with "to" and the next break, then removing the last label.
+
+
+Now we can call our labels in the labels argument within `cut()`:
+
+```{r, eval=TRUE}
+ggplot() + 
+  geom_polygon(data = map_data, 
+               aes(x = long, y = lat, group = group, 
+                   fill = cut(x = Percentage, n = 5, breaks = jenks_breaks$brks,
+                              labels = labels, include.lowest = TRUE)), 
+               col = "black") +
+  coord_equal()+
+  theme_map+
+  theme(legend.title = element_blank())
+```
+
+# Add Colour
+
+We'll go through 2 different packages you can use to add colour to maps.
+
+## RColorBrewer
+
+This package contains colour palettes to visualise your data. 3 categories of palettes: 
+
+* qualitative palettes - different hues to visualise differences between classes
+
+* sequential palettes - progress from light to dark (good for interval data)
+
+* Diverging palettes are composed of darker colors of contrasting hues on the high and low extremes and lighter colors in the middle
+
+
+More information at: http://moderndata.plot.ly/create-colorful-graphs-in-r-with-rcolorbrewer-and-plotly/
+
+To see all available palettes:
+```{r, eval=TRUE}
+display.brewer.all()
+```
+
+And to return information about palettes including whether suitable for those colourblind:
+```{r, eval=TRUE}
+brewer.pal.info
+```
+
+We'll use the function `scale_fill_brewer()` to call the palette. We can now also give the legend a suitable title. 
+
+```{r, eval=TRUE}
+ggplot() + 
+  geom_polygon(data = map_data, 
+               aes(x = long, y = lat, group = group, 
+                   fill = cut(x = Percentage, n = 5, breaks = jenks_breaks$brks,
+                              labels = labels, include.lowest = TRUE)), 
+               col = "black") +
+  coord_equal()+
+  theme_map+
+  scale_fill_brewer(palette = "Greens", name = "Percentage")
+```
+
+## viridis
+
+This package brings to R, color scales created by Stéfan van der Walt and Nathaniel Smith for the Python matplotlib library. 
+We can use the colour scales in this package to make plots that are "pretty, better represent your data, easier to read by those with colorblindness, and print well in grey scale".
+
+More information here: https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html  
+
+Here we'll use the function `scale_fill_viridis()` to call the palette:
+
+```{r, eval=TRUE}
+ggplot() + 
+  geom_polygon(data = map_data, 
+               aes(x = long, y = lat, group = group, 
+                   fill = cut(x = Percentage, n = 5, breaks = jenks_breaks$brks,
+                              labels = labels, include.lowest = TRUE)), 
+               col = "black") +
+  coord_equal()+
+  theme_map+
+  scale_fill_viridis(option = "magma", discrete = TRUE, name = "Percentage")
+```
+
+But maybe you don't want to use one of these lovely pre-defined palettes and you want to define the colours yourself.
+You can do this using `scale_fill_manual()` and define the colours as your values:
+
+```{r, eval=TRUE}
+dft_colours <- c("#006853", #dark green
+                 "#66a498", # green
+                 "#d25f15", #orange
+                 "#e49f73", #light orange
+                 "#c99212") #yellow
+
+
+ggplot() + 
+  geom_polygon(data = map_data, 
+               aes(x = long, y = lat, group = group, 
+                   fill = cut(x = Percentage, n = 5, breaks = jenks_breaks$brks,
+                              labels = labels, include.lowest = TRUE)), 
+               col = "black") +
+  coord_equal()+
+  theme_map+
+  scale_fill_manual(values = dft_colours, name = "Percentage")
+
+
+```
+
+# Customise even further....
+
+There are a bunch of other things we can do to customise our map even further.
+
+We can add a title and caption:
+
+```{r, eval=TRUE}
+ggplot() + 
+  geom_polygon(data = map_data, 
+               aes(x = long, y = lat, group = group, 
+                   fill = cut(x = Percentage, n = 5, breaks = jenks_breaks$brks,
+                              labels = labels, include.lowest = TRUE)), 
+               col = "black") +
+  coord_equal()+
+  theme_map+
+  scale_fill_manual(values = dft_colours, name = "Percentage")+
+  labs(x = NULL, 
+       y = NULL, 
+       title = "Local Authorities in England", 
+       subtitle = "2016 - 2017", 
+       caption = "Department for Transport")
+```
+
+We can add to the theme to change the style of text:
+
+```{r, eval=TRUE}
+
+ggplot() + 
+  geom_polygon(data = map_data, 
+               aes(x = long, y = lat, group = group, 
+                   fill = cut(x = Percentage, n = 5, breaks = jenks_breaks$brks,
+                              labels = labels, include.lowest = TRUE)), 
+               col = "black") +
+  coord_equal()+
+  theme_map+
+  scale_fill_manual(values = dft_colours, name = "Percentage")+
+  labs(x = NULL, 
+       y = NULL, 
+       title = "Local Authorities in England", 
+       subtitle = "2016 - 2017", 
+       caption = "Department for Transport")+
+  theme(plot.title = element_text(hjust = 0.5, size = 18, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5, size = 15, face = "italic"),
+        plot.caption = element_text(size = 11),
+        legend.title = element_text(size = 11),
+        legend.text = element_text(size = 11))
+```
+
+We can do various things to the legend.
+
+
+We can change the width and height of the legend categories:
+
+```{r, eval=TRUE}
+ggplot() + 
+  geom_polygon(data = map_data, 
+               aes(x = long, y = lat, group = group, 
+                   fill = cut(x = Percentage, n = 5, breaks = jenks_breaks$brks,
+                              labels = labels, include.lowest = TRUE)), 
+               col = "black") +
+  coord_equal()+
+  theme_map+
+  scale_fill_manual(values = dft_colours, name = "Percentage",
+                    guide = guide_legend(keyheight = unit(4, units = "mm"),
+                                         keywidth = unit(8, units = "mm")))+
+  labs(x = NULL, 
+       y = NULL, 
+       title = "Local Authorities in England", 
+       subtitle = "2016 - 2017", 
+       caption = "Department for Transport")+
+  theme(plot.title = element_text(hjust = 0.5, size = 18, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5, size = 15, face = "italic"),
+        plot.caption = element_text(size = 11),
+        legend.title = element_text(size = 11),
+        legend.text = element_text(size = 11))
+```
+
+
+
+
+We can make it horizontal and put it at the bottom:
+
+```{r, eval=TRUE}
+ggplot() + 
+  geom_polygon(data = map_data, 
+               aes(x = long, y = lat, group = group, 
+                   fill = cut(x = Percentage, n = 5, breaks = jenks_breaks$brks,
+                              labels = labels, include.lowest = TRUE)), 
+               col = "black") +
+  coord_equal()+
+  theme_map+
+  scale_fill_manual(values = dft_colours, name = "Percentage",
+                    guide = guide_legend(direction = "horizontal"))+
+  labs(x = NULL, 
+       y = NULL, 
+       title = "Local Authorities in England", 
+       subtitle = "2016 - 2017", 
+       caption = "Department for Transport")+
+  theme(plot.title = element_text(hjust = 0.5, size = 18, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5, size = 15, face = "italic"),
+        plot.caption = element_text(size = 11),
+        legend.title = element_text(size = 11),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom")
+  
+```
+
+
+We can change the position of the legend more precisely using coordinates within the theme:
+```{r, eval=TRUE}
+map2 <- ggplot() + 
+  geom_polygon(data = map_data, 
+               aes(x = long, y = lat, group = group, 
+                   fill = cut(x = Percentage, n = 5, breaks = jenks_breaks$brks,
+                              labels = labels, include.lowest = TRUE)), 
+               col = "black") +
+  coord_equal()+
+  theme_map+
+  scale_fill_manual(values = dft_colours, name = "Percentage",
+                    guide = guide_legend(keyheight = unit(4, units = "mm"),
+                                         keywidth = unit(8, units = "mm")))+
+  labs(x = NULL, 
+       y = NULL, 
+       title = "Local Authorities in England", 
+       subtitle = "2016 - 2017", 
+       caption = "Department for Transport")+
+  theme(plot.title = element_text(hjust = 0.5, size = 18, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5, size = 15, face = "italic"),
+        plot.caption = element_text(size = 11),
+        legend.title = element_text(size = 11),
+        legend.text = element_text(size = 11),
+        legend.position = c(0.2,0.5))
+
+map2
+```
+
+We can label the local authorities...
+
+First summarise the data to get mean latitude and mean longitude for each LA
+```{r, eval=TRUE}
+
+LA_labels <- map_data %>% 
+  group_by(Local_Authority) %>% 
+  summarise_at(vars(long, lat), mean)
+
+head(LA_labels)
+```
+
+Then we'll add the labels using `geom_text()`
+```{r, eval=TRUE}
+map2 + geom_text(data=LA_labels, aes(long, lat, label = Local_Authority), size=3, fontface="bold")
+
+```
+
+With 326 local authorities, plotting them all at once isn't a great idea. Instead we can choose a subset of LA labels to plot:
+
+```{r, eval=TRUE}
+LA_labels_selected <- LA_labels %>% 
+  filter(Local_Authority %in% c("Manchester", "Shropshire", "York", "County Durham"))
+
+map2 + geom_text(data=LA_labels_selected, aes(long, lat, label = Local_Authority), size=3, fontface="bold")
+
+```
+
+Still not very clear. Let's make them into actual labels instead:
+```{r, eval=TRUE}
+
+map2 + geom_label(data=LA_labels_selected, aes(long, lat, label = Local_Authority), size=3, fontface="bold")
+
+```
+
+The labels cover up the area on the map so lets make them more transparent with alpha:
+```{r}
+# can change the transparency
+map2 +
+  geom_label(data=LA_labels_selected, aes(long, lat, label = Local_Authority), alpha= 0.7, size=2, fontface="bold")
+```
+

@@ -1,9 +1,8 @@
----
-title: FSA Trade Data Visualisation Shiny App
-author: Louis Tsiattalou
-width: 1600
-height: 1200
----
+# FSA Trade Data Visualisation Shiny App
+
+#### Louis Tsiattalou
+
+#### 2018-10-03
 
 Please see the links below for the app itself and the GitHub repo
 

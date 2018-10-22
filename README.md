@@ -22,7 +22,8 @@ The aim of the Coffee & Coding meetups is to nurture, enable and encourage a vib
 
 Date | Time | Room | Title | Presenter | Abstract
 ---------------|-----|----|----------|---------------------|--------------------------------
-Wed 24 Oct 2018|11:00|3/23|||
+Wed 7 Oct 2018|12:30|5L|APIs|Luke Vincent|
+Wed 31 Oct 2018|13:00|H6|R to SQL with DBI |Tamsin Forbes|Connecting to SQL, materials adapted from a session by Cathy Atkinson from BEIS 
 Thu 18 Oct 2018|11:00|3/23|Software Development Tools for Analysts using R|Will Bowditch|An overview of tools that help you write robust and maintainable R code
 Wed 10 Oct 2018|12:30|5L|(Almost) Fully Customisable Choropleth Maps in R|Isi Avbulimen|Demo on how to produce choropleth maps in R that be customised in (almost) any way you want
 Wed 03 Oct 2018|12:00|H3|Interactive Trade Data Visualisation|Louis Tsiattalou|How I saved the Food Standards Agency hundreds of work-hours with a Shiny App for HMRC’s Trade Statistics

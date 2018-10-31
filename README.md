@@ -23,8 +23,8 @@ The aim of the Coffee & Coding meetups is to nurture, enable and encourage a vib
 |Date| Time | Room | Title | Presenter | Abstract|
 |:--------------|:----|:---|:---------|:--------------------|:-------------------------------|
 |Wed 5 Dec 2018 | 11:00 | 2/26,27 | Think People Dashboard | Sara Smith & Lizzie Baggott | Sara & Lizzie will take us through their development journey of creating DfT’s first organisation wide Shiny App|
-|Wed 28 Nov 2018 | 12:30 | 5L |  |  |  |
-|Wed 21 Nov 2018 | 11:00 | H1 | Crosstalk | Matthew Dray (GDS)| Shiny-like without Shiny |
+|Wed 28 Nov 2018 | 12:30 | 5L | Crosstalk  | Matthew Dray (GDS)| Shiny-like without Shiny |
+|Wed 21 Nov 2018 | 11:00 | H1 |  | |  |
 |Wed 14 Nov 2018 | 12:30 | 5L | R to SQL with DBI | Tamsin Forbes | Connecting to SQL, materials adapted from a session by Cathy Atkinson from BEIS |
 |Wed 7 Nov 2018|12:30|5L| Developing a Statistics API |Luke Vincent + Nico Kronberg|We are developing a Statistics API service to make data easier to access. Starting with Search and Rescue data then moving on to Road Accidents| and Road Traffic we are creating an API service to make accessing and using this data fast, simple and easy!
 |Wed 31 Oct 2018|13:00|H6| Coding Surgery                                   |                                    | Bring along your laptop and a coding problem and we collectively try and fix it |

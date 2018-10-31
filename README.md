@@ -20,8 +20,8 @@ The aim of the Coffee & Coding meetups is to nurture, enable and encourage a vib
 
 ### Coffee & Coding Schedule
 
-|Date       | Time | Room | Title | Presenter | Abstract|
-|---------------|-----|----|----------|---------------------|--------------------------------|
+|Date| Time | Room | Title | Presenter | Abstract|
+|:--------------|:----|:---|:---------|:--------------------|:-------------------------------|
 |Wed 5 Dec 2018 | 11:00 | 2/26,27 | Think People Dashboard | Sara Smith & Lizzie Baggott | Our first DfT-wide Shiny App – the  Think People Dashboard|
 |Wed 28 Nov 2018 | 12:30 | 5L |  |  |  |
 |Wed 21 Nov 2018 | 11:00 | H1 |  |  |  |

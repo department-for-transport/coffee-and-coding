@@ -22,7 +22,7 @@ The aim of the Coffee & Coding meetups is to nurture, enable and encourage a vib
 
 |Date| Time | Room | Title | Presenter | Abstract|
 |:--------------|:----|:---|:---------|:--------------------|:-------------------------------|
-|Wed 5 Dec 2018 | 11:00 | 2/26,27 | Think People Dashboard | Sara Smith & Lizzie Baggott | Our first DfT-wide Shiny App – the  Think People Dashboard|
+|Wed 5 Dec 2018 | 11:00 | 2/26,27 | Think People Dashboard | Sara Smith & Lizzie Baggott | Sara & Lizzie will take us through their development journey of creating DfT’s first organisation wide Shiny App|
 |Wed 28 Nov 2018 | 12:30 | 5L |  |  |  |
 |Wed 21 Nov 2018 | 11:00 | H1 |  |  |  |
 |Wed 14 Nov 2018 | 12:30 | 5L | R to SQL with DBI | Tamsin Forbes | Connecting to SQL, materials adapted from a session by Cathy Atkinson from BEIS |

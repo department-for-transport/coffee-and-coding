@@ -12,6 +12,8 @@ Watch the stream here: Link will be updated before the event
 
 The video will also be available for some time after the presentation.  
 
+__Please note that the live stream link must be treated as a government document and should not be shared with unauthorised persons.__ Anyone attending the event who does not want to feature on the stream should let the host know. 
+
 # What is Coffee & Coding?
 
 The aim of the Coffee & Coding meetups is to nurture, enable and encourage a vibrant, supportive and inclusive coding community at DfT. Coffee & Coding provides a regular opportunity for people within DfT who are interested in coding to share skills and knowledge, provide advice and guidance to each other and generally network and get to know each other. 
@@ -24,6 +26,10 @@ See <https://github.com/departmentfortransport/coffee-and-coding> for past talks
 
 If you'd like to present get in touch at: coffee.coding@dft.gov.uk 
 
-# Disclaimer
+Happy coding!
 
-Please note that the live stream link must be treated as a government document and should not be shared with unauthorised persons. Anyone attending the event who does not want to feature on the stream should let the host know. 
+DfT Coffee & Coding </br>
+Great Minster House </br>
+33 Horseferry Road, London, SW1P 4DR
+
+

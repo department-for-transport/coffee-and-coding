@@ -28,10 +28,13 @@ If you'd like to present get in touch at: coffee.coding@dft.gov.uk
 
 Happy coding!
 
+</br>
 <img src="images/DfT.png" width="300" align="left">
+</br>
 
 __DfT Coffee & Coding </br>
 Great Minster House </br>
 33 Horseferry Road, London, SW1P 4DR__
+
 
 

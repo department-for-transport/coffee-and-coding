@@ -1,6 +1,6 @@
 ### Coffee and Coding: Connecting R to SQL
 
-The main files are
+The main files are:
 <br>
 <br>
 **Connecting_R_to_SQL.Rmd** 
@@ -11,10 +11,9 @@ The main files are
 The first can be viewed by opening on GitHub, but the second is too large.
 <br>
 <br>
-They can be downloaded individually via these links
+They can be downloaded individually via these links:
 <br>
 <br>
 [Connecting_R_to_SQL.Rmd download](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/blob/sql_r/20181114_Connecting_R_to_SQL/Connecting_R_to_SQL.Rmd)
-<br>
 <br>
 [Connecting_R_to_SQL.html download](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/blob/sql_r/20181114_Connecting_R_to_SQL/Connecting_R_to_SQL.html)

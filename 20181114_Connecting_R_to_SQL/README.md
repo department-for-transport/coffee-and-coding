@@ -20,4 +20,5 @@ They can be downloaded individually via these links:
 <br>
 <br>
 Or download the whole folder via this link
+<br>
 [20181114_Connecting_R_to_SQL download](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/tree/sql_r/20181114_Connecting_R_to_SQL)

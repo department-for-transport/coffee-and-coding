@@ -26,7 +26,7 @@ sticker(subplot = imgpath
         , u_y = 0.08
         , u_color = "#006853" #url text colour
         , u_family = "Aller_It"
-        , u_size = 1.5
+        , u_size = 2
         , filename = "images/c&c_dft_hex_symbol.png")
 
 #DfT colours used in publications

@@ -8,17 +8,19 @@ The main files are:
 **Connecting_R_to_SQL.html**
 <br>
 <br>
-The first can be viewed by opening on GitHub, but the second is too large.
+The first is the Rmarkdown script I used to create the presentation and can be viewed by opening on GitHub. However, you will only be able to run this code if you have access to the server and database specified.
+
+The second, html, is the rendered presentation that can be read through. Unfortunately it is too large to view directly through GitHub.
 <br>
 <br>
-They can be downloaded individually via these links:
+Both files can be downloaded individually via these links:
 <br>
 <br>
-[Connecting_R_to_SQL.Rmd download](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/blob/sql_r/20181114_Connecting_R_to_SQL/Connecting_R_to_SQL.Rmd)
+[Connecting_R_to_SQL.Rmd download](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/blob/master/20181114_Connecting_R_to_SQL/Connecting_R_to_SQL.Rmd)
 <br>
-[Connecting_R_to_SQL.html download](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/blob/sql_r/20181114_Connecting_R_to_SQL/Connecting_R_to_SQL.html)
+[Connecting_R_to_SQL.html download](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/blob/master/20181114_Connecting_R_to_SQL/Connecting_R_to_SQL.html)
 <br>
 <br>
 Or download the whole folder via this link
 <br>
-[20181114_Connecting_R_to_SQL download](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/tree/sql_r/20181114_Connecting_R_to_SQL)
+[20181114_Connecting_R_to_SQL download](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/tree/master/20181114_Connecting_R_to_SQL)

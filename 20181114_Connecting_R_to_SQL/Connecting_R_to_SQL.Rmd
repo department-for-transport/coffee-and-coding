@@ -22,11 +22,9 @@ library(tidyverse)
 R is great for exploring, analysing and visualising data in hundreds of different 
 ways.  
 
-SQL databases are ideal for storing data as they are structured, efficient and 
-can handle large amounts of data.
+SQL databases are ideal for storing data as they are structured, efficient and can handle large amounts of data.
 
-A good workflow is to have your data stored in an SQL database and then use R to 
-analyse it.
+A good workflow is to have your data stored in an SQL database and then use R to analyse it.
 
 
 The aim of this session is to demonstrate:  
@@ -39,20 +37,15 @@ The aim of this session is to demonstrate:
 
 ### The data
 
-This demo is based on the **RCS_TestArea** database as it was set up as an 
-experimentation area by me when I was in the Road Congestion team, so I know
-there is nothing sensitive in there, and I still have read/write access.
+This demo is based on the **TS_Training** database which is on the **TS01** server. This database has been set up as an experimentation area, so no sensitive data should be stored here, only data that is publically available. Everyone in Transport Statistics should have read/write access.
 
-This database sits on the **TS02** server, which some of you will have access
-to, but not all. 
 
-![](images/sql_popup.png)
+![](images/sql_ts01.png)
 
 <br>
-The database is called **RCS_TestArea** and contains a public table I have 
-put there recently for the purposes of this talk. 
+The database is called **TS_Training** and contains a public table I have put there recently for the purposes of this talk. 
 <br>
-![](images/sql_database.png)
+![](images/sql_ts_training.png)
 
 **pcd_sample** is a 1% sample of the ONS postcode lookup table that can be found on their geoportal here, all ~160MB of it.
 
@@ -60,8 +53,7 @@ https://ons.maps.arcgis.com/home/item.html?id=ef72efd6adf64b11a2228f7b3e95deea
 
 <br>
 
-We are going to focus today on matching a data set that contains postcodes to 
-the postcode lookup to add other geographies.
+We are going to focus today on matching a data set that contains postcodes to the postcode lookup to add other geographies.
 
 ### The DBI and odbc packages
 
@@ -73,9 +65,7 @@ library(odbc)
 
 ```
 
-The `DBI` package defines an interface for communication between R and relational 
-database management systems (not just SQL but I'm using this as an example as 
-most of the data we have is stored in SQL).
+The `DBI` package defines an interface for communication between R and relational database management systems (not just SQL but I'm using this as an example as most of the data we have is stored in SQL).
 
 We also need the `odbc` package as that provides the driver for SQL databases.
 
@@ -88,8 +78,7 @@ I had previously always used the `RODBC` package to connect to databases.  Reaso
 
 2. I found the `DBI`/`odbc` solution much quicker for writing out to SQL
 
-3. You can use `dbplyr` when your data is too big to work with in memomry with
-`dplyr`, or if you are not familiar with SQL.
+3. You can use `dbplyr` when your data is too big to work with in memory with `dplyr`, or if you are not familiar with SQL.
 
 
 ### Create a connection
@@ -101,19 +90,19 @@ Start by creating a connection to the database:
 conn <- DBI::dbConnect(
   odbc::odbc()
   , .connection_string = "driver={SQl Server};
-                          server=TS02; 
-                          database=RCS_TestArea"
+                          server=TS01; 
+                          database=TS_Training"
   )
 
 ```
 
 
-When you have done this you can see the details of the connection to the database in the Connections pane where you usually see the Environment:
+When you have done this you can see the details of the connection to the database in the **Connections** pane in RStudio, on the right hand side alongside where you usually see **Environment** and **History**:
 <br>
 <br>
 ![](images/r_conns.png)
 
-You can open this up to see more detail on the tables within the database, under **dbo** we just have the one table **pcd_sample**:
+You can open this up to see more detail on the tables within the database, under **dbo** we just have two tables **pcd_sample** and another **test_data**:
 <br>
 <br>
 ![](images/r_conns_tables.png)
@@ -122,7 +111,7 @@ You can open this up to see more detail on the tables within the database, under
 
 If you want to send a **SELECT** query to the database you can use the **dbGetQuery()** function. 
 
-For example, this query will bring in just the records where the postcode starts AL1:
+For example, this query will bring in just the records where the postcode starts **AL1**:
 
 ```{r}
 
@@ -146,8 +135,7 @@ DBI::dbGetQuery(
 
 ```
 
-If you have a more complicated query you can use `str_c` from the `stringr`
-package to concatenate the string:
+If you have a more complicated query you can use `str_c` from the `stringr` package to concatenate the string:
 
 
 ```{r}
@@ -168,8 +156,7 @@ DBI::dbGetQuery(
 
 ### Joining data
 
-If this example I have a small dataset containing postcodes and I want to add 
-local authority information to it by joining it with the **pcd_sample** data.
+In this example I have a small dataset containing postcodes and I want to add local authority information to it by joining it with the **pcd_sample** data.
 
 ```{r}
 
@@ -206,8 +193,8 @@ It is potentially slow due to the size of the data. However, I have trimmed this
 
 
 #### Option 2 - Read just the rows of the SQL table you need into R
-We want a solution that does the join without bringing all the data into memory 
-in R.  There are a couple of solutions.
+
+We want a solution that does the join without bringing all the data into memory in R.  There are a couple of options.
 
 For small(ish) datasets like this one we can build up a query containing the list of postcodes:
 
@@ -221,6 +208,7 @@ query_string <- stringr::str_c(
   , "')"
   )
 
+#the string is very long, so just show a bit of it
 stringr::str_sub(
   string = query_string
   , start = 1
@@ -252,8 +240,7 @@ knitr::kable(pokemon_pcd[1:6, ])
 
 #### Option 3 - Use dbplyr to do the matching in SQL
 
-The dbplyr package is "A 'dplyr' back end for databases that allows you to work 
-with remote database tables as if they are in-memory data frames."
+The dbplyr package is "A 'dplyr' back end for databases that allows you to work with remote database tables as if they are in-memory data frames."
 
 ```{r, message = FALSE, warning = FALSE}
 
@@ -396,7 +383,7 @@ A clustered index doesn't have to be unique (you can use 'CREATE CLUSTERED INDEX
 
 For example to create an index on multiple columns you might run this:
 
-```{r}
+```{r warning = FALSE}
 
 index_string <- 'CREATE NONCLUSTERED INDEX [multiple_index] ON [VIRAGO\\TFORBES].[pokemon_pcd]
                       ( [ID] ASC,
@@ -407,7 +394,7 @@ DBI::dbSendQuery(conn, index_string)
 
 ```
 
-Now we can see that the table has two indexes, one unique *Clustered* and one *Non-unique* and *Non-clustered*.
+Now we can see that the table has two indexes, one unique *Clustered* and one *Non-Unique* and *Non-Clustered*.
 <br>
 <br>
 ![](images/r_sql_multiple_index.png)
@@ -439,7 +426,7 @@ https://db.rstudio.com/best-practices/schema/
 
 I don't want my experiments cluttering up the test area so I'm going to delete the table I just put there:
 
-```{r}
+```{r warning = FALSE}
 
 drop_table <- 'DROP TABLE [dbo].[pokemon_pcd];'
 
@@ -453,7 +440,7 @@ DBI::dbSendQuery(conn, drop_table)
 
 It's good practice to disconnect from the SQL connection when you've finished using it.
 
-```{r}
+```{r warning = FALSE}
 
 DBI::dbDisconnect(conn)
 

@@ -12,7 +12,7 @@ Watch the stream here: Link will be updated before the event
 
 The video will also be available for some time after the presentation.  
 
-__Please note that the live stream link must be treated as a government document and should not be shared with unauthorised persons.__ Anyone attending the event who does not want to feature on the stream should let the host know. 
+__Please note that the live stream link must be treated as a government document and should not be shared with unauthorised persons.__ The live stream will record the audio and the presenter's screen, but no video of the room.
 
 # What is Coffee & Coding?
 

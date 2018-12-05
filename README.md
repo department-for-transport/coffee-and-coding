@@ -22,7 +22,12 @@ The aim of the Coffee & Coding meetups is to nurture, enable and encourage a vib
 
 |Date| Time | Room | Title | Presenter | Abstract|
 |:--------------|:----|:---|:---------|:--------------------|:-------------------------------|
-|Wed 9th Jan 2019| 11:00 | H4 | Developing Apps on the Google Cloud Platform, Project CheckOut | Gemma Currie,  Jonathan Pagel and Howard Pang | Digital Service will be sharing their journey and learnings of developing on the Google Cloud Platform (GCP). CheckOut is being built by an apprentice led team and is one of several Digital Service teams currently building applications on GCP |
+|Wed 13 Feb 2019| 11:00| H4 ||||
+|Mon 4 Feb 2019| 11:00| H5 ||||
+|Wed 30 Jan 2019| 11:00| H2 ||||
+|Wed 23 Jan 2019| 11:00| H2 ||||
+|Wed 16 Jan 2019| 11:00| H4 | RAP Validation | Thomas Parry ||
+|Wed 9 Jan 2019| 11:00 | H4 | Developing Apps on the Google Cloud Platform, Project CheckOut | Gemma Currie,  Jonathan Pagel and Howard Pang | Digital Service will be sharing their journey and learnings of developing on the Google Cloud Platform (GCP). CheckOut is being built by an apprentice led team and is one of several Digital Service teams currently building applications on GCP |
 |Wed 12 Dec 2018| 11:00 | 2/28a |  |  | |
 |Wed 5 Dec 2018 | 11:00 | 2/26,27 | Think People Dashboard | Sara Smith & Lizzie Baggott | Sara & Lizzie will take us through their development journey of creating DfT’s first organisation wide Shiny App|
 |Wed 28 Nov 2018 | 12:30 | 5L | Crosstalk  | Matthew Dray (GDS)| Shiny-like without Shiny |

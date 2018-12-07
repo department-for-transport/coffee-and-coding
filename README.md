@@ -28,7 +28,7 @@ The aim of the Coffee & Coding meetups is to nurture, enable and encourage a vib
 |Wed 23 Jan 2019| 11:00| H2 ||||
 |Wed 16 Jan 2019| 11:00| H4 | RAP Validation | Thomas Parry ||
 |Wed 9 Jan 2019| 11:00 | H4 | Developing Apps on the Google Cloud Platform, Project CheckOut | Gemma Currie,  Jonathan Pagel and Howard Pang | Digital Service will be sharing their journey and learnings of developing on the Google Cloud Platform (GCP). CheckOut is being built by an apprentice led team and is one of several Digital Service teams currently building applications on GCP |
-|Wed 12 Dec 2018| 11:00 | 2/28a |  |  | |
+|Wed 12 Dec 2018| 11:00 | 2/28a | Statistics API mini-hackathon | Luke Vincent & Hannah Bougdah | We’re proud to announce that our prototype Statistics API service is ready to experiment with. And we want to give you early access! Bring your laptop and we will show you how to get started using the API service. |
 |Wed 5 Dec 2018 | 11:00 | 2/26,27 | Think People Dashboard | Sara Smith & Lizzie Baggott | Sara & Lizzie will take us through their development journey of creating DfT’s first organisation wide Shiny App|
 |Wed 28 Nov 2018 | 12:30 | 5L | Crosstalk  | Matthew Dray (GDS)| Shiny-like without Shiny |
 |Wed 21 Nov 2018 | 11:00 | H1 | dfeR | Adam Robinson (DfE) | Adam from the Department for Education will take us through how he developed an R package to help standardise R programming across the department |

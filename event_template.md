@@ -6,11 +6,9 @@
 
 # Live Stream
 
-We’re trialling streaming the talks - the steam will be available live and you will be able to ask questions via the YouTube stream chat (use Chrome, not Internet Explorer).
+Watch the stream here: __Link will be updated before the event__
 
-Watch the stream here: Link will be updated before the event
-
-The video will also be available for some time after the presentation.  
+The steam will be available live and you will be able to ask questions via the YouTube stream chat (use __Chrome__, not Internet Explorer). The video will also be available for some time after the presentation.  
 
 __Please note that the live stream link must be treated as a government document and should not be shared with unauthorised persons.__ The live stream will record the audio and the presenter's screen, but no video of the room.
 

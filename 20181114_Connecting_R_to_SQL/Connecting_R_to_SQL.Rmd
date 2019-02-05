@@ -254,7 +254,7 @@ Start by specifying the table you want to connect to:
 
 pcd_table <- dplyr::tbl(
   conn
-  , in_schema("dbo", "pcd_sample")
+  , dbplyr::in_schema("dbo", "pcd_sample")
   )
 
 ```

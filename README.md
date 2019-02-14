@@ -1,7 +1,7 @@
 <img src="images/c&c_dft_hex_symbol.png" width="200" align="right">
 
 # Coffee & Coding
-### _24/08/2018_
+### _14/02/2019_
 
 A _public_ repository to hold resources and notes from Coffee & Coding sessions.
 

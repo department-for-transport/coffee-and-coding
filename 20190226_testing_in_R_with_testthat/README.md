@@ -21,6 +21,5 @@ In this folder you will find the following:
 
 All files can be downloaded via this link:
 <br>
-<br>
 [Automated testing in R using testthat all files download](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/tree/master/20190226_testing_in_R_with_testthat)
 <br>

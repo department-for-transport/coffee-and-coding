@@ -18,3 +18,9 @@ In this folder you will find the following:
 * *greedy.R*: An R script demonstration of the testthat package
 * *test_greedy.R*: An example test suite using testthat used by *greedy.R*
 * *computer_do_math.R*: A **really** simple example also used by *greedy.R*
+
+All files can be downloaded via this link:
+<br>
+<br>
+[Automated testing in R using testthat all files download](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/tree/master/20190226_testing_in_R_with_testthat)
+<br>

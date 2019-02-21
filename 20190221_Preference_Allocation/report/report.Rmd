@@ -1,0 +1,210 @@
+---
+title: "Preference Allocation"
+author: "Avision Ho"
+date: "7 June 2018"
+output: 
+  html_document:
+    number_sections: false
+    theme: journal
+    highlight: haddock
+    code_folding: hide
+    fig_caption: true
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, include = TRUE, message = FALSE, warning = FALSE)
+
+# Load packages
+#install.packages('markdown')
+library(matchingR)
+library(readr)
+library(dplyr)
+library(tibble)
+library(DT)
+library(pander)
+
+# Set random number generator so so results are replicable
+set.seed(1)
+
+# Turn off scientific notation
+options(scipen = 999)
+
+# Load data
+utility_delegates <- read_csv(file = "data/dummy_student_preferences.csv")
+
+# Import source code
+source("scripts/main.R")
+```
+
+# Introduction
+
+## Author's Note
+(@) **DISCLAIMER:** The author is relatively new to the **Gale-Shapley algorithm** so would appreciate suggestions and tips.
+
+(@) The code displayed in this report is for illustrative purposes only. The analysis here cannot be fully carried out on the code alone. To access the full code, please open the `main.R` script.
+
+(@) The **Gale-Shapley algorithm** recommended by this report is unlikely to be the most optimal solution to the presented problem of allocating delegates with preferences to sessions. 
+    + With additional time, the author would like to explore an algorithm that maximises the group utility of delegates.
+
+***
+
+# Section 1: Historical Background - stable marriage problem
+(@) The issue we will tackle in this project is popularised by the famous **stable marriage problem**.
+
+(@) At a high level, it asks the question of how a set of men and women should be matched whilst respecting each individual's preferences. This is summarised as follows:
+
+> Given *n* men and *n* women, where each person has ranked all members of the opposite sex in order of preference, marry the men and women together such that there are no pairs of men and women who would both rather marry each other over than their current allocated partners. When there are no such pairs of men and women, the set of marriages is deemed stable.
+
+(@) The notion of stability where neither party would mutually benefit by moving away from their current allocation is a central concept in game theory. 
+
+(@) Gale and Shapley first analysed this matching at an abstract, general level in 1962, and proved that for any equal number of men and women, it is always possible to solve the **stable marriage problem** and make all marriages stable.
+
+(@) Indeed in 2012, the Nobel Prize in Economic Sciences was awared to Lloyd Shapely and Alvin Roth for extending this work on the **stable marriage problem** in finding practical solutions to real-world issues such as assigning new doctors to hospitals, students to colleges, and human organ transplants to recipients. [^1]
+
+[^1]: The [Sveriges Riksbank prize in Economic Sciences in Memory of Alfred Nobel 2012](https://www.nobelprize.org/nobel_prizes/economic-sciences/laureates/2012/popular-economicsciences2012.pdf) was the introductory lecture your author received when starting his first year of BSc. Mathematics and Economics course at the London School of Economics and Political Science (LSE). 
+
+## Key Assumptions
+(@) Number of men is equal to the number of women.
+(@) Each man and woman has a well-defined preference ordering, meaning we know their preferences for each person.
+(@) Each man and woman prefers being matched over being not matched. 
+
+## How the stable marriage algorithm works
+(@) The **Gale-Shapley algorithm** for the **stable marriage problem** involves a number of rounds/iterations: [^2]
+
+    i. Each unengaged man proposes to the women he prefers most. Each woman replies *"maybe"* to her suitor she most prefers and *"no"* to all other suitors. She is then provisionally "engaged" to the suitor she most prefers thus far, and that suitor is likewise provisionally engaged to her.
+    
+    ii. Each unengaged man then proposes to his most-preferred woman to whom he has not yet proposed (regardless of whether the woman is already engaged).
+    
+    + Each woman replies *"maybe"* if she is currently not engaged or if she prefers this guy over her provisional partner. (In this case, she rejects her current provisional partner who becomes unengaged.)
+    
+    + The provisional nature of engagements prserves the right of an already-engaged woman to "trade-up" and in turn, "jilt" her until-then partner.
+    
+    iii. This process is repeated until everyone is engaged.
+
+[^2]: [Wikipedia: Stable marriage problem](https://en.wikipedia.org/wiki/Stable_marriage_problem)
+
+(@) Following this method of de-centralised allocation (in the sense that the participants, the men and women, have their preferences driving their matches):
+
+    + **Everyone gets married:** All men must have proposed to a woman at some point, since a man will eventually propose to all women, if necessary. Whilst all women would have been proposed to, and consequently, be engaged to someone.
+
+    + **All marriages are stable:** Let Alice and Bob both be engaged, but not to each other. Upon completion of the algorithm, it is not possible for both Alice and Bob to prefer each other over their current partners. If Bob prefers Alice to his current partner, he must have proposed to Alice before he proposed to his current partner. If Alice accepted his proposal, yet is not married to him at the end, she must have dumped him for someone she likes more, and therefore doesn't like Bob more than her current partner. If Alice rejected his proposal, she was already with someone she liked more than Bob.
+
+***
+
+# Section 2: Our problem - matching delegates to sessions
+(@) The problem we are tackling is the following scenario:
+
+> We have a *n* delegates who have preferences over *m* sessions they wish to go to. They can only go to one session at any one time. Each session can only hold varying numbers of people.
+
+(@) More formally, we have:
+
+    + Each delegate, $d_i$ where $i = 1, ..., n$, receives utility $u_{d_i}(s_j)$ from being matched to session $s_j$. 
+    + Each session, $s_j$ where $j = 1, ..., m$, receives utility $u_{s_j}(d_i)=0$ from being matched to a delegate $d_i$. This means sessions are indifferent over which delegates attends.
+    + Each delegate, $d_i$, has a well defined preference ordering over all sessions. For example, for delegate $d_i$ who has the choice of two sessions $s$ and $s'$, they prefer session $s$ over session $s'$ when $u_{d_i}(s) \ge u_{d_i}(s')$
+    + Each session, $s_j$, can hold $p_k$ delegates where $k \in \{1, ..., m\}$. 
+    + Note that $i$, $j$ and $k$ belong to the set of natural numbers. 
+    
+(@) Our problem differs from the **stable marriage** problem for three main reasons:
+    + Sessions have no preferences over which delegates attend them. We thus have one-sided matching.
+    + *Stability* here will be defined from the viewpoint of *pareto efficiency*. This is with respect to the fact for any matched pair $(d_i, s_j)$, there exists no session, $s_{j'}$, such that delegate $d_i$ will choose this without reducing the utility of another delegate, $d_{i'}$. [^3] 
+    + Each session can hold a varying number of people.
+    
+[^3]: In other words, a delegate, $d_i$, may gain more utility from attending a session, $s'$, different to the one they were matched with, $s$. However, this will come at the cost of reducing the utility of the delegate, $d_i'$ who was matched to the session the initial delegate, $d_i$, wanted to attend. $u_{d_i}(s') >  u_{d_i}(s)$ but $u_{d_i'}(s) < u_{d_i'}(s')$  
+
+(@) Given these subtle distinctions, then our problem most closely aligns to the **college admissions problem** which is a variant of the **stable marriage problem**.
+
+## How the college admissions algorithm works
+(@) The **Gale-Shapley algorithm** for the **college admissions problem** involves a number of rounds/iterations:
+    i. Students sequentially make proposals to each off their most preferred available colleges.
+    ii. A college can hold onto at most $s$ proposals at a time, since they have $s$ spaces for students.
+    iii. A college with an open slot will provisionally accept any application it receives.
+    iv. A college already holding $s$ applications will reject any student application that it values less than the current applicants they have provisionally accepted.
+    v. A college already holding $s$ applications will accept any student application that it values more than the current applicants they have provisionally accepted, and drop the least valued applicant they have currently provisionally accepted.
+    vi. Process continues until all students are matched to colleges.
+
+***
+
+# Section 3: Data
+(@) For illustrative purposes, we will use dummy data.
+
+(@) In the data below, we have delegates as our columns and sessions as our rows. Here, the preferences of each delegate for each session is given by the utility values.
+
+(@) For insta
+nce, we can see that for *Person 1*, they strictly prefer *Session 2* over *Session 1*, $u_{d_1}(2) > u_{d_1}(1)$.
+
+```{r Data: Delegate Peferences}
+utility_delegates %>% 
+  datatable()
+```
+
+(@) We will also generate the preferences for sessions to delegates in the code below. Here, we have sessions as our columns and delegates as our rows. This table is the transpose of the delegate's one above.
+
+(@) Note that we have given each session a preference of `0` for each delegate. This is because sessions are indifferent over which delegates attend. 
+
+```{r Data: Session Preferences}
+names <- c("Person 1", "Person 2", "Person 3", "Person 4", "Person 5", "Person 6")
+
+utility_sessions <- matrix(data = rep(x = 0, times = n_delegates*m_sessions), 
+                          nrow = n_delegates, 
+                          ncol = m_sessions)
+utility_sessions %>% 
+  as.tibble() %>% 
+  rename(`Session 1` = V1,
+         `Session 2` = V2,
+         `Session 3` = V3,
+         `Session 4` = V4) %>% 
+  cbind(Delegate = names) %>% 
+  select(Delegate, `Session 1`:`Session 4`) %>% 
+  datatable(rownames = FALSE)
+```
+
+(@) Now, suppose that `Session 1` and `Session 4` can hold two delegates, whereas `Session 2` and `Session 3` can only hold one delegate. This means that in total, all sessions can hold 6 delegates, and given we have 6 delegates to allocate to sessions, we will not get any unmatched delegates to sessions.
+
+***
+
+# Section 4: Analysis
+(@) In the code below, we will run the college admissions variant of the **Gale-Shapley algorithm**.
+``` {r Gale-Shapley Analysis, eval = FALSE}
+galeShapley.collegeAdmissions(studentUtils = utility_delegates, 
+                              collegeUtils = utility_sessions, 
+                              slots = c(2, 1, 1, 2))
+```
+
+(@) From running the algorithm we have the following allocation of delegates to sessions. `r results$matched.students %>% t()`. For instance, `Person 1` and `Person 4` are allocated to `r paste0("Session ", results$matched.students[1,])` and `r paste0("Session ", results$matched.students[4,])` respectively. 
+
+***
+
+# Section 5: Compare Allocations with Preferences
+(@) In the code below, we will present the matched allocations generated by the college admissions variant of the **Gale-Shapley algorithm** we used against the initial preferences of delegates to check that our matchings are desirable,
+
+```{r Compare Outputs with Preferences}
+rownames(results$matched.students) <- names 
+colnames(results$matched.students) <- "Session Allocated"
+results$matched.students %>% 
+  t() %>% 
+  pander()
+
+utility_delegates %>% 
+  datatable()
+```
+
+
+***
+
+# Appendix
+(@) For the technically inclined, the code for the **Gale-Shapley algorithm** that we used in this analysis can be viewed below:
+```{r College Admissions algorithm, echo = FALSE, include = TRUE}
+galeShapley.collegeAdmissions
+```
+
+***
+
+## Section : Environment
+(@) This analysis was conducted on a laptop with the specifications and packages outlined below.
+```{r Session, echo=FALSE}
+sessionInfo()
+```
+
+***

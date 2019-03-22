@@ -22,7 +22,7 @@ The aim of the Coffee & Coding meetups is to nurture, enable and encourage a vib
 
 | Date            | Time  | Room    | Title                                                        | Presenter                                     | Abstract                                                     |
 | :-------------- | :---- | :------ | :----------------------------------------------------------- | :-------------------------------------------- | :----------------------------------------------------------- |
-| Wed 20 Mar 2019 | 10:30 | H2      |                        |         |  |
+| Wed 20 Mar 2019 | 10:30 | H2      | Code Surgery             | Tamsin Forbes                      | Bring along your laptop and a coding problem and we collectively try and fix it |
 | Tue 12 Mar 2019 | 10:00 | H2      |   Knitting machines   |  Duncan Garmonsway     | Knitting machines: What really happens when you render an R Markdown document, and how I have been trying to teach it the GOV.UK Design System.|
 | Wed 06 Mar 2019 | 11:00 | H2      | R Basics Workshop: ggplot2   |  Andrew Kelly |  Introduction to ggplot2  |
 | Tue 26 Feb 2019 | 11:00 | H4      | Automated testing in R with testthat | Peter Curtis | Automated testing means your code is easier to write, easier to improve and easier to review.  I will introduce the general principles of a test-driven development workflow and how this will benefit your work. The most commonly used package for testing in R is testthat.  I will work through an example where I use testthat in the development of an implementation of a simple greedy algorithm. |

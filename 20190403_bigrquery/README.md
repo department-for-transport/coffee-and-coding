@@ -1,9 +1,7 @@
----
-title: "Coffee & Coding: bigrquery Low-level API"
-author: "Tamsin Forbes"
-date: "03/04/2019"
----
-
+Coffee & Coding: bigrquery Low-level API
+---------------------------------------------
+#### Tamsin Forbes
+#### 03/04/2019
 
 
 ## Disclaimer

@@ -339,7 +339,7 @@ last_job_id
 ## [[1]]
 ## <bq_job> tjf-demo-project-101.job_KXqfSR5jojZxMmrD7YOafWrsI3h-.EU
 ```
-<span style="background-color: #FFFF00">___Note that this is a list of a list, so to access the actual last job ID we need to ask for the following___</span>
+<span style="background-color: #FFFF00"> ___Note that this is a list of a list, so to access the actual last job ID we need to ask for the following___ </span>
 
 ```r
 last_job_id[[1]]
@@ -500,6 +500,5 @@ Thank you for your kind attention
 
 Any questions/suggestions please email <coffee.coding@dft.gov.uk>
 
-_fin_
 _fin_
 

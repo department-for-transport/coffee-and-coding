@@ -3,6 +3,11 @@ Coffee & Coding: bigrquery Low-level API
 #### Tamsin Forbes
 #### 03/04/2019
 
+## Download subfolder
+
+You can use this link (created using DownGit) to download the entire bigrquery Low-level API subfolder
+
+[download bigrquery subfolder]()
 
 ## Disclaimer
 
@@ -490,5 +495,11 @@ run_sql_query(
 ## Total billed: 10.5 MB
 ```
 
+Thank you for your kind attention
+---------------------------------
+
+Any questions/suggestions please email <coffee.coding@dft.gov.uk>
+
+_fin_
 _fin_
 

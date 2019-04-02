@@ -1,14 +1,7 @@
 ---
 title: "Coffee & Coding: bigrquery Low-level API"
 author: "Tamsin Forbes"
-date: "28/03/2019"
-output: 
-  html_document:
-    keep_md: TRUE
-    theme: spacelab
-    toc: yes
-    toc_depth: 4
-    toc_float: yes
+date: "03/04/2019"
 ---
 
 

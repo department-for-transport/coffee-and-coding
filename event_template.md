@@ -1,18 +1,22 @@
-# This Week
+## This Week
 
 **??????** will be talking on **?????**. 
 
 *Short description here*
 
-# Live Stream
+## Start time
+
+Please note sessions will normally start __10 minutes__ later than the scheduled start time, this is to allow for setting up.
+
+## Live Stream
 
 Watch the stream here: __Link will be updated before the event__
 
-The stream will be available live and you will be able to ask questions via the YouTube stream chat (use __Chrome__, not Internet Explorer). The video will also be available for some time after the presentation.  
+The stream will be available live and you will be able to ask questions via the YouTube stream chat (use __Chrome__, not Internet Explorer). The video will also be available after the presentation.  
 
 __Please note that the live stream link must be treated as a government document and should not be shared with unauthorised persons.__ The live stream will record the audio and the presenter's screen, but no video of the room.
 
-# What is Coffee & Coding?
+## What is Coffee & Coding?
 
 The aim of the Coffee & Coding meetups is to nurture, enable and encourage a vibrant, supportive and inclusive coding community at DfT. Coffee & Coding provides a regular opportunity for people within DfT who are interested in coding to share skills and knowledge, provide advice and guidance to each other and generally network and get to know each other. 
 
@@ -20,7 +24,7 @@ The format is generally 40 minutes for a presentation and questions to the prese
 
 See <https://github.com/departmentfortransport/coffee-and-coding> for past talks and code!
 
-# Presenters
+## Presenters
 
 If you'd like to present get in touch at: coffee.coding@dft.gov.uk 
 

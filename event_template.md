@@ -6,7 +6,7 @@
 
 ## Start time
 
-Please note sessions will normally start __10 minutes__ later than the scheduled start time, this is to allow for setting up.
+Please note, the session will start __10 minutes__ later than the scheduled start time, this is to allow time for setting up.
 
 ## Live Stream
 

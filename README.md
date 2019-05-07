@@ -22,6 +22,7 @@ The aim of the Coffee & Coding meetups is to nurture, enable and encourage a vib
 
 | Date            | Time  | Room    | Title                                                        | Presenter                                     | Abstract                                                     |
 | :-------------- | :---- | :------ | :----------------------------------------------------------- | :-------------------------------------------- | :----------------------------------------------------------- |
+| Wed 15 May 2019 | 11:00 | 3/23     | R in the Analytics Unit | Tim Taylor | Tim Taylor will give a tour through some of the use cases of R in the Analytics Unit (part of the newly formed Analytics and Data Division). |
 | Wed 01 May 2019 | 14:00 | H4     | OOP via DnD | Sam Fowler | Sam Fowler will be talking on Object-Oriented Programming (OOP) as Explained by Dungeons and Dragons.|
 | Thu 25 Apr 2019 | 11:00 | H3     | Intro to Git | David Sands   | David Sands will demonstrate how to Git it on without a command-line.|
 | Wed 17 Apr 2019 | 11:00 | H2      | Object-oriented analysis & BBplot | Edwin Lowther          | Edwin Lowther, BBC journalist, will cover how the BBC uses object-oriented software design principles in data analysis and visualises the results using ggplot2 and its custom R package [bbplot](https://github.com/bbc/bbplot). |

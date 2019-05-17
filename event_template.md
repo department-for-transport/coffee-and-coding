@@ -24,6 +24,9 @@ The format is generally 40 minutes for a presentation and questions to the prese
 
 See <https://github.com/departmentfortransport/coffee-and-coding> for past talks and code!
 
+## How do I get on the mailing list?
+Employees of DfT should contact their IT focal point to ask to be added to _DfT_CC list (_DfT_CClist@dft.gov.uk)
+
 ## Presenters
 
 If you'd like to present get in touch at: coffee.coding@dft.gov.uk 

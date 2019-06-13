@@ -4,7 +4,6 @@ Coffee & Coding: Importing files into R
 #### 14/06/2019
 
 ## Download subfolder
-## Download subfolder
 
 If you don't want to clone the entire Coffee & Coding repo you can use this link (created using [DownGit](https://minhaskamal.github.io/DownGit/#/home)) to download just the ___importing files into R___ subfolder,
 

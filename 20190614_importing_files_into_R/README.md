@@ -9,6 +9,10 @@ If you don't want to clone the entire Coffee & Coding repo you can use this link
 
 [download importing files into R subfolder](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/tree/master/20190614_importing_files_into_R)
 
+The main file is the **.Rmd** file which produces the **.html** output, and contains code and explanation. The other **.R** file is just the code taken out of the **.Rmd** presentation.
+
+<br>
+
 What follows is an excerpt from the DfT R-cookbook, which is a work in progress. This section focusses mainly on importing data into R from csv and xls/x files. Data may be stored in Excel in many ways and we look at how to extract and combine data stored in rectangular/non-rectangular form, from single and multiple worksheets and workbooks.
 
 # Libraries

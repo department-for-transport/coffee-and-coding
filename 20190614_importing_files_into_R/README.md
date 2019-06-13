@@ -1,21 +1,18 @@
----
-title: "Data import to R"
-output: 
-  html_document:
-    keep_md: yes
-    theme: spacelab
-    toc: yes
-    toc_depth: 4
-    toc_float: yes
-  
+Coffee & Coding: Importing files into R
+------------------------------------------
+#### Tamsin Forbes
+#### 14/06/2019
 
----
+## Download subfolder
+## Download subfolder
 
+If you don't want to clone the entire Coffee & Coding repo you can use this link (created using [DownGit](https://minhaskamal.github.io/DownGit/#/home)) to download just the ___importing files into R___ subfolder,
 
-This is an excerpt from the DfT R-cookbook, which is a work in progress. This section focusses mainly on importing data into R from csv and xls/x files. Data may be stored in Excel in many ways and we look at how to extract and combine data stored in rectangular/non-rectangular form, from single and multiple worksheets and workbooks.
+[download importing files into R subfolder]()
+
+What follows is an excerpt from the DfT R-cookbook, which is a work in progress. This section focusses mainly on importing data into R from csv and xls/x files. Data may be stored in Excel in many ways and we look at how to extract and combine data stored in rectangular/non-rectangular form, from single and multiple worksheets and workbooks.
 
 # Libraries
-
 
 ```r
 library(tidyverse)
@@ -74,14 +71,12 @@ This section focusses on reading in various file types for working on in R memor
 
 .rds is R's native file format, any object you create in R can be saved as a .rds file. The functions `readRDS` and `saveRDS` are base R functions.
 
-
 ```r
 saveRDS(
   object = my_model #specify the R object you want to save
   , file = "2019_0418_my_model.rds" #give it a name, don't forget the file extension
 )
 ```
-
 
 ## .csv
 
@@ -146,11 +141,6 @@ pokemon <- readr::read_csv(
   file = "data/messy_pokemon_data.csv"
   , col_types = "cdddcdcccDt"
 )
-```
-
-```
-## Warning in rbind(names(probs), probs_f): number of columns of result is not
-## a multiple of vector length (arg 1)
 ```
 
 ```
@@ -268,7 +258,8 @@ readxl::read_excel(
   path = "data/port0499.xlsx"
   , sheet = 1 #number or name of sheet, default is first sheet
   , col_names = TRUE #default
-  , col_types = "text" #a single type will recycle to all columns, specify each using character vector of the same length eg c("numeric", "text", ...)
+  , col_types = "text" #a single type will recycle to all columns, specify each 
+        #using character vector of the same length eg c("numeric", "text", ...)
 ) %>% 
   head()
 ```
@@ -320,17 +311,6 @@ tibble::glimpse(pokemon)
 ## $ charge_attack <chr> "vice_grip", "rock_tomb", "poison_fang", "x-scis...
 ```
 
-
-Using `DT::datatable` for ease of viewing we can see that all 5 rows of data from each of the 3 workbooks has been read in, rowbound, and an id column has been added showing the workbook path.
-
-```r
-DT::datatable(data = pokemon)
-```
-
-<!--html_preserve--><div id="htmlwidget-00bce1da1751bb4bd619" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-00bce1da1751bb4bd619">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["data/pokemon_player_a.xlsx","data/pokemon_player_a.xlsx","data/pokemon_player_a.xlsx","data/pokemon_player_a.xlsx","data/pokemon_player_a.xlsx","data/pokemon_player_b.xlsx","data/pokemon_player_b.xlsx","data/pokemon_player_b.xlsx","data/pokemon_player_b.xlsx","data/pokemon_player_b.xlsx","data/pokemon_player_c.xlsx","data/pokemon_player_c.xlsx","data/pokemon_player_c.xlsx","data/pokemon_player_c.xlsx","data/pokemon_player_c.xlsx"],["krabby","geodude","venonat","parasect","eevee","nidoran_female","kingler","magnemite","koffing","rhyhorn","drowzee","gastly","pidgey","rattata","rattata"],[51,85,129,171,172,10,234,20,173,157,249,28,24,195,138],[15,23,38,32,37,11,33,20,26,49,50,10,13,35,30],[5.82,20.88,20.4,19.2,4.18,6.21,73.81,5.28,0.53,90.57,11.96,0.13,1.44,2.5,3.37],["normal","normal","extra_small","extra_small","extra_small","normal","normal","normal","extra_small","normal","extra_small","extra_large","normal","extra_small","normal"],[0.36,0.37,0.92,0.87,0.25,0.36,1.52,0.3,0.49,0.94,0.62,1.36,0.29,0.3,0.31],["normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","extra_small","normal","normal","normal","normal"],["mud_shot","rock_throw","confusion","bug_bite","tackle","bite","metal_claw","thunder_shock","acid","rock_smash","confusion","sucker_punch","tackle","quick_attack","tackle"],["vice_grip","rock_tomb","poison_fang","x-scissor","body_slam","poison_fang","vice_grip","magnet_bomb","sludge","horn_attack","psychic","sludge_bomb","twister","body_slam","body_slam"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>player<\/th>\n      <th>species<\/th>\n      <th>combat_power<\/th>\n      <th>hit_points<\/th>\n      <th>weight_kg<\/th>\n      <th>weight_bin<\/th>\n      <th>height_m<\/th>\n      <th>height_bin<\/th>\n      <th>fast_attack<\/th>\n      <th>charge_attack<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,5,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
-
-
 Note that the `regex` argument in `fs::dir_ls` is applied to the full file path so if I had tried to specify that the file name starts with "pokemon" by front anchoring it using "^pokemon" this would return no results, since the full name is actually "data/pokemon...". Helpful regex links below.
 
 [regex cheatsheet](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf)
@@ -352,11 +332,8 @@ pokemon_collections <- readxl::excel_sheets(path = path) %>%
      ~ readxl::read_excel(path = path, sheet = .x)
      , .id = "sheet"
    )
-DT::datatable(data = pokemon_collections)
+tibble::glimpse(pokemon_collections)
 ```
-
-<!--html_preserve--><div id="htmlwidget-626719b21b0021fbc8e3" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-626719b21b0021fbc8e3">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14"],["collection_point_1","collection_point_1","collection_point_1","collection_point_1","collection_point_1","collection_point_1","collection_point_2","collection_point_2","collection_point_2","collection_point_2","collection_point_2","collection_point_3","collection_point_3","collection_point_3"],["jigglypuff","caterpie","koffing","drowzee","growlithe","pidgey","weedle","venomoth","slowpoke","rattata","rattata","pidgey","poliwhirl","poliwag"],[56,212,440,283,624,199,158,77,206,40,10,274,542,154],[51,53,43,53,66,40,43,13,62,16,10,49,71,32],[5.55,1.84,0.93,37.03,24.43,1.56,2.94,10.72,38.09,4.71,3.09,1.95,24.49,9.99],["normal","extra_small","normal","normal","extra_large","normal","normal","normal","normal","extra_large","normal","normal","normal","normal"],[0.49,0.28,0.53,1.09,0.8,0.3,0.27,1.48,1.13,0.34,0.29,0.32,1.08,0.53],["normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal"],["feint_attack","bug_bite","acid","pound","bite","quick_attack","poison_sting","bug_bite","confusion","tackle","quick_attack","quick_attack","bubble","mud_shot"],["play_rough","struggle","sludge_bomb","psychic","body_slam","aerial_ace","struggle","poison_fang","psyshock","body_slam","hyper_fang","twister","bubble_beam","body_slam"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>sheet<\/th>\n      <th>species<\/th>\n      <th>combat_power<\/th>\n      <th>hit_points<\/th>\n      <th>weight_kg<\/th>\n      <th>weight_bin<\/th>\n      <th>height_m<\/th>\n      <th>height_bin<\/th>\n      <th>fast_attack<\/th>\n      <th>charge_attack<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,5,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ### Many worksheets - many workbooks
 
@@ -378,6 +355,7 @@ read_and_combine_sheets <- function(path){
      , .id = "sheet"
    )
 }
+
 #code to iterate over many workbooks
 pokemon_monthly_collections <- fs::dir_ls(
   path = "data", regex = "pokemon_2019\\d{2}\\.xlsx$")  %>% 
@@ -385,11 +363,9 @@ pokemon_monthly_collections <- fs::dir_ls(
     read_and_combine_sheets
     , .id = "month"
     )
-DT::datatable(data = pokemon_monthly_collections)
-```
 
-<!--html_preserve--><div id="htmlwidget-cfe4a8577188e95a6fcd" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cfe4a8577188e95a6fcd">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45"],["data/pokemon_201901.xlsx","data/pokemon_201901.xlsx","data/pokemon_201901.xlsx","data/pokemon_201901.xlsx","data/pokemon_201901.xlsx","data/pokemon_201901.xlsx","data/pokemon_201901.xlsx","data/pokemon_201901.xlsx","data/pokemon_201901.xlsx","data/pokemon_201901.xlsx","data/pokemon_201901.xlsx","data/pokemon_201901.xlsx","data/pokemon_201901.xlsx","data/pokemon_201901.xlsx","data/pokemon_201901.xlsx","data/pokemon_201902.xlsx","data/pokemon_201902.xlsx","data/pokemon_201902.xlsx","data/pokemon_201902.xlsx","data/pokemon_201902.xlsx","data/pokemon_201902.xlsx","data/pokemon_201902.xlsx","data/pokemon_201902.xlsx","data/pokemon_201902.xlsx","data/pokemon_201902.xlsx","data/pokemon_201902.xlsx","data/pokemon_201902.xlsx","data/pokemon_201902.xlsx","data/pokemon_201902.xlsx","data/pokemon_201902.xlsx","data/pokemon_201903.xlsx","data/pokemon_201903.xlsx","data/pokemon_201903.xlsx","data/pokemon_201903.xlsx","data/pokemon_201903.xlsx","data/pokemon_201903.xlsx","data/pokemon_201903.xlsx","data/pokemon_201903.xlsx","data/pokemon_201903.xlsx","data/pokemon_201903.xlsx","data/pokemon_201903.xlsx","data/pokemon_201903.xlsx","data/pokemon_201903.xlsx","data/pokemon_201903.xlsx","data/pokemon_201903.xlsx"],["collection_point_1","collection_point_1","collection_point_1","collection_point_1","collection_point_1","collection_point_2","collection_point_2","collection_point_2","collection_point_2","collection_point_2","collection_point_3","collection_point_3","collection_point_3","collection_point_3","collection_point_3","collection_point_1","collection_point_1","collection_point_1","collection_point_1","collection_point_1","collection_point_2","collection_point_2","collection_point_2","collection_point_2","collection_point_2","collection_point_3","collection_point_3","collection_point_3","collection_point_3","collection_point_3","cp_1","cp_1","cp_1","cp_1","cp_1","cp_2","cp_2","cp_2","cp_2","cp_2","cp_3","cp_3","cp_3","cp_3","cp_3"],["horsea","geodude","drowzee","eevee","goldeen","eevee","ekans","eevee","drowzee","krabby","abra","abra","bellsprout","bellsprout","bellsprout","magikarp","krabby","drowzee","exeggute","horsea","goldeen","drowzee","bellsprout","jigglypuff","drowzee","eevee","eevee","chansey","bellsprout","drowzee","drowzee","horsea","cubone","magikarp","drowzee","goldeen","dratini","dratini","drowzee","drowzee","bulbasaur","krabby","exeggute","hypno","gastly"],[119,225,213,234,59,44,95,195,44,91,101,81,156,262,389,23,209,245,449,56,122,159,628,349,74,108,572,328,433,128,294,53,489,10,284,400,298,332,73,249,135,76,488,471,236],[21,38,46,46,19,19,24,40,21,17,20,16,32,44,50,10,29,52,67,15,26,40,68,119,28,30,74,291,59,38,54,14,64,10,54,53,42,44,26,50,29,18,67,66,30],[4.62,18.16,25.17,5.33,10.83,9.82,5.2,6.02,41.36,5.4,17.18,25.94,5.85,5.42,3.4,6.98,3.28,38.46,3.5,9.65,20.77,31.68,3.84,3.57,38.48,5.58,7.97,39.74,6.67,20.73,31.05,5.1,5.75,9,19.51,15.93,4.4,4.75,45.34,11.96,10.09,8.05,3.64,93,0.07],["extra_small","normal","normal","normal","extra_small","extra_large","normal","normal","extra_large","normal","normal","extra_large","extra_large","extra_large","normal","extra_small","normal","normal","extra_large","normal","extra_large","normal","normal","extra_small","normal","normal","normal","normal","extra_large","extra_small","normal","extra_small","normal","normal","extra_small","normal","extra_large","extra_large","extra_large","extra_small","extra_large","normal","extra_large","normal","extra_small"],[0.29,0.4,0.85,0.3,0.54,0.34,1.93,0.28,1.09,0.38,0.85,1,0.8,0.82,0.66,0.78,0.34,1.13,0.47,0.43,0.67,1.01,0.78,0.42,1.05,0.29,0.53,1.17,0.84,0.78,0.8,0.35,0.4,0.81,0.8,0.59,2.08,1.99,1.16,0.62,0.8,0.46,0.49,1.76,1.09],["extra_small","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","normal","extra_small","normal","normal","normal","normal","normal"],["bubble","tackle","pound","tackle","mud_shot","tackle","acid","tackle","confusion","bubble","zen_headbutt","zen_headbutt","acid","acid","vine_whip","splash","mud_shot","confusion","confusion","bubble","peck","pound","vine_whip","pound","pound","tackle","tackle","pound","acid","confusion","confusion","bubble","rock_smash","splash","pound","peck","dragon_breath","dragon_breath","confusion","confusion","tackle","bubble","confusion","confusion","lick"],["bubble_beam","rock_slide","psychic","body_slam","horn_attack","dig","gunk_shot","swift","psyshock","vice_grip","shadow_ball","shadow_ball","sludge_bomb","sludge_bomb","wrap","struggle","water_pulse","psyshock","psychic","bubble_beam","water_pulse","psybeam","sludge_bomb","disarming_voice","psybeam","body_slam","swift","dazzling_gleam","power_whip","psyshock","psybeam","flash_cannon","bulldoze","struggle","psybeam","aqua_tail","aqua_tail","twister","psybeam","psychic","sludge_bomb","water_pulse","psychic","psychic","sludge_bomb"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>month<\/th>\n      <th>sheet<\/th>\n      <th>species<\/th>\n      <th>combat_power<\/th>\n      <th>hit_points<\/th>\n      <th>weight_kg<\/th>\n      <th>weight_bin<\/th>\n      <th>height_m<\/th>\n      <th>height_bin<\/th>\n      <th>fast_attack<\/th>\n      <th>charge_attack<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[4,5,6,8]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+tibble::glimpse(pokemon_monthly_collections)
+```
 
 ### Non-rectangular data - single worksheet - single workbook
 

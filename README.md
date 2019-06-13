@@ -22,7 +22,7 @@ The aim of the Coffee & Coding meetups is to nurture, enable and encourage a vib
 
 | Date            | Time  | Room    | Title                                                        | Presenter                                     | Abstract                                                     |
 | :-------------- | :---- | :------ | :----------------------------------------------------------- | :-------------------------------------------- | :----------------------------------------------------------- |
-| Fri 14 June 2019 | 11:00 | H6     | Importing data into R | Tamsin Forbes | Main focus on excel, reading and combining data from single/multiple worksheets/workbooks. Includes using purrr to iterate over bespoke functions. |
+| Fri 14 June 2019 | 11:00 | H6     | Importing files into R | Tamsin Forbes | Main focus on excel, reading and combining data from single/multiple worksheets/workbooks. Includes using purrr to iterate over bespoke functions. |
 | Thu 6 June 2019 | 14:00 | H6     | Webscraping in R | Johannes Schulz-Knappe | Johannes will be giving us an introduction to webscraping in R. He will present on the main forms of webscraping, useful packages and will show a few examples of webscraping in practice. |
 | Wed 15 May 2019 | 11:00 | 3/23     | R in the Analytics Unit | Tim Taylor | Tim Taylor will give a tour through some of the use cases of R in the Analytics Unit (part of the newly formed Analytics and Data Division). |
 | Wed 01 May 2019 | 14:00 | H4     | OOP via DnD | Sam Fowler | Sam Fowler will be talking on Object-Oriented Programming (OOP) as Explained by Dungeons and Dragons.|

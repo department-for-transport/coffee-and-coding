@@ -27,6 +27,9 @@ See <https://github.com/departmentfortransport/coffee-and-coding> for past talks
 ## How do I get on the mailing list?
 Employees of DfT should contact their IT focal point to ask to be added to _DfT_CC list (_DfT_CClist@dft.gov.uk)
 
+## How do I stop receiving invites?
+Everyone on the mailing list has either requested to be on it or is part of another DfT group mailling list that is included because the majority of the people on that list opted in. You can still opt out by blocking or marking as spam our email address (Coffee.Coding@dft.gov.uk) 
+
 ## Presenters
 
 If you'd like to present get in touch at: coffee.coding@dft.gov.uk 

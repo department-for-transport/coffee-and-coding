@@ -6,13 +6,13 @@
 
 ## Start time
 
-Please note, the session will start __10 minutes__ later than the scheduled start time, this is to allow time for setting up.
+Please note, the session will start __5 minutes__ later than the scheduled start time, this is to allow time for setting up.
 
 ## Skype Meeting
 
-Please join the live Skype Meeting if you can't join us in person. Remember to mute your microphone unless you want to ask a question. You can also ask questions in the Skype chat. The live stream will be recorded and uploaded to our YouTube account after the session. Links to the recordings will only be made availble internally on our intranet page [here](https://intranet.dft.gov.uk/doc/youtube-live-stream-links-0).
+Please join the live Skype Meeting if you can't join us in person. Remember to mute your microphone unless you want to ask a question. You can also ask questions in the Skype chat. The live stream will be recorded and uploaded to our YouTube account after the session. The live stream will record the audio and the presenter's screen, but no video of the room. Links to the recordings will only be made availble internally on our intranet page [here](https://intranet.dft.gov.uk/doc/youtube-live-stream-links-0).
 
-__Please note that the live stream link must be treated as a government document and should not be shared with unauthorised persons.__ The live stream will record the audio and the presenter's screen, but no video of the room.
+__Please note that the live stream link must be treated as a government document and should not be shared with unauthorised persons.__ 
 
 ## What is Coffee & Coding?
 

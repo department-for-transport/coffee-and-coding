@@ -25,7 +25,7 @@ The aim of the Coffee & Coding meetups is to nurture, enable and encourage a vib
 | Thu 29 Aug 2019 | 11:00 | H3     | Web apps in Flask (Python) | Zachary Arundel | |
 | Wed 21 Aug 2019 | 11:00 | H3     | Workshop/Surgery: SQL | Thomas Parry | |
 | Thu 15 Aug 2019 | 11:00 | H3     | Workshop/Surgery: Spatial Analysis in R | Zachary Arundel | |
-| Wed 07 Aug 2019 | 11:00 | H3     | Plotly and interactive charts in R | Hannah Bougdah | |
+| Wed 07 Aug 2019 | 11:00 | H3     | Plotly and interactive charts in R | Hannah Bougdah, Alex Ma | |
 | Thu 01 Aug 2019 | 11:00 | H3     | Sentiment analysis in R workshop | Kian Chapman-Raafat | |
 | Thu 24 Jul 2019 | 11:00 | H6     | Spatial Analysis in R | Matthew Tranter | This session will present a basic introduction to spatial analysis in R using the sf and tmap packages, from the perspective of an R novice.|
 | Thu 10 Jul 2019 | 11:00 | H5     | Quick-fire SQL | Thomas Parry, Mike Dark, Paul Baden | This will cover useful SQL techniques that tend to get missed in introduction courses. This should interest anybody who uses SQL but doesn’t have much experience.|

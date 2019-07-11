@@ -8,7 +8,7 @@ A _public_ repository to hold resources and notes from Coffee & Coding sessions.
 Get in touch at: coffee.coding@dft.gov.uk
 
 ### Contributing 
-Note that resources are _publicly accessible_. When adding new content work on a branch and submit a pull request. 
+Note that resources are _publicly accessible_. When adding new content work on a branch and submit a pull request. DfE have guidance on using GitHub via the Git GUI and HTTPS [here](https://github.com/dfe-analytical-services/coffee-and-coding/blob/master/how-to-use-github.md).  
 
 Folders should adhere to the following conventions:
 

@@ -25,8 +25,8 @@ The aim of the Coffee & Coding meetups is to nurture, enable and encourage a vib
 | Thu 29 Aug 2019 | 11:00 | H3     | Web apps in Flask (Python) | Zachary Arundel | |
 | Wed 21 Aug 2019 | 11:00 | H3     | Workshop/Surgery: SQL | Thomas Parry | |
 | Thu 15 Aug 2019 | 11:00 | H3     | Workshop/Surgery: Spatial Analysis in R | Zachary Arundel | |
-| Wed 07 Aug 2019 | 11:00 | H3     | Plotly and interactive charts in R | Hannah Bougdah, Alex Ma | |
-| Thu 01 Aug 2019 | 11:00 | H3     | Sentiment analysis in R workshop | Kian Chapman-Raafat | |
+| Wed 07 Aug 2019 | 11:00 | H3     | Plotly and interactive charts in R | Hannah Bougdah, Alex Ma |This session will present an overview of using the interactive graphing library Plotly in R. Find out how to present your data in beautiful ways and explore your data interactively and more in-depth. We will be showing both an easier and more advanced way of doing this so suitable for all levels. |
+| Thu 01 Aug 2019 | 11:00 | H3     | Sentiment analysis in R workshop | Kian Chapman-Raafat |All welcome, +laptop. This will  be an unstructured drop in session with the focus on the sentiment analysis tools available in R or Python.  |
 | Thu 24 Jul 2019 | 11:00 | H6     | Spatial Analysis in R | Matthew Tranter | This session will present a basic introduction to spatial analysis in R using the sf and tmap packages, from the perspective of an R novice.|
 | Thu 10 Jul 2019 | 11:00 | H5     | Quick-fire SQL | Thomas Parry, Mike Dark, Paul Baden | This will cover useful SQL techniques that tend to get missed in introduction courses. This should interest anybody who uses SQL but doesn’t have much experience.|
 | Thu 04 Jul 2019 | 11:00 | H5     | Workshop/Surgery: Connecting R to SQL | Tamsin Forbes | This builds on the earlier presentation of the same name. Focus on using DBI to connect R to other programmes/databases. |

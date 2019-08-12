@@ -24,9 +24,10 @@ The aim of the Coffee & Coding meetups is to nurture, enable and encourage a vib
 
 | Date            | Time  | Room    | Title                                                        | Presenter                                     | Abstract                                                     |
 | :-------------- | :---- | :------ | :----------------------------------------------------------- | :-------------------------------------------- | :----------------------------------------------------------- |
+| Wed 04 Sep 2019 | 11:00 | H3     | Can {drake} RAP? (R) | Matt Dray | At its simplest, the {drake} package records the dependencies between the files in your analysis. If you change something, {drake} only re-runs the parts that need to be re-run, saving time and reducing the chance for error. This could be especially useful for Reproducible Analytical Pipelines (RAP) in a government context. |
 | Thu 29 Aug 2019 | 11:00 | H3     | Web apps in Flask (Python) | Zachary Arundel | |
-| Wed 21 Aug 2019 | 11:00 | H3     | Workshop/Surgery: SQL | Thomas Parry | |
-| Thu 15 Aug 2019 | 11:00 | H3     | Workshop/Surgery: Spatial Analysis in R | Zachary Arundel | |
+| Wed 21 Aug 2019 | 11:00 | H3     | Code surgery: SQL | Thomas Parry | Drop in session - come along and ask us any coding related question - main focus on SQL |
+| Thu 15 Aug 2019 | 11:00 | H3     | Code surgery: Spatial Analysis in R | Zachary Arundel | Drop in session - come along and ask us any coding related question - main focus on spatial anaylsis |
 | Wed 07 Aug 2019 | 11:00 | H3     | Plotly and interactive charts in R | Hannah Bougdah, Alex Ma |This session will present an overview of using the interactive graphing library Plotly in R. Find out how to present your data in beautiful ways and explore your data interactively and more in-depth. We will be showing both an easier and more advanced way of doing this so suitable for all levels. |
 | Thu 01 Aug 2019 | 11:00 | H3     | Sentiment analysis in R workshop | Kian Chapman-Raafat |All welcome, +laptop. This will  be an unstructured drop in session with the focus on the sentiment analysis tools available in R or Python.  |
 | Thu 24 Jul 2019 | 11:00 | H6     | Spatial Analysis in R | Matthew Tranter | This session will present a basic introduction to spatial analysis in R using the sf and tmap packages, from the perspective of an R novice.|

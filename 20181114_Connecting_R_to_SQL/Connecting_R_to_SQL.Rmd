@@ -399,9 +399,10 @@ Now we can see that the table has two indexes, one unique *Clustered* and one *N
 <br>
 ![](images/r_sql_multiple_index.png)
 
+
 ### Changing schema
 
-I have had an issue when writing to some databases where the schema that is used when I write data from R to SQL is effectively my own personal schema which means that no one else can see the table I've generated. This problem should be sorted very soon when updates to `DBI`/`odbc` mean you can specify the scheme when you create the table, however in the meantime the solution is to create the table (as per instructions above) and then send an instruction to change the schema to the standard **dbo** schema:
+I have had an issue when writing to some databases where the schema that is used when I write data from R to SQL is effectively my own personal schema which means that no one else can see the table I've generated. This problem should be sorted very soon when updates to `DBI`/`odbc` mean you can specify the schema when you create the table, however in the meantime the solution is to create the table (as per instructions above) and then send an instruction to change the schema to the standard **dbo** schema:
 
 ```{r}
 
@@ -421,6 +422,22 @@ Some more on schemas here
 https://db.rstudio.com/best-practices/schema/
 
 <br>
+
+### Write table & specify schema
+
+The code below shows how to specify the schema using the `name` argument inside `DBI::WriteTable`. However, this **ONLY** works if the table name contains an underscore!!!
+
+```{r eval=FALSE}
+#not run
+DBI::dbWriteTable(
+  conn = conn
+  , name = Id(schema = "dbo", table = "pokemon_pcd")
+  , value = pokemon_pcd_2
+  , overwrite = TRUE
+  
+)
+```
+
 
 ### Drop table
 

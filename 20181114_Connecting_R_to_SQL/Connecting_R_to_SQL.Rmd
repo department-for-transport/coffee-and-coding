@@ -305,6 +305,8 @@ pcd_table %>%
 
 ### Write out data
 
+**update**: see [Write table & specify schema] section below
+
 The database we've been using so far might be one you use as a reference database so only some people will have write permissions. If you want to be able to write out the data you are working with to an SQL database you will need write access permission. It's best to have seperate databases; one containing the original reference data that is not editable; and one which contains the outputs of the analysis you do from that original data. As I am using a test database set up specifically for experimentation I am going to continue to use the same database.
 
 

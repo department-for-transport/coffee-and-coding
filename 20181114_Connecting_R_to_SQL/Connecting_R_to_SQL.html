@@ -435,7 +435,7 @@ pcd &lt;- DBI::dbGetQuery(
   )</code></pre>
 <p>This takes:</p>
 <pre class="r"><code>Sys.time() - start</code></pre>
-<pre><code>## Time difference of 0.175 secs</code></pre>
+<pre><code>## Time difference of 0.126024 secs</code></pre>
 <p>It is potentially slow due to the size of the data. However, I have trimmed this data set down to 13,088 rows, a mere 1% of the full postcode lookup available.</p>
 </div>
 <div id="option-2---read-just-the-rows-of-the-sql-table-you-need-into-r" class="section level4">
@@ -621,7 +621,7 @@ knitr::kable(pokemon_pcd[1:6, ])</code></pre>
 <p>Start by specifying the table you want to connect to:</p>
 <pre class="r"><code>pcd_table &lt;- dplyr::tbl(
   conn
-  , in_schema(&quot;dbo&quot;, &quot;pcd_sample&quot;)
+  , dbplyr::in_schema(&quot;dbo&quot;, &quot;pcd_sample&quot;)
   )</code></pre>
 <p>This is not a dataframe/tibble; it’s just a reference to the table:</p>
 <pre class="r"><code>class(pcd_table)</code></pre>
@@ -637,7 +637,7 @@ pokemon_pcd_2 &lt;- pcd_table %&gt;%
   dplyr::right_join(pokemon, by = &quot;PCD8&quot;) </code></pre>
 <p>This only took:</p>
 <pre class="r"><code>Sys.time() - start</code></pre>
-<pre><code>## Time difference of 0.434993 secs</code></pre>
+<pre><code>## Time difference of 0.4279869 secs</code></pre>
 <p>If we break this down to just before the collect() function we can see that dbplyr has effectively taken the dplyr functions we gave it and converted these to an SQL query:</p>
 <pre class="r"><code>pcd_table %&gt;%
   dplyr::select(PCD8, LAD11CD, LAD11NM) %&gt;% 
@@ -646,12 +646,13 @@ pokemon_pcd_2 &lt;- pcd_table %&gt;%
 <pre><code>## &lt;SQL&gt;
 ## SELECT *
 ## FROM (SELECT &quot;PCD8&quot;, &quot;LAD11CD&quot;, &quot;LAD11NM&quot;
-## FROM dbo.pcd_sample) &quot;mynsouhuai&quot;
+## FROM dbo.pcd_sample) &quot;yxwbulrzvf&quot;
 ## WHERE (&quot;PCD8&quot; IN ('CO9  1XB', 'BD10 8QF', 'DN32 8ED', 'OX18 2PG', 'TN31 6UY', 'LN6  5TX', 'SS13 2EJ', 'HA9  8TJ', 'SY21 9BB', 'EN5  2JJ', 'SA2  8AD', 'GL1  2TU', 'WD24 6DQ', 'WV14 0BY', 'TR8  4LH', 'PO14 2RA', 'ME17 2AP', 'GL5  2BL', 'HG1  2PR', 'GL5  2ND', 'WA15 7DL', 'NE40 4XF', 'CT9  2BA', 'PL6  5NR', 'PE31 7EE', 'LA11 6AB', 'RG14 6BY', 'WA16 8JD', 'NN11 9NS', 'CH46 1RD', 'CT7  0PZ', 'OL8  1QD', 'BN27 4TF', 'NW3  7TA', 'WN1  2BN', 'CF63 1DD', 'CM16 6HX', 'ME9  7QN', 'M38  9QA', 'NR2  1AT', 'DL5  7LQ', 'SO30 2SW', 'GL2  2DT', 'SA43 3BA', 'CR7  6DL', 'AL1  5HQ', 'BS8  1HA', 'BH24 4DJ', 'CV32 4YU', 'TF3  2JG', 'SY7  9EJ', 'TW4  7PD', 'BR5  1RB', 'CH49 3QA', 'TR18 2AJ', 'WN8  0AF', 'ST6  1AY', 'PL19 9LQ', 'W13  9AE', 'RG4  6UT', 'OX29 6TN', 'SO50 9ST', 'RG6  7JD', 'SY13 1DD', 'CH1  5HB', 'SG18 0JE', 'YO17 7JF', 'AL1  1SD', 'TW12 1EW', 'L10  9LH', 'LL19 9AP', 'UB6  9EP', 'ME5  9RH', 'TR16 5AE', 'L40  2QP', 'BN11 3RF', 'CR0  8HG', 'AL6  9RD', 'NE20 9AX', 'NN17 2BJ', 'HP3  9BZ', 'WF3  4PS', 'BN13 2LZ', 'PO9  3TB', 'SY1  3BY', 'SK3  8DN', 'TN13 2RJ', 'TN31 7TF', 'RG27 9NW', 'NE45 5QA', 'PL14 4RN', 'HP17 8RG', 'GU12 6AN', 'BH4  9LF', 'NE6  4DJ', 'HP14 3TY', 'CH44 6QG', 'EX16 6TA', 'CT7  0DY', 'ST8  7NF', 'M33  4JL', 'SR8  1NF', 'OX13 5EA', 'B97  5TB', 'BD2  3EY', 'NR23 1EU', 'BL4  0PY', 'CM20 3PD', 'S73  0YG', 'M24  2FH', 'M7   4JT', 'CB6  2SJ', 'DN11 0TF', 'LN9  5RN', 'CF5  2FQ', 'HD7  4NY', 'NR19 1PG', 'LD3  0UP', 'DL11 6EL', 'MK41 9TU', 'NP22 4QT', 'SK7  5HG', 'SY4  4JH', 'LE15 7PS', 'TW19 7DZ', 'SG4  8XN', 'BA22 8RE', 'PO16 9HA', 'SA1  7HF', 'BS4  3HJ', 'L36  0XX', 'SW10 9AX', 'PO16 9HU', 'EX39 1NU', 'LE67 3AW', 'BN11 2BQ', 'DH1  5GT', 'NG24 3FP', 'DY6  9DW', 'BS30 5ND', 'LN10 5ED', 'SO24 0HN', 'DE6  1FB', 'LN1  2EP', 'W5   4JW', 'S62  7AP', 'M26  2TT', 'CA14 3LY', 'SK14 4QA', 'EX13 5NG', 'CF62 8AB', 'OL15 0DP', 'BS5  6TS', 'CF3  0NH', 'NP13 1LA', 'CV33 9UA', 'B16  0LS', 'LL22 7TG', 'WN5  0HL', 'FY1  5AP', 'BR3  5HS', 'IP27 0JQ', 'ST16 3HD', 'HU17 7EN', 'AL1  1PU', 'PE2  7WG', 'SS9  5RA', 'N18  1PP', 'SA20 0UB', 'PL15 8LX', 'HA8  0LZ', 'MK42 7TH', 'CO3  3QX', 'DY13 9SU', 'B60  2LF', 'WR5  2NA', 'CW3  9NQ', 'TS14 6TA', 'CT18 7PU', 'CH63 7PX', 'LN4  4EN', 'PL4  9AL', 'NP11 6BL', 'GU21 5EA', 'DT1  2JD', 'PR6  0EW', 'GU23 6HT', 'W1K  2RN', 'SS8  9UN', 'BL4  9SA', 'WS9  0TD', 'FY5  4EL', 'TR18 4SH', 'WS13 7SS', 'RG2  9NY', 'PE21 7JA', 'SO22 6JZ', 'HA9  8HX', 'RG17 0QN', 'GU34 2JF', 'BD19 3PP', 'N17  9DD', 'HP11 1SE', 'SE15 1SB', 'ST1  3HJ', 'E1   4XH', 'RM12 6PJ', 'WR13 6DP', 'SN8  3EJ', 'WV14 0HP', 'M46  9LD', 'DL8  1TQ', 'NR30 5JZ', 'ST18 0SR', 'SK7  5QN', 'M23  0BN', 'HU7  4QW', 'TQ1  4RH', 'IP7  5HF', 'YO24 4QJ', 'OL12 8XH', 'PL5  2DY', 'DN4  6BT', 'SA14 9BE', 'LS21 2QG', 'NR21 9HW', 'DL8  3SG', 'BB18 6EA', 'DH3  1HY', 'EX13 8SR', 'RH12 4ER', 'B78  3LJ', 'WV10 6RQ', 'SA8  4DD', 'SA4  3PJ', 'TN21 8EB', 'HU4  6DR', 'HA5  1PL', 'M40  7PR', 'SY5  6EY', 'BD9  4AZ', 'SE3  9RA', 'LS8  3LJ', 'SN8  4DP', 'SS3  9YZ', 'NE29 7NG', 'RH6  7EZ', 'SK8  6PS', 'OL10 1AU', 'NG8  3NW', 'M27  6PZ', 'BN3  5QG', 'NE65 9AR', 'DN41 8RB', 'LA3  2SB', 'LN10 5HJ', 'E3   2AG', 'L8   6TX', 'GL7  3DQ', 'HU9  3BD', 'CH45 8JQ', 'L35  8NX', 'LS27 0AP', 'LS10 4AL', 'LS15 7SL', 'NR14 6SR', 'EN9  3RB', 'TF12 5LY', 'SY9  5EZ', 'CT19 4AN', 'BN24 6SG', 'WA8  6JS', 'SE3  0PN', 'SA2  7DZ', 'CW12 2BX', 'L23  3DF', 'HX3  8BP', 'UB4  0RZ', 'FY3  7LF', 'M27  8QT', 'TR1  3UD', 'NW6  2AG', 'EX1  1DP', 'CR7  7DQ', 'CO10 0QF', 'B48  7AE', 'S74  0PT', 'SL9  0QP', 'L26  9YQ', 'B26  3RN', 'BN22 0UH', 'EX6  7JL', 'BB12 0NQ', 'ST1  2NZ', 'CB24 9HJ', 'CV6  3EQ', 'NG15 7NU', 'M27  0BD', 'PO30 3AT', 'PE29 6HH', 'LN4  2RB', 'BS11 9XE', 'M8   0AS', 'CV13 0QF', 'M7   2AB', 'W2   4EL', 'LS11 5JH', 'NG21 9JL', 'HA6  2PG', 'GL2  4SG', 'SS7  1JH', 'LA1  2TJ', 'TN29 0EW', 'TW4  6EE', 'N5   1JH', 'SW16 2BQ', 'SR8  3ET', 'HA4  9BL', 'SL2  3TR', 'NR21 9LZ', 'WF17 6HL', 'RH12 5XE', 'SA44 5DW', 'RG41 4AP', 'RG40 4LP', 'LN11 7NP', 'BB4  6RN', 'LE67 9UX', 'OL4  1AA', 'MK43 8LE', 'SO43 7AL', 'WV6  0QS', 'WA4  4AZ', 'PO20 7BY', 'BN23 8HH', 'SE1  0UG', 'LS12 1JG', 'LN10 5DZ', 'CB7  5BS', 'RH10 8DX', 'LU3  1JS', 'L31  0BQ', 'S63  0HQ', 'CB23 3QH', 'ST7  4XN', 'CF37 2SJ', 'HP1  1NP', 'NE25 8XS', 'SW1W 8QH', 'BA21 5NJ', 'LS8  4DB', 'PL3  4NR', 'WN2  2SS', 'S2   1JE', 'PR5  0JQ', 'IP17 2AZ', 'SW3  4HQ', 'BD9  4RZ', 'NE8  4EN', 'BL5  2BE', 'LL19 7BS', 'NE46 3AB', 'PL11 2JR', 'NR20 3SX', 'GU33 6ET', 'NE65 8JT', 'PE13 3BA', 'BN27 1EJ', 'NP4  8EB', 'BD18 2PJ', 'TN11 8QH', 'RH19 3ER', 'CV9  1RE', 'LE17 6LE', 'M46  9NF', 'WS7  2BA', 'EN2  9AF', 'WA5  3JT', 'EN11 8DQ', 'ST3  4LJ', 'PR2  7AE', 'PE33 0AH', 'CV37 9UW', 'OX3  8RT', 'TW16 5AN', 'CT21 5PZ', 'BD4  0EA', 'DY8  5DX', 'BS4  4DW', 'HP10 0PX', 'SA18 3SF', 'DE24 3DA', 'RM16 4EL', 'HU2  9PD', 'SA1  6PU', 'M22  8HB', 'W1H  1NG', 'NN6  6EB', 'TR7  2HL', 'DH6  2EY', 'LA14 4HA', 'MK15 8AR', 'SG4  9HR', 'NW9  5UH', 'BS3  1WS', 'KT6  5AR', 'FY4  3PT', 'NE32 3UF', 'BR1  2FH', 'SO21 1PD', 'CO7  0PS', 'E13  0PX', 'WV6  9HT', 'SA44 6RE', 'EX20 2HZ', 'N18  2QS', 'W1U  2BF', 'WV4  4RU', 'TN29 9PS', 'SK9  6AR', 'NP19 9SU', 'WA7  4YD', 'SE3  9DG', 'LA9  5SB', 'BS16 3JB', 'CV36 5PL', 'PL5  1UH', 'YO16 4BG', 'ST5  8EU', 'SA10 9BB', 'E10  5HR', 'NR12 9HR', 'ME15 6LQ', 'EN7  5AR', 'WC2N 5AP', 'HP14 3JA', 'NN3  9TW', 'B34  6EA', 'PR6  8RJ', 'WS3  5AD', 'CB21 5ES', 'TS26 8AW', 'HP17 8AW', 'BL8  2LG', 'KT11 3LY', 'CR2  8HT', 'BB11 5BF', 'IG9  5TT', 'YO21 3NF', 'S10  5PN', 'NP7  5EU', 'NW5  1DB', 'RH11 9JG', 'BB1  4NA', 'W1U  6DE', 'HD5  8QY', 'LE2  3NG', 'IP13 7DU', 'NG5  4PU', 'TR10 8QY', 'PE36 6JU', 'NE10 8JH', 'TS21 3HN', 'M20  6FT', 'TS5  8PB', 'IP6  9TN', 'AL6  0HE', 'SM4  4ET', 'IG10 3BX', 'TR5  0ST', 'BD6  3JT', 'EX12 2RP', 'PO8  9QP', 'GU16 8JZ', 'DE24 0BJ', 'S21  3UU', 'SY21 7JB', 'CW10 0AG', 'BS34 7NW', 'CH7  6RU', 'PO37 7AW', 'CF31 4BZ', 'PL13 2AS', 'TS10 2QS', 'PL9  9SF', 'IP14 3LQ', 'S65  3RP', 'TS12 2QU', 'DT9  6JB', 'EX31 4TA', 'WD25 0NH', 'SL4  3DL', 'M24  4DH', 'GL51 7PE', 'AL9  6DH', 'BN27 4AF', 'CF14 4EA', 'IP19 8SR', 'MK14 5AS', 'TW1  1PL', 'GU1  2EH', 'B92  0EB', 'BS22 9BP', 'NE20 9NE', 'TA3  7SU', 'OL16 3BY', 'SS15 6GP', 'SW3  2LP', 'TQ1  3ST', 'CH2  2LS', 'GL53 9BN', 'WN3  5TJ', 'PE7  1DE', 'CR8  5GA', 'ME9  9PW', 'LL55 2EN', 'E17  9PE', 'N11  1NT', 'TS25 3HZ', 'W1K  2SP', 'HP21 9ER', 'CF36 3NA', 'NG5  5QS', 'PL2  2PN', 'TA1  3ED', 'LE16 8YX', 'PE10 0LW', 'PO30 1PS', 'DE6  3JS', 'DH1  5JN', 'NG25 0DG', 'LS28 8HN', 'HX2  0PG', 'SY16 2BL', 'CV37 7NP', 'W3   6TY', 'BH18 9JY', 'SE11 5QH', 'LS8  4AS', 'NG31 8DG', 'HA3  0DY', 'DH8  5RS', 'IP1  6JE', 'S72  9HS', 'GL5  2HR', 'CH42 2AL', 'SN16 9JH', 'BH12 4EL', 'EX16 6WZ', 'RG27 8UF', 'N16  6PQ', 'TF1  1RH', 'CM15 9RB', 'CV10 7PN', 'BH9  2LE', 'RH1  6EJ', 'SA12 9PB', 'TR18 2AZ', 'CT11 7DS', 'ST14 8RA', 'LE12 8JE', 'B67  5HT', 'WN8  6AP', 'IP11 9JZ', 'N13  4UY', 'OL14 7PJ', 'LS12 4DJ', 'DT3  6PB', 'LE65 1BA', 'WS14 0LH', 'TD15 2LX', 'LL29 8UF', 'ME1  3NH', 'PO14 4SS', 'LS17 0EX', 'YO24 2SH', 'DN5  7SL', 'E16  3JR', 'OL1  4DB', 'MK16 8DP', 'L9   0LE', 'CA10 1RF', 'HP4  3UJ', 'CV3  4FS', 'SO19 6AL', 'IP3  0EU', 'HG4  2AW', 'CV32 6NT', 'BS16 9BD', 'IP20 9HD', 'N1   6DG', 'E6   5XT', 'EX31 3PW', 'BS5  6LR', 'CV7  7RD', 'S81  8AZ', 'TR7  1QB', 'TN12 0BE', 'SR3  4DH', 'TR18 4QX', 'PO9  1AT', 'SG5  4GF', 'TW14 9LF', 'HA5  4TT', 'DY2  7LA', 'TW20 0LS', 'SE14 6HS', 'WR4  0HL', 'WA16 0TX', 'CV37 7DD', 'W10  4UX', 'PL5  1QQ', 'SK17 7AF', 'SK14 3NJ', 'L11  1DS', 'UB2  5HY', 'LL18 4HW', 'LE12 7JY', 'DN6  8GA', 'TN13 3AX', 'LU3  2HE', 'DN40 1HH', 'DA9  9QY', 'ME19 6NJ', 'SS8  9JQ', 'SS2  4UX', 'TF2  6PP', 'DH6  4DJ', 'BD20 8SQ', 'GU24 9SJ', 'S14  1SQ', 'WA8  3HW', 'RG24 9SL', 'NR13 3RP', 'SL9  7HL', 'TS3  0LU', 'DL3  8RH', 'CW5  8JX', 'WF15 7HG', 'CM3  4SA', 'DL1  3DX', 'SS0  0PA', 'OL9  6NW', 'ME4  4JG', 'AL1  5LY', 'TA6  6SJ', 'WD6  5NA', 'EX15 3PB', 'CO3  9BT', 'CB24 5PY', 'ST7  4JE', 'RG14 2RP', 'TA1  3AT', 'TW20 0LE', 'SK11 8DS', 'E3   4QE', 'HP5  3NR', 'BD4  6PF', 'DA14 6LF', 'OX14 5PR', 'L15  8HS', 'WD5  0GE', 'BR7  5RL', 'WN1  1XP', 'GL20 6AL', 'WA2  0GN', 'NE12 5BR', 'RG21 4DB', 'LA3  1DG', 'S44  6QJ', 'LA14 3AG', 'RM10 9LP', 'NN17 1NJ', 'TN4  8LJ', 'CF14 6PJ', 'SN3  3HD', 'TN38 0NW', 'L20  3TY', 'NG34 0PN', 'NE16 6JB', 'S42  5AF', 'M6   7JA', 'CR0  5JW', 'HU10 7LT', 'GU32 3JT', 'CB8  0QN', 'ME8  0SE', 'B15  2LJ', 'SS0  0BJ', 'SS2  6PX', 'FY8  4EP', 'L24  2TN', 'LL24 0HD', 'IP31 2AL', 'B65  8BX', 'CV8  3AP'))</code></pre>
 </div>
 </div>
 <div id="write-out-data" class="section level3">
 <h3>Write out data</h3>
+<p><strong>update</strong>: see <a href="#write-table-specify-schema">Write table &amp; specify schema</a> section below</p>
 <p>The database we’ve been using so far might be one you use as a reference database so only some people will have write permissions. If you want to be able to write out the data you are working with to an SQL database you will need write access permission. It’s best to have seperate databases; one containing the original reference data that is not editable; and one which contains the outputs of the analysis you do from that original data. As I am using a test database set up specifically for experimentation I am going to continue to use the same database.</p>
 <p>Write the joined dataset to my database:</p>
 <pre class="r"><code>DBI::dbWriteTable(
@@ -708,10 +709,11 @@ DBI::dbSendQuery(conn, index_string)</code></pre>
 </div>
 <div id="changing-schema" class="section level3">
 <h3>Changing schema</h3>
-<p>I have had an issue when writing to some databases where the schema that is used when I write data from R to SQL is effectively my own personal schema which means that no one else can see the table I’ve generated. This problem should be sorted very soon when updates to <code>DBI</code>/<code>odbc</code> mean you can specify the scheme when you create the table, however in the meantime the solution is to create the table (as per instructions above) and then send an instruction to change the schema to the standard <strong>dbo</strong> schema:</p>
+<p>I have had an issue when writing to some databases where the schema that is used when I write data from R to SQL is effectively my own personal schema which means that no one else can see the table I’ve generated. This problem should be sorted very soon when updates to <code>DBI</code>/<code>odbc</code> mean you can specify the schema when you create the table, however in the meantime the solution is to create the table (as per instructions above) and then send an instruction to change the schema to the standard <strong>dbo</strong> schema:</p>
 <pre class="r"><code>schema_change &lt;- 'ALTER SCHEMA dbo TRANSFER [VIRAGO\\TFORBES].[pokemon_pcd]'
 
 DBI::dbSendQuery(conn, schema_change)</code></pre>
+<pre><code>## Warning in new_result(connection@ptr, statement): Cancelling previous query</code></pre>
 <pre><code>## &lt;OdbcResult&gt;
 ##   SQL  ALTER SCHEMA dbo TRANSFER [VIRAGO\TFORBES].[pokemon_pcd]
 ##   ROWS Fetched: 0 [complete]
@@ -720,6 +722,18 @@ DBI::dbSendQuery(conn, schema_change)</code></pre>
 <p><br> Some more on schemas here</p>
 <p><a href="https://db.rstudio.com/best-practices/schema/" class="uri">https://db.rstudio.com/best-practices/schema/</a></p>
 <p><br></p>
+</div>
+<div id="write-table-specify-schema" class="section level3">
+<h3>Write table &amp; specify schema</h3>
+<p>The code below shows how to specify the schema using the <code>name</code> argument inside <code>DBI::WriteTable</code>. However, this <strong>ONLY</strong> works if the table name contains an underscore!!!</p>
+<pre class="r"><code>#not run
+DBI::dbWriteTable(
+  conn = conn
+  , name = Id(schema = &quot;dbo&quot;, table = &quot;pokemon_pcd&quot;)
+  , value = pokemon_pcd_2
+  , overwrite = TRUE
+  
+)</code></pre>
 </div>
 <div id="drop-table" class="section level3">
 <h3>Drop table</h3>

@@ -1,0 +1,624 @@
+---
+title: "Plotly"
+author: "Hannah Bougdah & Alex Ma"
+date: "29 July 2019"
+output: slidy_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## coffee and coding: Plotly
+
+Today's presentation
+
+- What is Plotly?
+
+- Online resources
+
+- example code using ggplot as a basis
+
+- example code using plotly
+
+
+
+## Plotly
+
+- Plotly is a graphing library which makes interactive html graphs.
+
+- It uses the open source JavaScript graphing library **plotly.js**.
+
+- Great for building dashboards or allowing the user to interact with the data themselves.
+
+
+
+## Getting started
+
+- Graphing library with example code: https://plot.ly/r/
+
+- Cheat sheet (paste into web browser): https://images.plot.ly/plotly-documentation/images/r_cheat_sheet.pdf
+
+- Book is available too: https://plotly-r.com/index.html
+
+- most data used in this presentation is available here:
+https://data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data
+
+
+## Functionality
+
+```{r, include = FALSE}
+# create dft colour palette
+
+library(fBasics)
+
+r <- c(0, 102, 210, 228, 201, 233, 0, 153)
+g <- c(104, 164, 95, 159, 146, 211, 153, 214)
+b <- c(83, 152, 21, 115, 18, 160, 169, 221)
+
+dft_col <- function (n, name = c("dft")) 
+{
+  dft = rgb(r, g, b, maxColorValue = 255)
+  name = match.arg(name)
+  orig = eval(parse(text = name))
+  rgb = t(col2rgb(orig))
+  temp = matrix(NA, ncol = 3, nrow = n)
+  x = seq(0, 1, , length(orig))
+  xg = seq(0, 1, , n)
+  for (k in 1:3) {
+    hold = spline(x, rgb[, k], n = n)$y
+    hold[hold < 0] = 0
+    hold[hold > 255] = 255
+    temp[, k] = round(hold)
+  }
+  palette = rgb(temp[, 1], temp[, 2], temp[, 3], maxColorValue = 255)
+  palette
+}
+
+```
+
+```{r libraries, include=FALSE}
+library(dplyr)
+library(lubridate)
+library(readxl)
+library(plotly)
+
+
+# read in data
+accidents <- read.csv("Acc.csv")
+
+
+# need to import casualties as excel due to weird scientific notation
+casualties <- read_excel("cas.xlsx", col_types = c("text", 
+    "numeric", "numeric", "numeric", "numeric", 
+    "numeric", "numeric", "numeric", "numeric", 
+    "numeric", "numeric", "numeric", "numeric", 
+    "numeric", "numeric", "numeric"))
+
+
+# rename accident index
+accidents <- dplyr::rename(accidents, Accident_Index = "ï..Accident_Index")
+#accidents <- dplyr::rename(accidents, Accident_Index = "?..Accident_Index")
+
+# make accident index factor not character
+accidents$Accident_Index <- as.character(accidents$Accident_Index)
+
+
+
+# link two date from accident onto casualties data set
+casualties <- casualties %>%
+  dplyr::left_join(select(accidents, Date, Accident_Index), by = "Accident_Index")
+
+############# create time-series by month
+
+# prepare month variable
+crashes_dates <- casualties %>%
+  group_by(month = lubridate::month(Date))
+
+# group data, count how many casualties in each casualty and remove missing
+crashes_dates <- crashes_dates %>%
+  dplyr::group_by(month, Casualty_Type) %>%
+  dplyr::tally() %>%
+  dplyr::filter(Casualty_Type != -1)
+
+
+crashes_dates <- crashes_dates %>%
+  dplyr::filter(!is.na(month))
+
+# make character otherwise look up won't recognise 0 in casualty type
+crashes_dates$Casualty_Type <- as.character(crashes_dates$Casualty_Type)
+                
+                
+# create casualty type look up using look up from data.gov
+lookup_cas <- c("0" = "Pedestrian", "1" = "Pedal Cyclist", "2" = "Motorcycle", "3" = "Motorcycle", "4" = "Motorcycle", 
+"5" = "Motorcycle", "23" = "Motorcycle", "97" = "Motorcycle", "8" = "Car", "9" = "Car", "10" = "Car", "11" = "Bus or Coach", 
+"19" = "Vans or Goods", "20" = "HGV", "21" = "HGV", "16" = "Other", "17" = "Other", "18" = "Other", "22" = "Other",
+"90" = "Other", "98" = "Other")
+
+# assign lookup to casualty type variable
+crashes_dates$Casualty_Type <- lookup_cas[crashes_dates$Casualty_Type]
+
+# group by casualty type
+crashes_dates <- crashes_dates %>%
+  dplyr::group_by(month, Casualty_Type) %>%
+  dplyr::summarise(n = sum(n))
+
+
+# ggplot + plotly chart - month
+p_date <- ggplot(crashes_dates, aes(month, n))+
+  geom_line(aes(colour = Casualty_Type), size = 1) +
+  ylab("Casualties per month") +
+  theme(axis.title = element_text(family = "Arial", size = 7)) +
+  scale_x_continuous(breaks = round(seq(min(crashes_dates$month), max(crashes_dates$month), by = 1.0),1)) +
+  scale_y_continuous(breaks = seq(0, 9000, by = 1000)) +
+  scale_color_manual(values=dft_col(n=8, name="dft")) +
+  theme_classic()
+
+
+
+```
+
+```{r plot, echo = FALSE, message = FALSE}
+
+ggplotly(p_date)
+
+```
+
+## Why use Plotly?
+
+- Good for exploring the data.
+- Allow other users to explore the data.
+- Easily save and download the charts you create in plotly.
+- Not neccessarily good for publication - the charts are html.
+- Useful in exploratory analysis or QA notes.
+
+
+## Using plotly
+
+There are two ways to use plotly:
+
+- the easier way (less options)
+- the harder way (more options)
+
+
+## The easier way
+
+The easier way involves creating charts using **ggplot2** and then using the **ggplotly** function from plotly to make the ggplot chart interactive. 
+
+This is a quick, easy way to create interactive charts, however loses some of the functionality of the plotly package.
+
+
+## The easier way - example 1
+
+
+
+
+```{r code example 1, echo = TRUE, message = FALSE}
+
+# ggplot + plotly chart - month
+p_date <- ggplot(crashes_dates, aes(month, n))+
+  geom_line(aes(colour = Casualty_Type), size = 1) +
+  ylab("Casualties per month") +
+  theme(axis.title = element_text(family = "Arial", size = 7)) +
+  scale_x_continuous(breaks = round(seq(min(crashes_dates$month), max(crashes_dates$month), by = 1.0),1)) +
+  scale_y_continuous(breaks = seq(0, 9000, by = 1000)) +
+  scale_color_manual(values=dft_col(n=8, name="dft")) +
+theme_classic()
+
+ggplotly(p_date)
+
+```
+
+
+## The easier way - example 2
+
+```{r code example 2, include = FALSE, message = FALSE}
+
+
+#corresponding values are found in the data.gov. link in the "variable lookup" under supporting documents
+accidents$Police_Force[accidents$Police_Force ==1] <- "Metropolitan Police"
+accidents$Police_Force[accidents$Police_Force ==3] <- "Cumbria"
+accidents$Police_Force[accidents$Police_Force ==4] <- "Lancashire"
+accidents$Police_Force[accidents$Police_Force ==5] <- "Merseyside"
+accidents$Police_Force[accidents$Police_Force ==6] <- "Greater Manchester"
+accidents$Police_Force[accidents$Police_Force ==7] <- "Cheshire"
+accidents$Police_Force[accidents$Police_Force ==10] <- "Northumbria"
+accidents$Police_Force[accidents$Police_Force ==11] <- "Durham"
+accidents$Police_Force[accidents$Police_Force ==12] <- "North Yorkshire"
+accidents$Police_Force[accidents$Police_Force ==13] <- "West Yorkshire"
+accidents$Police_Force[accidents$Police_Force ==14] <- "South Yorkshire"
+accidents$Police_Force[accidents$Police_Force ==16] <- "Humberside"
+accidents$Police_Force[accidents$Police_Force ==17] <- "Cleveland"
+accidents$Police_Force[accidents$Police_Force ==20] <- "West Midlands"
+accidents$Police_Force[accidents$Police_Force ==21] <- "Staffordshire"
+accidents$Police_Force[accidents$Police_Force ==22] <- "West Mercia"
+accidents$Police_Force[accidents$Police_Force ==23] <- "Warwickshire"
+accidents$Police_Force[accidents$Police_Force ==30] <- "Derbyshire"
+accidents$Police_Force[accidents$Police_Force ==31] <- "Nottinghamshire"
+accidents$Police_Force[accidents$Police_Force ==32] <- "Lincolnshire"
+accidents$Police_Force[accidents$Police_Force ==33] <- "Leicestershire"
+accidents$Police_Force[accidents$Police_Force ==34] <- "Northamptonshire"
+accidents$Police_Force[accidents$Police_Force ==35] <- "Cambridgeshire"
+accidents$Police_Force[accidents$Police_Force ==36] <- "Norfolk"
+accidents$Police_Force[accidents$Police_Force ==37] <- "Suffolk"
+accidents$Police_Force[accidents$Police_Force ==40] <- "Bedfordshire"
+accidents$Police_Force[accidents$Police_Force ==41] <- "Hertfordshire"
+accidents$Police_Force[accidents$Police_Force ==42] <- "Essex"
+accidents$Police_Force[accidents$Police_Force ==43] <- "Thames Valley"
+accidents$Police_Force[accidents$Police_Force ==44] <- "Hampshire"
+accidents$Police_Force[accidents$Police_Force ==45] <- "Surrey"
+accidents$Police_Force[accidents$Police_Force ==46] <- "Kent"
+accidents$Police_Force[accidents$Police_Force ==47] <- "Sussex"
+accidents$Police_Force[accidents$Police_Force ==48] <- "City of London"
+accidents$Police_Force[accidents$Police_Force ==50] <- "Devon and Cornwall"
+accidents$Police_Force[accidents$Police_Force ==52] <- "Avon and Somerset"
+accidents$Police_Force[accidents$Police_Force ==53] <- "Gloucestershire"
+accidents$Police_Force[accidents$Police_Force ==54] <- "Wiltshire"
+accidents$Police_Force[accidents$Police_Force ==55] <- "Dorset"
+accidents$Police_Force[accidents$Police_Force ==60] <- "North Wales"
+accidents$Police_Force[accidents$Police_Force ==61] <- "Gwent"
+accidents$Police_Force[accidents$Police_Force ==62] <- "South Wales"
+accidents$Police_Force[accidents$Police_Force ==63] <- "Dyfed-Powys"
+accidents$Police_Force[accidents$Police_Force ==91] <- "Northern"
+accidents$Police_Force[accidents$Police_Force ==92] <- "Grampian"
+accidents$Police_Force[accidents$Police_Force ==93] <- "Tayside"
+accidents$Police_Force[accidents$Police_Force ==94] <- "Fife"
+accidents$Police_Force[accidents$Police_Force ==95] <- "Lothian and Borders"
+accidents$Police_Force[accidents$Police_Force ==96] <- "Central"
+accidents$Police_Force[accidents$Police_Force ==97] <- "Strathclyde"
+accidents$Police_Force[accidents$Police_Force ==98] <- "Dumfries and Galloway"
+
+accidents$Accident_Severity[accidents$Accident_Severity ==1] <- "Fatal"
+accidents$Accident_Severity[accidents$Accident_Severity ==2] <- "Serious"
+accidents$Accident_Severity[accidents$Accident_Severity ==3] <- "Slight"
+
+
+accidents$Day_of_Week[accidents$Day_of_Week ==1] <- "Sunday"
+accidents$Day_of_Week[accidents$Day_of_Week ==2] <- "Monday"
+accidents$Day_of_Week[accidents$Day_of_Week ==3] <- "Tuesday"
+accidents$Day_of_Week[accidents$Day_of_Week ==4] <- "Wednesday"
+accidents$Day_of_Week[accidents$Day_of_Week ==5] <- "Thursday"
+accidents$Day_of_Week[accidents$Day_of_Week ==6] <- "Friday"
+accidents$Day_of_Week[accidents$Day_of_Week ==7] <- "Saturday"
+
+
+
+accidents$Day_of_Week <- factor(accidents$Day_of_Week, levels=c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"), ordered=TRUE) 
+
+
+
+```
+
+
+```{r code example 3, echo = TRUE, message = FALSE}
+# get counts of accidents in each police force
+
+# get count for number of accidents in each police force and weekday
+pf_accidents <- accidents %>%
+  dplyr::group_by(Police_Force, Day_of_Week) %>%
+  dplyr::tally() %>%
+  dplyr::arrange(Police_Force, Day_of_Week) 
+
+
+# ggplot - scatter for no. accidents in police force by week day
+
+pf_scatter <- ggplot(pf_accidents, aes(Police_Force, n))+
+  geom_point(aes(colour = Day_of_Week)) +
+  ggtitle("Reported road accidents by Police Force and day of the week, 2017") +
+  ylab("Number of Accidents in 2017") +
+  scale_y_continuous(breaks = seq(0, 4400, by = 200)) +
+  theme(axis.title = element_text(family = "Arial", size = 7)) +
+   theme_classic() +
+    theme(axis.text.x = element_text(angle = 90)) +
+    scale_color_manual(values=dft_col(n=7, name="dft")) 
+
+ggplotly(pf_scatter)
+
+```
+
+## create DfT colour palette
+
+
+```{r}
+# create dft colour palette
+
+library(fBasics)
+
+r <- c(0, 102, 210, 228, 201, 233, 0, 153)
+g <- c(104, 164, 95, 159, 146, 211, 153, 214)
+b <- c(83, 152, 21, 115, 18, 160, 169, 221)
+
+dft_col <- function (n, name = c("dft")) 
+{
+  dft = rgb(r, g, b, maxColorValue = 255)
+  name = match.arg(name)
+  orig = eval(parse(text = name))
+  rgb = t(col2rgb(orig))
+  temp = matrix(NA, ncol = 3, nrow = n)
+  x = seq(0, 1, , length(orig))
+  xg = seq(0, 1, , n)
+  for (k in 1:3) {
+    hold = spline(x, rgb[, k], n = n)$y
+    hold[hold < 0] = 0
+    hold[hold > 255] = 255
+    temp[, k] = round(hold)
+  }
+  palette = rgb(temp[, 1], temp[, 2], temp[, 3], maxColorValue = 255)
+  palette
+}
+
+```
+
+```{r, echo = FALSE}
+# check palette colours
+pal2 <- dft_col(n=8)
+par(mar = rep(0, 4))
+pie(rep(1, length(pal2)), col = pal2)
+```
+
+## The harder way
+
+- Using the plot_ly() wrapper and learning a new set of arguments.
+
+- Plotly is very flexible - double check which arguments are in which wrappers as plotly pipes arguments into each other.
+
+- Plotly exists in R, Python, MATLAB and JaveScript. When searching for guidance on arguments, make sure it's the correct language.
+
+- Plot_ly() over ggplotly() provides you with more options to control, including animating graphs with timelines, buttons and sliders.
+
+
+
+```{r libraries and data import, include= FALSE}
+
+library("pacman")
+
+pacman::p_load("tidyverse", "dplyr", "plyr", "plotly", "odbc","DBI")
+
+#loading in accident datset
+accidents <- read.csv("acc.csv")
+
+#rename accident index (weird hidden characters)
+accidents <- dplyr::rename(accidents, Accident_Index = "ï..Accident_Index")
+#accidents <- dplyr::rename(accidents, Accident_Index = "?..Accident_Index")
+
+#make accident index factor not character
+accidents$Accident_Index <- as.character(accidents$Accident_Index)
+
+```
+
+
+``` {r cleaning data for bar chart, include = FALSE, message = FALSE}
+#preparing the police force variable
+
+#corresponding values are found in the data.gov. link in the "variable lookup" under supporting documents
+accidents$Police_Force[accidents$Police_Force ==1] <- "Metropolitan Police"
+accidents$Police_Force[accidents$Police_Force ==3] <- "Cumbria"
+accidents$Police_Force[accidents$Police_Force ==4] <- "Lancashire"
+accidents$Police_Force[accidents$Police_Force ==5] <- "Merseyside"
+accidents$Police_Force[accidents$Police_Force ==6] <- "Greater Manchester"
+accidents$Police_Force[accidents$Police_Force ==7] <- "Cheshire"
+accidents$Police_Force[accidents$Police_Force ==10] <- "Northumbria"
+accidents$Police_Force[accidents$Police_Force ==11] <- "Durham"
+accidents$Police_Force[accidents$Police_Force ==12] <- "North Yorkshire"
+accidents$Police_Force[accidents$Police_Force ==13] <- "West Yorkshire"
+accidents$Police_Force[accidents$Police_Force ==14] <- "South Yorkshire"
+accidents$Police_Force[accidents$Police_Force ==16] <- "Humberside"
+accidents$Police_Force[accidents$Police_Force ==17] <- "Cleveland"
+accidents$Police_Force[accidents$Police_Force ==20] <- "West Midlands"
+accidents$Police_Force[accidents$Police_Force ==21] <- "Staffordshire"
+accidents$Police_Force[accidents$Police_Force ==22] <- "West Mercia"
+accidents$Police_Force[accidents$Police_Force ==23] <- "Warwickshire"
+accidents$Police_Force[accidents$Police_Force ==30] <- "Derbyshire"
+accidents$Police_Force[accidents$Police_Force ==31] <- "Nottinghamshire"
+accidents$Police_Force[accidents$Police_Force ==32] <- "Lincolnshire"
+accidents$Police_Force[accidents$Police_Force ==33] <- "Leicestershire"
+accidents$Police_Force[accidents$Police_Force ==34] <- "Northamptonshire"
+accidents$Police_Force[accidents$Police_Force ==35] <- "Cambridgeshire"
+accidents$Police_Force[accidents$Police_Force ==36] <- "Norfolk"
+accidents$Police_Force[accidents$Police_Force ==37] <- "Suffolk"
+accidents$Police_Force[accidents$Police_Force ==40] <- "Bedfordshire"
+accidents$Police_Force[accidents$Police_Force ==41] <- "Hertfordshire"
+accidents$Police_Force[accidents$Police_Force ==42] <- "Essex"
+accidents$Police_Force[accidents$Police_Force ==43] <- "Thames Valley"
+accidents$Police_Force[accidents$Police_Force ==44] <- "Hampshire"
+accidents$Police_Force[accidents$Police_Force ==45] <- "Surrey"
+accidents$Police_Force[accidents$Police_Force ==46] <- "Kent"
+accidents$Police_Force[accidents$Police_Force ==47] <- "Sussex"
+accidents$Police_Force[accidents$Police_Force ==48] <- "City of London"
+accidents$Police_Force[accidents$Police_Force ==50] <- "Devon and Cornwall"
+accidents$Police_Force[accidents$Police_Force ==52] <- "Avon and Somerset"
+accidents$Police_Force[accidents$Police_Force ==53] <- "Gloucestershire"
+accidents$Police_Force[accidents$Police_Force ==54] <- "Wiltshire"
+accidents$Police_Force[accidents$Police_Force ==55] <- "Dorset"
+accidents$Police_Force[accidents$Police_Force ==60] <- "North Wales"
+accidents$Police_Force[accidents$Police_Force ==61] <- "Gwent"
+accidents$Police_Force[accidents$Police_Force ==62] <- "South Wales"
+accidents$Police_Force[accidents$Police_Force ==63] <- "Dyfed-Powys"
+accidents$Police_Force[accidents$Police_Force ==91] <- "Northern"
+accidents$Police_Force[accidents$Police_Force ==92] <- "Grampian"
+accidents$Police_Force[accidents$Police_Force ==93] <- "Tayside"
+accidents$Police_Force[accidents$Police_Force ==94] <- "Fife"
+accidents$Police_Force[accidents$Police_Force ==95] <- "Lothian and Borders"
+accidents$Police_Force[accidents$Police_Force ==96] <- "Central"
+accidents$Police_Force[accidents$Police_Force ==97] <- "Strathclyde"
+accidents$Police_Force[accidents$Police_Force ==98] <- "Dumfries and Galloway"
+
+
+```
+
+## Bar Charts in plotly 
+
+```{r example code 4, echo = TRUE, message=FALSE}
+
+#Grouping accidents by police force
+accidentsPF <- accidents %>%          #SQL FROM clause equivalent
+  dplyr::group_by(Police_Force) %>%   #SQL SELECT/GROUP BY clause equivalent
+  dplyr::tally()                      #SQL count(*) equivalent
+
+
+
+#reorder the data so that you change the police forces to graph in descending order
+accidentsPF$Police_Force <- factor(accidentsPF$Police_Force, 
+                                   levels = unique(accidentsPF$Police_Force)[order(accidentsPF$n, decreasing = TRUE)])
+
+
+#adding more information for the bar chart
+accidentsPF$percent <- (accidentsPF$n/129982)*100
+accidentsPF$percent <- round(accidentsPF$percent, 1)
+
+
+#creating a bar chart
+accidentsPF %>%
+  plot_ly(
+    y = ~ Police_Force, #use a ~ to tell plot_ly that you want to reference a variable
+    x = ~ n,
+    type = "bar", #specifies what chart you want
+    marker = list(color = 'rgb(210,95,21)'),
+    hoverinfo = "text", #dialogue box that appears when you mouse over a data point
+    hovertext = paste(
+      "<b>Force: </b>", accidentsPF$Police_Force,
+      "<i><br>Count: </i>",accidentsPF$n,
+      "<br>Per cent: ", accidentsPF$percent)
+    ) %>%
+      layout(title = "Personal injury reported road accidents in 2017 by Police Force",
+             xaxis = list(title = "Count",
+                          showgrid = F,
+                          zeroline = F),
+             yaxis = list(title = "Police Force",
+                          showgrid = F,
+                          zeroline = F)
+              )
+
+```
+
+## Scatter charts in plotly 
+
+```{r scatter plot data import, echo = TRUE, message = FALSE}
+
+con <- dbConnect(odbc::odbc(),
+                 .connection_string = "database_server")
+
+accidentsscatter <- dbGetQuery(con,
+                              "select a.accyr as year, a1lab as policeforce,  count(distinct a.accid) as accidents, count(*) as casualties
+                              from cas c left join acc a on c.accid=a.accid
+                              where a.accyr between 2000 and 2017
+                              group by a.accyr, a1lab
+                              order by a.accyr") 
+
+```
+
+
+
+```{r scatter plot, echo = TRUE, MESSAGE = FALSE, warnings = FALSE}
+
+accidentsscatter %>%
+  plot_ly() %>%
+  add_trace(
+    x = ~ accidents, 
+    y = ~ casualties, 
+    color = ~ policeforce,
+    frame = ~ year, 
+    type = 'scatter',
+    mode = 'markers',
+    hoverinfo = "text",
+    text = ~paste('</br><b>Force</b>: ',policeforce,'</br>Accidents: ',accidents,'</br>casualties: ',casualties)
+  ) %>% animation_opts(
+    1000, #animation speed in ms
+    easing = "elastic", #adds "elastic animation effect 
+    redraw = FALSE #TRUE will redraw plot at the completion of the transition 
+  ) %>%
+  layout(title = "Accidents and casualties by Police Force 2000-2018",
+         xaxis = list(title = "Accidents"),
+         yaxis = list(title = "Casualties")
+  )
+
+
+```
+
+## Heatmap/Matrix 
+
+``` {r heatmap data cleaning and importing, include=FALSE}
+
+#recoding day of week variable
+accidents$DayofWeek[accidents$Day_of_Week == 1] <- 'Sunday'
+accidents$DayofWeek[accidents$Day_of_Week == 2] <- 'Monday'
+accidents$DayofWeek[accidents$Day_of_Week == 3] <- 'Tuesday'
+accidents$DayofWeek[accidents$Day_of_Week == 4] <- 'Wednesday'
+accidents$DayofWeek[accidents$Day_of_Week == 5] <- 'Thursday'
+accidents$DayofWeek[accidents$Day_of_Week == 6] <- 'Friday'
+accidents$DayofWeek[accidents$Day_of_Week == 7] <- 'Saturday'
+count(accidents$DayofWeek)
+
+accidents$hour <- substr(accidents$Time, 1,2)
+#count(accidents$hour)
+
+accidents$hour2[accidents$hour == "00" |accidents$hour == "01" ] <- "00:00-01:59"
+accidents$hour2[accidents$hour == "02" |accidents$hour == "03" ] <- "02:00-03:59"
+accidents$hour2[accidents$hour == "04" |accidents$hour == "05" ] <- "04:00-05:59"
+accidents$hour2[accidents$hour == "06" |accidents$hour == "07" ] <- "06:00-07:59"
+accidents$hour2[accidents$hour == "08" |accidents$hour == "09" ] <- "08:00-09:59"
+accidents$hour2[accidents$hour == 10 |accidents$hour == 11 ] <- "10:00-11:59"
+accidents$hour2[accidents$hour == 12 |accidents$hour == 13 ] <- "12:00-13:59"
+accidents$hour2[accidents$hour == 14 |accidents$hour == 15 ] <- "14:00-15:59"
+accidents$hour2[accidents$hour == 16 |accidents$hour == 17 ] <- "16:00-17:59"
+accidents$hour2[accidents$hour == 18 |accidents$hour == 19 ] <- "18:00-19:59"
+accidents$hour2[accidents$hour == 20 |accidents$hour == 21 ] <- "20:00-21:59"
+accidents$hour2[accidents$hour == 22 |accidents$hour == 23 ] <- "22:00-23:59"
+count(accidents$hour2)
+
+accidents$hour2[accidents$hour2 != "00:00-01:59"&
+                accidents$hour2 != "02:00-03:59"&
+                accidents$hour2 != "04:00-05:59"&
+                accidents$hour2 != "06:00-07:59"&
+                accidents$hour2 != "08:00-09:59"&
+                accidents$hour2 != "10:00-11:59"&
+                accidents$hour2 != "12:00-13:59"&
+                accidents$hour2 != "14:00-15:59"&
+                accidents$hour2 != "16:00-17:59"&
+                accidents$hour2 != "18:00-19:59"&
+                accidents$hour2 != "20:00-21:59"&
+                accidents$hour2 != "22:00-23:59"
+                  ] <- NA
+
+#using lubridate to get hour out
+count(accidents$Time)
+#hour <- lubridate::hour(accidents$Time)    
+
+#Grouping accidents by day of week and month
+accidentsheatmap <- accidents %>%
+  dplyr::group_by(DayofWeek, hour2) %>%
+  dplyr::tally()
+
+
+
+#order day of week for this chart as it is more applicable
+accidentsheatmap$DayofWeek <- factor(accidentsheatmap$DayofWeek, levels=c("Sunday", "Saturday", "Friday", "Thursday", "Wednesday", "Tuesday", "Monday"), ordered=TRUE)
+
+#ordering 
+
+#accidentsheatmap$hour2 <- as.factor(accidentsheatmap$hour2)
+```
+
+```{r heatmap, echo = TRUE, message = FALSE}
+
+#create dft colour scale for heatmap
+palette <- colorRampPalette(c("#F4E9D0","#C99212"))
+
+
+  plot_ly(
+    data = accidentsheatmap,
+    x = ~ hour2,
+    y = ~ DayofWeek,
+    z = ~ n,
+    type = "heatmap",
+    colors =  palette(3700)
+    ) %>%
+  layout(title = "Personal injury reported road accidents in 2017 by time and day of week",
+         xaxis = list(title = "Time"),
+         yaxis = list(title = "Day of week"),
+         hoverlabel = list(font=list(size=20))
+  )
+
+```
+
+##Any questions?

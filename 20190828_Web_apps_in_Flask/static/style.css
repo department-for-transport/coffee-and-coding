@@ -1,0 +1,96 @@
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px
+  }
+}
+
+
+
+
+.col-md-4{
+  margin-top: 20px;
+}
+
+.col-md-8{
+  margin-top: 20px;
+}
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+.h1 {
+  height:50px;
+}
+
+.namebox{
+  background-color: #5bc0de;
+  font-weight: bold;
+  height: 40px;
+  width: 100%;
+  float: left;
+  margin: 1%;
+  padding: 10px;
+  color: white;
+  animation: slide-up 0.7s ease;
+}
+.pqbox {
+    background-color: #428bca;
+
+    width: 100%;
+    float: left;
+    margin: 1%;
+    padding: 20px;
+    color: white;
+    animation: slide-up 0.7s ease;
+}
+
+.pqholder {
+  width: 100%;
+}
+
+
+.btn{
+  margin: 10px;
+  margin-left: 0px;
+}
+
+.unitbox {
+    background-color: #5cb85c;
+    height: 30px;
+    width: 100%;
+    float: left;
+    margin: 5px;
+    padding: 5px;
+    padding-left:10px;
+    color: white;
+
+    animation: slide-up 0.7s ease;
+}
+
+
+
+@keyframes slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

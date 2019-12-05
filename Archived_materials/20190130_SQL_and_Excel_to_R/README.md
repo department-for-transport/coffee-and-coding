@@ -16,8 +16,8 @@ In this session, DfE analyst David Sands (*moi*) will show y'all how to transiti
  Both the html and Rmd files can be downloaded individually via these links:
 <br>
 <br>
-[SQL_EXCEL_to_R_How_to_Make_the_Jump.html download](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/blob/master/20190130_SQL_and_Excel_to_R/SQL_EXCEL_to_R_How_to_Make_the_Jump.html)
+[SQL_EXCEL_to_R_How_to_Make_the_Jump.html download](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/blob/master/Archived_materials/20190130_SQL_and_Excel_to_R/SQL_EXCEL_to_R_How_to_Make_the_Jump.html)
 <br>
 <br>
-[SQL_EXCEL to R How to Make the Jump.Rmd download](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/blob/master/20190130_SQL_and_Excel_to_R/SQL_EXCEL%20to%20R%20How%20to%20Make%20the%20Jump.Rmd)
+[SQL_EXCEL to R How to Make the Jump.Rmd download](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/blob/master/Archived_materials/20190130_SQL_and_Excel_to_R/SQL_EXCEL%20to%20R%20How%20to%20Make%20the%20Jump.Rmd)
 <br>

@@ -11,5 +11,5 @@ Any questions / comments / suggestions can be sent to [thomas.parry@dft.gov.uk](
 
 All files can be downloaded via this link:
 <br>
-[RAP Validation download all files](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/tree/master/20190116_RAP_Validation)
+[RAP Validation download all files](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/tree/master/Archived_materials/20190116_RAP_Validation)
 <br>

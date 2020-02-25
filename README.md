@@ -26,6 +26,7 @@ The aim of the Coffee & Coding meetups is to nurture, enable and encourage a vib
 
 | Date            | Time  | Room    | Title                                                        | Presenter                                     | Abstract                                                     |
 | :-------------- | :---- | :------ | :----------------------------------------------------------- | :-------------------------------------------- | :----------------------------------------------------------- |
+| Thu 16 Jan 2020 | 11:00 | 2/16   | spatial analysis and producing maps in R | Jack Marks | Jack Marks will give an introduction to conducting spatial analysis and producing maps in R using the sf and tmap packages.|
 | Thu 13 Feb 2020 | 11:00 | 2/16   | Animated charts in R | Lucy Charlton  |Lucy Charlton from ORR will talk about different ways of presenting data using ggplot2 in R. This will look at the types of graphs that are possible, and creating animated charts and gifs for Twitter. |
 | Wed 16 Oct 2019 | 11:00 | H3     | Webscraping rail fares in python | Greg Williams  | Showcasing work on webscraping fares information from the National Rail Enquiries website using python - including building a URL, making website requests, parsing HTML/JSON data and converting to csv. |
 | Wed 02 Oct 2019 | 11:00 | H5     | Brandwatch | Sam Fowler | Using Brandwatch for real time data extraction projects, demonstrating the construction of queries and discussing the principals of extracting large amounts of news articles from multiple web sites. |

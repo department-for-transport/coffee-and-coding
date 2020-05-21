@@ -18,6 +18,8 @@ Folders should adhere to the following conventions:
 
 DfE have guidance on using GitHub via the Git GUI and HTTPS [here](https://github.com/dfe-analytical-services/coffee-and-coding/blob/master/how-to-use-github.md). For those who want a more in depth R focussed tutorial we recommend [happy git with r](https://happygitwithr.com/) by Jenny Bryan et al of the University of British Columbia.
 
+To try to make it easier for people to just download materials that they want, rather than clone the entire repo. Hence we aim to include links in the readme's of each subfolder that download just that subfolder. These links are created using [DownGit](https://yehonal.github.io/DownGit/#/home). However, DownGit is often flagged as suspicious by Chrome/Mozilla Firefox so may not work for everyone.
+
 
 ### Aim
 The aim of the Coffee & Coding meetups is to nurture, enable and encourage a vibrant, supportive and inclusive coding community at DfT. Coffee & Coding provides a regular opportunity for people within DfT who are interested in coding to share skills and knowledge, provide advice and guidance to each other and generally network and get to know each other. The format is generally 40 minutes for a presentation and questions to the presenter/s followed by 20 minutes Code Surgery. The presentations usually take the form of a demonstration of a tool or technique and/or a show and tell of work done within the department using these methods. From time to time we will invite external speakers. The Code Surgery provides the opportunity for people to pose any coding related queries/ruminations/ideas to the gathered coding community.

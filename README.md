@@ -12,12 +12,12 @@ Note that resources are _publicly accessible_. When adding new content clone or 
 
 Folders should adhere to the following conventions:
 
-* `YYYYMMDD_Topic_Name`
-* All folders should contain a `README.md` with notes or a brief explanation
+* sit in the **All_materials** folder
+* name of folder should be `YYYYMMDD_Topic_Name`
+* all folders should contain a `README.md` with notes or a brief explanation
 
 DfE have guidance on using GitHub via the Git GUI and HTTPS [here](https://github.com/dfe-analytical-services/coffee-and-coding/blob/master/how-to-use-github.md). For those who want a more in depth R focussed tutorial we recommend [happy git with r](https://happygitwithr.com/) by Jenny Bryan et al of the University of British Columbia.
 
-The most recent talk materials can be seen above and any materials from talks prior to these can be found in the **Archived_materials** folder. 
 
 ### Aim
 The aim of the Coffee & Coding meetups is to nurture, enable and encourage a vibrant, supportive and inclusive coding community at DfT. Coffee & Coding provides a regular opportunity for people within DfT who are interested in coding to share skills and knowledge, provide advice and guidance to each other and generally network and get to know each other. The format is generally 40 minutes for a presentation and questions to the presenter/s followed by 20 minutes Code Surgery. The presentations usually take the form of a demonstration of a tool or technique and/or a show and tell of work done within the department using these methods. From time to time we will invite external speakers. The Code Surgery provides the opportunity for people to pose any coding related queries/ruminations/ideas to the gathered coding community.

@@ -14,7 +14,7 @@ Folders should adhere to the following conventions:
 
 * sit in the **All_materials** folder
 * name of folder should be `YYYYMMDD_Topic_Name`
-* all folders should contain a `README.md` with notes or a brief explanation
+* all folders should contain a `README.md` with a brief explanation, and a DownGit link to download the subfolder
 
 DfE have guidance on using GitHub via the Git GUI and HTTPS [here](https://github.com/dfe-analytical-services/coffee-and-coding/blob/master/how-to-use-github.md). For those who want a more in depth R focussed tutorial we recommend [happy git with r](https://happygitwithr.com/) by Jenny Bryan et al of the University of British Columbia.
 

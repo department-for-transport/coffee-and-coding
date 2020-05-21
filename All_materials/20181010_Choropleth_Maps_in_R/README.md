@@ -5,6 +5,8 @@
 
 This folder contains materials for the Coffee & Coding session on how to produce choropleth maps in R which you can customise in (almost!) anyway that you want.
 
+[Download folder](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/tree/master/All_materials/20181010_Choropleth_Maps_in_R)
+
 
 ## Packages
 

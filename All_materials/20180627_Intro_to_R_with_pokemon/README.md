@@ -3,6 +3,7 @@ Intro\_to\_R\_with\_pokemon.R
 
 #### *Tamsin Forbes*
 
+[Download this folder](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/tree/master/All_materials/20180627_Intro_to_R_with_pokemon)
 
     #this script has been taken from section 5-8 of the online tutorial 
 

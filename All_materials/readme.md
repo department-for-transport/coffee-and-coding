@@ -1,1 +1,1 @@
-This folder contains all the individual folders of materials available in date order, with most recent first. Downgit links exist in some of them to facilitate downloading on indivodual folders/files without having to clone the entire repo.
+This folder contains all the individual folders of materials available in date order, with most recent first. Downgit links exist in some of them to facilitate downloading of individual folders/files without having to clone the entire repo.

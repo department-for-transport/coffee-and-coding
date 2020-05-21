@@ -2,6 +2,8 @@
 
 This folder contains materials for the R Markdown Coffee and Coding session which was delivered by [Sue Wallace](https://twitter.com/everlasting_ava), and took place on September 26th 2018 at the Department for Transport. 
 
+[Download folder](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/tree/master/All_materials/20180926_R_Markdown)
+
 There are three projects within the file, each of which give a different example of how Rmarkdown can be used. If you are new to R Markdown then review the projects in this order:
 
 1. olympics_report

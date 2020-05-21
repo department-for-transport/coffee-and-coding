@@ -5,6 +5,8 @@
 
 These notes are intended to show the possibilities for webscraping within Python.
 
+[Download folder](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/tree/master/All_materials/20191016_Web_Scraping_with_Python)
+
 There are two possible approaches to webscraping.
 1.    **Direct webscraping**: Get the html returned by the web request, extract the information from relevant tags and then parse it into a more useable form.
 2.    **Indirect webscraping**: Post a GET request to access an API to return data preformatted.

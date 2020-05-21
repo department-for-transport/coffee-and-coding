@@ -3,6 +3,8 @@ Coffee & Coding: stringr & regex with pirates
 #### *Tamsin Forbes*
 #### *2018-09-19 [Talk Like a Pirate Day]*
 
+[Download folder](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/tree/master/All_materials/20180919_stringR)
+
 Intro
 -----
 

@@ -9,4 +9,4 @@ How the BBC uses object-oriented software design principles in data analysis and
 
 If you don't want to clone the entire Coffee & Coding repo you can use this link (created using [DownGit](https://minhaskamal.github.io/DownGit/#/home)) to download just the this subfolder, which includes the html slides for this talk.
 
-[download this subfolder](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/tree/bbplot/20190417_object_oriented_analysis_and_bbplot)
+[download this subfolder](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/tree/master/All_materials/20190417_object_oriented_analysis_and_bbplot)

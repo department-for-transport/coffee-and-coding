@@ -1,5 +1,7 @@
 # Can {drake} RAP?
 
+[Download fodler](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/tree/master/All_materials/20190918_drake)
+
 [Matt Dray](https://twitter.com/mattdray) is a [data scientist](https://xkcd.com/1838/) at [Government Digital Service](https://dataingovernment.blog.gov.uk/2018/10/08/data-science-is-a-team-sport/) (GDS). He believes in reproducibility, which is where [the {drake} package](https://docs.ropensci.org/drake/) comes in.
 
 At its simplest, the {drake} package records the dependencies between the files in your analysis. If you change something, {drake} only re-runs the parts that need to be re-run, saving time and reducing the chance for error. This could be especially useful for [Reproducible Analytical Pipelines](https://ukgovdatascience.github.io/rap-website/) (RAP) in a government context.

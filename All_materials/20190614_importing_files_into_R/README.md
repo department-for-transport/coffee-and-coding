@@ -7,7 +7,7 @@ Coffee & Coding: Importing files into R
 
 If you don't want to clone the entire Coffee & Coding repo you can use this link (created using [DownGit](https://minhaskamal.github.io/DownGit/#/home)) to download just the ___importing files into R___ subfolder,
 
-[download importing files into R subfolder](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/tree/master/20190614_importing_files_into_R)
+[download importing files into R subfolder](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/tree/master/All_materials/20190614_importing_files_into_R)
 
 The main file is the **.Rmd** file which produces the **.html** output, and contains code and explanation. The other **.R** file is just the code taken out of the **.Rmd** presentation.
 

@@ -8,9 +8,11 @@
 
 Please note, the session will start __5 minutes__ later than the scheduled start time, this is to allow time for setting up.
 
-## Skype Meeting
+## Team Meeting
 
-Please join the live Skype Meeting if you can't join us in person. Remember to mute your microphone unless you want to ask a question. You can also ask questions in the Skype chat. The live meeting will be recorded and uploaded to our YouTube account after the session. The recording will include audio and the presenter's screen, but no video of the room. Links to the recordings will only be made available internally on our intranet page [here](https://intranet.dft.gov.uk/doc/youtube-live-stream-links-0).
+Sessions will be held only in cyberspace for the foreseeable future. Please mute your microphone unless you want to ask a question, you can also raise your hand with the hand icon, and post questions in the chat. 
+
+We will aim to record the live meeting and upload to our DfT C&C YouTube account after the session. The recording will include audio and the presenter's screen only. Links to the recordings will only be made available internally on our intranet page [here](https://intranet.dft.gov.uk/doc/youtube-live-stream-links-0).
 
 __Please note that the recording link must be treated as a government document and should not be shared with unauthorised persons.__ 
 

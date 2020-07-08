@@ -8,7 +8,7 @@
 
 Please note, the session will start __5 minutes__ later than the scheduled start time, this is to allow time for setting up.
 
-## Team Meeting
+## Teams Meeting
 
 Sessions will be held only in cyberspace for the foreseeable future. Please mute your microphone unless you want to ask a question, you can also raise your hand with the hand icon, and post questions in the chat. 
 

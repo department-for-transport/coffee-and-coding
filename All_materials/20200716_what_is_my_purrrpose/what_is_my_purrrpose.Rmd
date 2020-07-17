@@ -1,0 +1,416 @@
+---
+title: "what is my {purrr}pose?"
+author: "Tamsin Forbes"
+date: "06/07/2020"
+output: 
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+   #keep_md: yes
+---
+
+## to iterate...
+
+<div style="float:right;position: relative; top: -80px;">
+```{r echo = FALSE, out.width="400px"}
+knitr::include_graphics("image/purrr_butter_robot.png")
+```
+
+</div>
+
+
+The {purrr} package is one of the {tidyverse} staples. It faciliates and optimises iteration and plays nicely with other {tidyverse} functions. The advantage over for loops is that {purrr} makes it easier for the user to write their own functions in a "complete and consistent manner" (for more on this see r-bloggers [to purrr or not to purrr](https://www.r-bloggers.com/to-purrr-or-not-to-purrr/)).
+
+This talk aims to provide functional programming examples of some of the common functions from the {purrr} package. These have basic descriptions in the excellent [{purrr} cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/purrr.pdf). I have also included some examples on how to use purrr to import multiple excel workbooks/worksheets/individual cells from the work I did for our [DfT R Cookbook chapter 3.6](https://departmentfortransport.github.io/R-cookbook/data-import.html#xlsx-and-.xls).
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+## Import packages
+
+For full list of tidyverse packages see [website](https://www.tidyverse.org/packages/).
+```{r packages, message=FALSE}
+library(tidyverse) #suite of packages including dplyr, stringr, purrr, readr etc 
+library(fs) #file system operations package, reading filenames in folders etc
+library(knitr) #general purpose tool for dynamic report generation in R 
+library(kableExtra) #presentation of complex tables with customizable styles
+library(DT) #presentation of tables (wrapper of JavaScript library DataTables)
+```
+
+## Create some data
+
+A variety of vectors, lists and dataframes for use in this code. Not all are used below.
+```{r create_data}
+#some vectors, vectors must be all the same data type
+#character vectors
+animals <- c("ant", "bat", "cat", "dog", "elk", "fox", "gnu")
+words <- c("she", "sells", "seashells")
+villages <- c("Godric's Hollow", "Ottery St. Catchpole")
+saturn_moons <- c("Titan", "Mimas", "Europa", "Phoebe", "Tethys", "Rhea")
+
+#numeric vectors
+integers <- c(4, 6, 2, 7, 4, 6, 3, 6)
+doubles <- c(5.3, 4.6, 2.5, 7.45, 9.23)
+
+#logical
+logical <- c(T, F, F, F, T, T, F, T, T)
+
+#lists, lists can hold a mixture of data types, and be nested
+simple_list <- list("just", "some", "words")
+alist <- list(animals, integers, logical)
+nested_list <- list(saturn_moons, list(words, logical), villages)
+list_moons <- list("Titan", "Mimas", "Europa", "Phoebe", "Tethys", "Rhea" )
+
+set.seed(12345) #set seed to make random seelctions repeatable
+#dataframes are lists with special propoerties
+#a column must contain only one data type, and each column must have the same length
+df1 <- tibble::tibble(
+  "animal" = sample(animals, 20, replace = TRUE)
+  , "height" = runif(n = 20, min = 1, max = 20)
+)
+
+#a column can contain a vector of lists, including nested lists
+df2 <- tibble::tibble(
+  "word" = words
+  , "lists" = list(logical, saturn_moons, list(integers, villages))
+)
+
+#a dataframe of fruit consumption in kilos per month
+monthly_fruit_consumption <- tibble::tibble(
+  fruit = c("banana", "gooseberry", "peach", 'raspberry', 'guava')
+  , month = c('Mar', 'May', 'Apr', 'Mar', 'May')
+  , mass_kilos = c(12, 13, 15, 11, 9)
+)
+```
+
+
+## Input: list or vector
+The {purrr} functions can receive a list or vector of elements, and you should note that these have different outputs. For example
+
+```{r list}
+list(1,2,3)
+```
+
+```{r vector}
+c(1,2,3)
+```
+
+## Accessing elements
+
+### Accessing a list: beware of nestedness; [] vs [[]]
+
+#### A list
+```{r}
+simple_list
+```
+
+#### Individual elements of the list
+```{r}
+simple_list[[1]]
+simple_list[[3]]
+```
+
+#### Lists within the list
+```{r}
+simple_list[2]
+```
+
+#### The difference when using the output
+```{r}
+glue::glue("the first element is: ", simple_list[1])
+glue::glue("the first element is: ", simple_list[[1]])
+```
+
+### Accessing a vector: 
+
+#### A vector
+```{r}
+words
+```
+
+#### Individual vector elements
+```{r}
+#both ok but [[]] not necessary
+words[1]
+words[[1]] #not necessary
+```
+
+#### More than one element
+```{r}
+words[2:3] #ok
+#words[[2:3]] #not ok
+```
+
+### Accessing a dataframe column vector
+```{r}
+df1$animal[4]
+df1$animal[1:4]
+```
+
+###  Accessing a dataframe column list
+#### The first list returned as a logical vector
+```{r}
+df2$lists[[1]]
+str(df2$lists[[1]])
+```
+
+#### The first list returned as a list containing a logical vector...
+```{r}
+df2$lists[1]
+str(df2$lists[1])
+```
+
+#### The fourth element from the first list in the column
+```{r}
+df2$lists[[1]][4]
+```
+
+So mind your lists and vectors!
+
+
+## `map` overview
+
+The workhorse of {purrr} is `map` and related functions. Each of the `map` functions takes a list/vector and applies a function to each element. Each version of `map` has a specific output type: 
+
+* `map` -> list
+* `map_chr` -> character vector
+* `map_int` -> integer vector
+* `map_lgl` -> logical vector
+* `map_dfr` -> row binds outputs into a dataframe
+* `map_dfc` -> column binds outputs into a dataframe
+
+The `map2_` versions of the above (`map2`, `map2_chr`, `map2_int` etc) each take two list/vector inputs, **which must be the same length**, then apply the function to each **pair**. 
+
+## Argument syntax
+
+There are a few different ways to give {purrr} functions their arguments. The list/vector argument is `.x`, and `.y` for feeding two simultaneously. The function argument is `.f` and other arguments are similarly prefixed by `.`.
+
+#### Single argument
+For a simple use case of a purrr function you can just pass the list/vector and the function name, *without any arguments or brackets*, and it will implicitly feed the list/vector elements into the first argument of the specified function. 
+
+Input a character vector of individual words and return the length of each
+```{r}
+purrr::map(.x = words, .f = stringr::str_length)
+```
+
+#### Multiple arguments
+
+If the function you want to apply takes more than one argument, or the first argument is not the list, or you want to apply something more complicated then you need to use `~` and specify where `.x` goes:
+
+```{r}
+purrr::map(.x = words
+           , .f = ~ glue::glue("'", .x, "'", " has ", stringr::str_length(.x), " letters."))
+```
+
+## Function 1: `map_int`, `map_if`, `map_chr`
+
+Say you wanted to send a secret message, where each word is encoded based on the number of letters it has. The function, `encode_word` below takes a list/vector of words, extracts each word, applies a shift to each letter (dependent on word length) puts the new word back together and outputs the vector of encoded words. In the process we use `map_int`, `map_if` and `map_chr`.
+
+### `map_int`
+
+This will be used inside the function to collect an integer vector of the index number of each letter of the word from the built in `letters` character vector of the lowercase alphabet, in which `letters[1]` = `r letters[1]`, `letters[26]` = `r letters[26]` etc. 
+```{r}
+purrr::map_int(.x = c("h", "e", "l", "l", "o"), ~ stringr::str_which(letters, .x))
+```
+
+### `map_if`
+
+The fact that R indexes from 1 instead of 0 causes a little problem here which we use `map_if` to circumvent. We want to shift each letter by the word length, for example each letter of "way" will be shifted forward 3 to "zdb". When we add on the word length to each letter we want it to wrap around, so we use addtion modulo 26. However, 26 %% 26 = 0, and `letters[0]` does not exist, but is equivalent to `letters[26]` which is "z". So we use `map_if` to deal with this exception. `map_if` takes a predicate function, `.p` which allows you to specify a condition that elements of `.x` must pass for the function in `.f` to be applied. Elements that fail `.p` can be dealt with by an alternative function in `.else`, or you can leave this blank to just ignore them.
+```{r}
+word_length = stringr::str_length("way")
+purrr::map_if(.x = c(23, 1, 25) #letters indices of "w", "a", "y""
+              , .p = ~ (.x + word_length) %% 26 != 0 #conditon: not a multiple of 26
+              , .f = ~ letters[(.x + word_length) %% 26] #apply to elements that pass
+              , .else = ~ letters[26]) #apply to elements that fail
+```
+### encode_word function
+Function to encode a word based on its length
+```{r encode_word}
+encode_word <- function(word){
+  #check word is only alphabet characters, remove punctuation, numbers
+  #
+  word <- stringr::str_to_lower(word) #make lower case
+  word_length <- stringr::str_length(word) #get length of word
+  word_letters <- unlist( stringr::str_split(word, "") ) #get vector of letters
+  #get integer vector of the index in letters of each letter
+  letters_index <- purrr::map_int(.x = word_letters, ~ stringr::str_which(letters, .x))
+  #apply shift based on word length using map_if to take care of instance where 
+  #the sum modulo 26 = 0. letters[0] does not exist, but should be letters[26]
+  shifted_letters <-  purrr::map_if(.x = letters_index
+                                    , .p = ~ (.x + word_length) %% 26 != 0
+                                    , .f = ~ letters[(.x + word_length) %% 26]
+                                    , .else = ~ letters[26])
+  #map_if returns a list so collapse this list of encoded letters to word
+  encoded_word <- stringr::str_c(shifted_letters, sep = "", collapse = "")
+    
+  return(encoded_word)
+}
+
+```
+
+### `map_chr`
+Now we have a function that can encode a single word we can use `map_chr` to neatly apply it to a character vector of words, and return a character vector. Here I've encoded some end of alphabet letters to check it's working properly - I suppose this could/should make up some unit test...
+```{r}
+purrr::map_chr(.x = c("y", "xy", "wxy"), ~ encode_word(word = .x))
+```
+
+And here's some actual words being encoded:
+```{r}
+saturn_moons
+purrr::map_chr(.x = saturn_moons, ~ encode_word(word = .x))
+```
+
+
+If I developed this to encode a message I would do something like extract the whole message into a string, remove punctuation and numbers, split it on the spaces to get the character vector of words. But I guess I would want to put each encoded word back, so would have to work out a way to preserve its original position in the message. Anyway I have no need of this function just now so I won't bother...
+
+## Function 2: `map_dfr`
+
+Now I'm going to shamelessly steal from my own work and include a few examples of user defined functions (UDFs) involving {purrr} to import data from MS Excel one/many cells/worksheets/workbooks in. 
+
+### `map_dfr`
+You have a workbook of data split across many sheets. The data in each sheet is consistent, same variable names and number, like so:
+![](image/pokemon_collection_point.png)
+You want to read in each sheet and row bind into a dataframe. Enter `map_dfr`. The following UDF `read_and_combine_sheets` takes the path to the workbook as its only input and returns a row bound dataframe of the data from each sheet, also adding a sheet id column comprised of the sheet name so you can see where it came from.
+```{r}
+read_and_combine_sheets <- function(path){
+  readxl::excel_sheets(path = path) %>% 
+  purrr::set_names() %>% #collect the names of the sheets in a list
+   purrr::map_dfr( #list of sheet names is piped implicitly into .x
+     .f = ~ readxl::read_excel(path = path, sheet = .x)
+     , .id = "sheet" #supply name of id column;  value is taken from .x
+   )
+}
+```
+
+Let's try it out on the pokemon January 2019 collections data pictured above.
+```{r}
+DT::datatable(data = read_and_combine_sheets(path = "data/pokemon_201901.xlsx"))
+```
+
+But what about the February, March etc pokemon collection data? Now we have the `read_and_combine_sheets` function we can easily iterate over a list of paths to different workbooks, and row bind the lot:
+
+```{r}
+pokemon_monthly_collections <- fs::dir_ls( #collect all the path names 
+  path = "data", regex = "pokemon_2019\\d{2}\\.xlsx$")  %>% 
+  purrr::map_dfr(
+    .f = read_and_combine_sheets #only one input so no need for ~, () or .x
+    , .id = "workbook_path" #name of id column, value taken from .x
+    )
+```
+
+Note that now we get two id columns, one for the workbook path and one for the sheet name, and there are now 45 rows, since each of the 3 workbooks contains 3 sheets of 5 rows of data.
+```{r}
+DT::datatable(data = pokemon_monthly_collections)
+```
+
+
+## Function 3: `map2_dfc`
+Now we look at an example of data scattered over a few specific cells. This might be received as the return of a form created in a more human readable rather than machine readable format. In the pet form example below the data we want is only in cells **B2**, **D5** and **E8**. We want to end up with a dataframe of the variables "Name", "Age" and "Species".
+
+![](image/pet_forms.png)
+
+### `map2_dfc`
+This function is an example of iterating over a pair of lists and returning a column bound dataframe. For our pet forms example the two lists are the character vectors of the cells and the names that go with them. The three pairs of elements to be iterated over are ("B2", "Name"), ("D5","Age"), and ("E8", "Species"). 
+
+```{r}
+cells <- c("B2", "D5", "E8")
+col_names <- c("Name", "Age", "Species")
+```
+
+The function `cells_to_rows` below iterates over `read_excel` reading each of the three cells from the worksheet, applying the corresponding column name as it goes. It takes three character or character vector inputs, `path`, `cells`, and `col_names`.
+
+```{r}
+cells_to_rows <- function(path, cells, col_names){
+  purrr::map2_dfc(
+    .x = cells
+    , .y = col_names
+    , .f = ~ readxl::read_excel(
+      path = path
+      , range = .x
+      , col_names = .y
+    ) 
+  )
+}
+```
+
+Now we can iterate this over all the pet form workbooks, specifying the paths using regex as before. Note below we use `.x` in the `path` argument in the `cells_to_rows` function to refer to the vector of paths piped to `purrr::map_dfr` from `fs::dir_ls`. 
+```{r}
+cells <- c("B2", "D5", "E8")
+col_names <- c("Name", "Age", "Species")
+
+all_pet_forms <- fs::dir_ls(
+  path = "data", regex = "pet_form_\\d\\.xlsx$")  %>% 
+  purrr::map_dfr(
+    .f = ~ cells_to_rows(path = .x, cells = cells, col_names = col_names)
+    , .id = "path"
+    )
+```
+
+```{r echo=FALSE}
+all_pet_forms %>% 
+  knitr::kable() %>% 
+  kableExtra::kable_styling(full_width = F, position = "left")
+
+```
+
+If you're thinking "what if we had many worksheets and many workbooks of such data?" then I direct you to the rest of the [DfT R Cookbook chapter 3.6](https://departmentfortransport.github.io/R-cookbook/data-import.html#non-rectangular-data---many-worksheets---single-workbook)
+
+## Function 4: `map`
+This example shows how to split a dataframe into many outputs and then write those to separate text files. We use the dataframe created above **monthly_fruit_consumption**, which contains a row per fruit per month. We want to just collect the list of fruits for each month and write these to a text file  - say it's a shopping list for each month.
+```{r}
+#create unique list/vector of things to iterate over from the month column
+months <- unique(monthly_fruit_consumption$month)
+
+# write function to work for one month, m
+write_fruit_list <- function(df, m){ #takes dataframe and month
+  df %>% 
+    dplyr::filter(month == m) %>% #expects data to contain column named 'month'
+    dplyr::select(fruit) %>% #expects data to contain a column named 'fruit'
+    readr::write_delim( #write data and construct path and file name
+      path = glue::glue('data/fruit_consumed_in_', m, '.txt') 
+                       , col_names = TRUE)
+}
+```
+
+Next iterate this function over the list of months.This writes three text files, each containing the fruits consumed that month.
+```{r results = "hide"}
+#iterate
+purrr::map(
+  .x = months
+  , .f = ~ write_fruit_list(
+    df = monthly_fruit_consumption
+    , m = .x)
+)
+```
+
+Read in one of the text files to have a look at the output:
+```{r message=FALSE}
+readr::read_delim(file = "data/fruit_consumed_in_May.txt"
+                  , delim = " ") %>% 
+  knitr::kable() %>% 
+  kableExtra::kable_styling(full_width = F, position = "left")
+```
+
+## Any questions?
+
+
+```{r echo = FALSE, out.width="300px"}
+knitr::include_graphics("image/sad_butter_robot_2.png")
+```
+
+

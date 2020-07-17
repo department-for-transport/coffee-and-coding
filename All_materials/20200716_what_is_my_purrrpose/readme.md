@@ -8,3 +8,5 @@ Download this folder including all scripts and data at the link below. The link 
 [Download this folder](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/departmentfortransport/coffee-and-coding/tree/master/All_materials/20200716_what_is_my_purrrpose)
 
 ![](image/purrr_butter_robot.png) 
+
+Credit to [tidyverse](tidyverse.org) for their beautiful purrr package hex sticker, and to [Rick & Morty](https://www.adultswim.com/videos/rick-and-morty/) for the charismatic pass-the-butter robot.

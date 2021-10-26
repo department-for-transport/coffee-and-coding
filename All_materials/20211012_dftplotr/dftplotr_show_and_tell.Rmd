@@ -1,0 +1,235 @@
+---
+title: "dftplotR"
+output: html_notebook
+---
+
+```{r message=FALSE, warning=FALSE}
+##Setup
+
+knitr::opts_chunk$set(dpi=300,fig.width=9)
+```
+
+
+## Purpose of the package
+
+The aim of the DfT charting package is to make producing simple, accessible and consistent charts easy. It integrates with ggplot2, and provides accessible (and hopefully attractive!) colour palettes and chart themes which meet GSS guidance and DfT corporate branding standards.
+
+
+## Installing the package
+
+The package can be installed directly from Github if you're not on a network laptop, using the devtools `install_github` call
+
+```{r}
+install.packages("devtools")
+devtools::install_github("departmentfortransport/dftplotr")
+```
+
+It can also be installed on Citrix or a local laptop from our new folder (thanks to Sara Smith for setting this up). This folder will be kept up to date with the latest live version on Github so you can always have the most recent functions.
+
+```{r}
+install.packages('//virago.internal.dtlr.gov.uk/data/AFP/IHACAll/IHAC/002 Resources/010 R Programming Language/0001 Packages/dftplotr.zip', repos = NULL, type = "win.binary")
+```
+
+## Getting help
+
+All of the features of the package are documented on the Github [README](https://github.com/departmentfortransport/dftplotr).
+
+You can also get documentation and examples for any of the functions contained in the package in the R help window; examples of how to call this are included in the sections below.
+
+
+## Colour palettes
+
+The dftplotR package comes with 6 pre-loaded palettes. These contain colours taken from the DfT corporate colour scheme, and have also been selected to meet accessibility guidance. 
+
+The package also comes with the ability to generate gradient palettes, based on starting colours from the DfT corporate colour scheme, with as many shades in them as you require.
+
+Both pre-loaded palettes and gradient palettes can be viewed are accessed using the display_palette function; you can see how this works by accessing the help menu.
+
+```{r}
+?dftplotr::display_palette
+```
+
+
+### Palettes
+
+The two primary pre-loaded palettes are main.palette; a desaturated palette ideal for use in bar charts or other area fill charts, and electric.brights, a saturated palette which improves visibility in line-charts or other point colour charts. These each have 4 colours in them.
+
+```{r}
+dftplotr::display_palette(palette = "main.palette")
+
+dftplotr::display_palette("electric.brights")
+```
+
+
+There are also 4 other palettes with a wider range of colours in them. These are ideal where the primary palettes are not appropriate, or where variation is needed. 
+
+```{r}
+dftplotr::display_palette(palette = "just.beachy")
+
+dftplotr::display_palette("cycling.hills")
+
+dftplotr::display_palette("clear.skies")
+
+dftplotr::display_palette("mountain.train")
+```
+
+### Gradients
+
+The dftplotR package also comes with 6 gradient palettes. These have defined start and end colours taken from the DfT corporate colour scheme, and will auto-generate shades between these two points to create the specified number of colours. 
+
+These do not meet accessibility guidance, and should only be used when the pre-set palettes are not appropriate and colour is not conveying the primary message of the visualisation.
+
+They can be visualised within the package by calling `display.palette(gradient = TRUE)` and the palette name. 
+
+```{r}
+dftplotr::display_palette(palette = "main.palette", gradient = TRUE)
+
+```
+
+
+The number of shades in the palette can be specified using the n = argument, e.g. n = 8 for a palette with 8 shades. When this argument is not used, the default number of shades is 5.
+
+```{r}
+dftplotr::display_palette(palette = "just.beachy", gradient = TRUE, n = 6)
+
+dftplotr::display_palette(palette = "mountain.train", gradient = TRUE, n = 4)
+
+```
+
+## Themes
+
+The dftplotR themes are specifically designed to be clear, consistent and easy to read. They also meet GSS best practice guidelines such as only using horizontal axes labels, and labelling line charts directly.
+
+
+The easiest way to use the package is just to apply a theme to a pre-existing plot, using one of the theme calls.
+
+Use `theme_bar_dft` for bar charts:
+
+```{r}
+?dftplotr::theme_bar_dft
+
+```
+
+```{r fig.width=9}
+
+library(ggplot2)
+library(dftplotr)
+
+df <- mpg[mpg$class %in% c("subcompact", "compact", "midsize", "suv"),]
+
+##Without theming
+ggplot(df, aes(manufacturer)) +
+  geom_bar(aes(fill=class), width = 0.5)
+
+##With theming
+ggplot(df, aes(manufacturer)) +
+  geom_bar(aes(fill=class), width = 0.5) +
+  theme_bar_dft()
+
+```
+
+It's also possible to specify a range of different parameters in the `theme` call so you can customise the appearance of your chart without losing the accessibility.
+
+```{r}
+
+library(ggplot2)
+library(dftplotr)
+
+df <- mpg[mpg$class %in% c("subcompact", "compact", "midsize", "suv"),]
+
+##Without theming
+ggplot(df, aes(manufacturer)) +
+  geom_bar(aes(fill=class), width = 0.5)+
+  theme_bar_dft(flip = TRUE, legend_position = "top", palette = "just.beachy")
+
+
+```
+
+And there is the equivalent `theme_line_dft` for line charts:
+
+```{r}
+?dftplotr::theme_line_dft
+
+```
+
+```{r}
+
+library(ggplot2)
+library(dftplotr)
+
+df <- economics_long[economics_long$variable %in% c("psavert", "uempmed"), ]
+
+##Without theming
+
+ggplot(df, aes(x=date, y=value, col=variable, label=variable)) +
+  geom_line(size = 1)
+
+# With theming
+ggplot(df, aes(x=date, y=value, col=variable, label=variable)) +
+  geom_line(size = 1) +
+  theme_line_dft()
+
+```
+
+
+## Advanced usage
+
+### Using separate themes and gradients
+
+If you want to apply the DfT theme to a chart other than a bar or line chart, or use one of the colour palettes as either colours or fills on a visualisation that doesn't require a theme, you can also use both bits of code separately:
+
+```{r}
+?dftplotr::theme_general_dft
+
+?dftplotr::scale_colour_dft
+
+?dftplotr::scale_fill_dft
+```
+
+Examples:
+
+```{r}
+library(ggplot2)
+library(dftplotr)
+
+ggplot(mtcars, aes(mpg, wt, shape = factor(cyl)))+
+  geom_point(aes(colour = factor(cyl)), size = 4) +
+  dftplotr::theme_general_dft()+
+  dftplotr::scale_colour_dft()
+```
+
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(maps)
+library(dftplotr)
+
+arrests <- USArrests 
+arrests$region <- tolower(rownames(USArrests))
+arrests <- arrests %>% 
+  mutate(bin = ntile(Assault, n = 6)) %>% 
+  na.omit()
+
+states_map <- map_data("state")
+arrests_map <- left_join(states_map, arrests, by = "region")
+
+# Create the map
+ggplot(arrests_map, aes(long, lat, group = group))+
+  geom_polygon(aes(fill = factor(bin)), color = "white")+
+  scale_fill_dft(palette = "just.beachy", gradient = TRUE, n = 6)+
+  theme_void()
+```
+
+
+### Palette picker tool
+
+And after all that, if you'd still like to build your own custom palettes for non-publication purposes using the DfT corporate colours, there's a Shiny tool to help you. Launch this using:
+
+```{r}
+dftplotr::palette_picker_tool()
+```
+
+
+
+
